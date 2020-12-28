@@ -7,7 +7,7 @@
 *If it make problem, we can change it to AWS ElasticBeanstalk
 
 #AWS RDS
-spring.datasource.url=jdbc:mysql://satwebdatabase1210.cvlo6oqxxzw7.us-west-2.rds.amazonaws.com:3306/hha
-spring.datasource.username=root
-spring.datasource.password=password
+- spring.datasource.url=jdbc:mysql://satwebdatabase1210.cvlo6oqxxzw7.us-west-2.rds.amazonaws.com:3306/hha
+- spring.datasource.username=root
+- spring.datasource.password=password
 
