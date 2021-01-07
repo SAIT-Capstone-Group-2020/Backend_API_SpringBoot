@@ -138,9 +138,46 @@ CREATE TABLE `order` (
                          `item_id` int(11) not null,
                          PRIMARY KEY (`id`),
                          KEY `fk_order_itemId_idx` (`item_id`),
-                         CONSTRAINT `fk_order_itemId_idx` FOREIGN KEY (`item_id`) REFERENCES `sales_item` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-    /*KEY `fk_order_paymentId_idx` (`payment_id`),
-    CONSTRAINT `fk_order_paymentId_idx` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION*/
+                         CONSTRAINT `fk_order_itemId_idx` FOREIGN KEY (`item_id`) REFERENCES `sales_item` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+                         KEY `fk_order_paymentId_idx` (`payment_id`),
+                         CONSTRAINT `fk_order_paymentId_idx` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- 'customer' table
+--
+
+DROP TABLE IF EXISTS `customer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `customer` (
+                           `username` varchar(11) NOT NULL,
+                           `password` varchar(11) NOT NULL,
+                           `last_login` date not null,
+                           `active` boolean not null,
+                           `uuid` varchar(11),
+                           PRIMARY KEY (`username`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- 'payment' table
+--
+
+DROP TABLE IF EXISTS `payment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `payment` (
+                           `id` int(11) NOT NULL,
+                           `paid_date` date NOT NULL,
+                           `total` float not null,
+                           `username` varchar(11) not null,
+                           PRIMARY KEY (`id`),
+                           KEY `fk_payment_username_idx` (`username`),
+                           CONSTRAINT `fk_payment_username_idx` FOREIGN KEY (`username`) REFERENCES `customer` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
