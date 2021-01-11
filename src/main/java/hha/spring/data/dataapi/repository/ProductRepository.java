@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-	@Query(value = "SELECT * FROM product WHERE CONCAT(name, category) LIKE %:val%", nativeQuery = true)
-	Page<Product> findAll(@Param("val") String val, Pageable pageable);
+	@Query(value = "SELECT * FROM product WHERE :whereClause", nativeQuery = true)
+	Page<Product> findAll(@Param("val") String whereClause, Pageable pageable);
 
 }

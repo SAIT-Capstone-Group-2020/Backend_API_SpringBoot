@@ -29,10 +29,18 @@ public class ProductService {
 		Pageable pageable = PageRequest.of(pageNumber - 1, 10, sort);
 		
 		if ( filter != null ) {
-//			String field = filter.split(":")[0];
-//			String operator = filter.split(":")[1];
+			String field = filter.split(":")[0];
+			String operator = filter.split(":")[1];
 			String val = filter.split(":")[2];
-			return repo.findAll(val, pageable);
+			
+			String whereClause = "";
+			
+			if ( operator.equals("eq") ) whereClause = field + " = " + val;
+			else if ( operator.equals("gt") ) whereClause = field + " > " + val; 
+			else if ( operator.equals("lt") ) whereClause = field + " < " + val; 
+			else if ( operator.equals("like") ) whereClause = field + " LIKE %" + val + "%"; 
+			
+			return repo.findAll(whereClause, pageable);
 		}
 		
 		return repo.findAll(pageable);
