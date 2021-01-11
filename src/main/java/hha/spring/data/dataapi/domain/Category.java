@@ -11,22 +11,13 @@ public class Category {
     private int id;
     @Column(name = "name")
     private String name;
-    @Column(name = "code")
-    private String code;
-    @Column(name = "description")
-    private String description;
-    @Column(name = "image")
-    private String image;
 
     public Category() {
     }
 
-    public Category(int id, String name, String code, String description, String image) {
+    public Category(int id, String name) {
         this.id = id;
         this.name = name;
-        this.code = code;
-        this.description = description;
-        this.image = image;
     }
 
     public int getId() {
@@ -43,30 +34,6 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 }
 
