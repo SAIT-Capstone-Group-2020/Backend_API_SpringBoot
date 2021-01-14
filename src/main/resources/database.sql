@@ -44,7 +44,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-/*INSERT INTO `category` VALUES (1,'Frozen','FROZ','Product in Frozen','frozenDept.png'),(2,'Meat','MEAT','Product in Meat Department','meat.png');
+/*INSERT INTO `category` VALUES (1,'Frozen'),(2,'Meat');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,10 +61,10 @@ CREATE TABLE `product` (
                            `description` longtext,
                            `price` float NOT NULL,
                            `active` BOOLEAN NOT NULL,
-                           `image` varchar(45) DEFAULT NULL,
+                           `image_url` varchar(45) DEFAULT NULL,
                            `category` int(11) NOT NULL,
                            `inventory` int(11) NOT NULL,
-                           `last_updated` date not null,
+                           `last_updated_by` varchar(11),
                            `expired_date` date,
                            PRIMARY KEY (`id`),
                            KEY `fk_product_category_idx` (`category`),
@@ -99,6 +99,25 @@ CREATE TABLE `sales_item` (
                               CONSTRAINT `fk_item_productId_idx` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- 'event' table
+-- need the idea from management side too
+
+DROP TABLE IF EXISTS `event`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `event` (
+                             `id` int(11) NOT NULL,
+                             `event_title` varchar(45),
+                             `start_date` date not null,
+                             `end_date` date not null,
+                             `description` varchar(45),
+                             `image_url` varchar(45),
+                             PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- 'promotion' table
@@ -154,6 +173,7 @@ DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
                            `username` varchar(11) NOT NULL,
                            `password` varchar(11) NOT NULL,
+                           `email` varchar(45) NOT NULL,
                            `last_login` date not null,
                            `active` boolean not null,
                            `uuid` varchar(11),
@@ -181,6 +201,21 @@ CREATE TABLE `payment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- 'administrator' table
+--
+
+DROP TABLE IF EXISTS `administrator`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `administrator` (
+                            `username` varchar(11) NOT NULL,
+                            `password` varchar(11) NOT NULL,
+                            `role` varchar(11) NOT NULL,
+                            PRIMARY KEY (`username`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
