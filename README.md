@@ -1,5 +1,4 @@
 # Backend_API_SpringBoot
-- based on Thai's code
 
 #Hosted Server
 - Heroku: https://young-falls-37976.herokuapp.com/
