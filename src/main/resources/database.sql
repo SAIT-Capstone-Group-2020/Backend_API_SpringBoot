@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `category` (
-                            `id` int(11) NOT NULL,
+                            `id` int(11) auto_increment NOT NULL,
                             `name` varchar(45) NOT NULL,
                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -56,7 +56,7 @@ DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product` (
-                           `id` int(11) NOT NULL,
+                           `id` int(11) auto_increment NOT NULL,
                            `name` varchar(45) NOT NULL,
                            `description` longtext,
                            `price` float NOT NULL,
@@ -91,7 +91,7 @@ DROP TABLE IF EXISTS `sales_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sales_item` (
-                              `id` int(11) NOT NULL,
+                              `id` int(11) auto_increment NOT NULL,
                               `product_id` int(11) NOT NULL,
                               `sales_price` float not null,
                               PRIMARY KEY (`id`),
@@ -108,7 +108,7 @@ DROP TABLE IF EXISTS `event`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `event` (
-                             `id` int(11) NOT NULL,
+                             `id` int(11) auto_increment NOT NULL,
                              `event_title` varchar(45),
                              `start_date` date not null,
                              `end_date` date not null,
@@ -127,7 +127,7 @@ DROP TABLE IF EXISTS `promotion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `promotion` (
-                             `id` int(11) NOT NULL,
+                             `id` int(11) auto_increment NOT NULL,
                              `product_id` int(11) NOT NULL,
                              `start_date` date not null,
                              `end_date` date not null,
@@ -148,7 +148,7 @@ DROP TABLE IF EXISTS `order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order` (
-                         `id` int(11) NOT NULL,
+                         `id` int(11) auto_increment NOT NULL,
                          `order_date` date NOT NULL,
                          `pickup_date` date NOT NULL,
                          `status` varchar(10),
@@ -163,6 +163,61 @@ CREATE TABLE `order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+--
+-- 'users' table
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+                            `id` int(11) auto_increment NOT NULL,
+                            `username` varchar(20) NOT NULL,
+                            `password` varchar(255) NOT NULL,
+
+                            PRIMARY KEY (`id`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- 'roles' table
+--
+
+DROP TABLE IF EXISTS `security_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `security_roles` (
+                            `id` int(11) auto_increment NOT NULL,
+                            `role_name` varchar(11) NOT NULL,
+                            `role_description` varchar(45) NOT NULL,
+                            PRIMARY KEY (`id`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- 'roles' table
+--
+
+DROP TABLE IF EXISTS `user_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_roles` (
+                              `user_id` int(11),
+                              `role_id` int(11),
+
+                              KEY `fk_role_user_idx` (`user_id`),
+                              CONSTRAINT `fk_role_user_idx` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+                              KEY `fk_role_role_idx` (`role_id`),
+                              CONSTRAINT `fk_role_role_idx` FOREIGN KEY (`role_id`) REFERENCES `security_roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
 --
 -- 'customer' table
 --
@@ -171,16 +226,20 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customer` (
-                           `username` varchar(11) NOT NULL,
-                           `password` varchar(11) NOT NULL,
+                           `id` int(11) auto_increment not null,
+                           `user_id` int(11) not null,
                            `email` varchar(45) NOT NULL,
                            `last_login` date not null,
                            `active` boolean not null,
                            `uuid` varchar(11),
-                           PRIMARY KEY (`username`)
+                           PRIMARY KEY (`id`),
+
+                           KEY `fk_customer_userid_idx` (`user_id`),
+                           CONSTRAINT `fk_customer_userid_idx` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- 'payment' table
@@ -190,13 +249,13 @@ DROP TABLE IF EXISTS `payment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `payment` (
-                           `id` int(11) NOT NULL,
+                           `id` int(11) auto_increment NOT NULL,
                            `paid_date` date NOT NULL,
                            `total` float not null,
-                           `username` varchar(11) not null,
+                           `customer_id` int(11) not null,
                            PRIMARY KEY (`id`),
-                           KEY `fk_payment_username_idx` (`username`),
-                           CONSTRAINT `fk_payment_username_idx` FOREIGN KEY (`username`) REFERENCES `customer` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                           KEY `fk_payment_username_idx` (`customer_id`),
+                           CONSTRAINT `fk_payment_username_idx` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -208,13 +267,20 @@ CREATE TABLE `payment` (
 DROP TABLE IF EXISTS `administrator`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
+
+/*
 CREATE TABLE `administrator` (
+                            `id` int(11) not null,
+                            `user_id` int(11) not null,
                             `username` varchar(11) NOT NULL,
                             `password` varchar(11) NOT NULL,
                             `role` varchar(11) NOT NULL,
-                            PRIMARY KEY (`username`)
+                            PRIMARY KEY (`id`),
 
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+                            KEY `fk_admin_userid_idx` (`user_id`),
+                            CONSTRAINT `fk_admin_userid_idx` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1; */
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 

@@ -1,12 +1,10 @@
 package hha.spring.data.dataapi.repository;
 
-import hha.spring.data.dataapi.domain.Users;
+import hha.spring.data.dataapi.domain.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-//need to check the meaning of this annotation
 @RepositoryRestResource
-public interface UserRepository extends JpaRepository<Users, Integer> {
-
-    Users findByUsername(String username);
+public interface RoleRepository extends JpaRepository<Role, Integer> {
+    Role findByRoleName(String name);
 }

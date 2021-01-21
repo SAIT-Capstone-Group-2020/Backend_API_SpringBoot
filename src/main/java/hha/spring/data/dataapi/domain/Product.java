@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Table(name = "product")
@@ -16,33 +17,35 @@ public class Product {
 	private int id;
 	@Column(name = "name")
 	private String name;
-	@Column(name = "descrription")
+	@Column(name = "description")
 	private String description;
 	@Column(name = "price")
 	private float price;
-	@Column(name = "image")
+	@Column(name = "active")
+	private boolean active;
+	@Column(name = "image_url")
 	private String image;
 	@Column(name = "category")
 	private int category;
 	@Column(name = "inventory")
 	private int inventory;
-	@Column(name = "last_updated")
+	@Column(name = "last_updated_by")
 	private String last_updated;
 	@Column(name = "expired_date")
-	private String expired_date;
+	private Date expired_date;
 
 	public Product() {
 	}
 
-	public Product(int id, String name, String description, float price, String image, int category, int inventory, String last_updated, String expired_date) {
-		this.id = id;
+	public Product(String name, String description, float price, boolean active, String image, int category, int inventory, String last_updated_by, Date expired_date) {
 		this.name = name;
 		this.description = description;
+		this.active = active;
 		this.price = price;
 		this.image = image;
 		this.category = category;
 		this.inventory = inventory;
-		this.last_updated = last_updated;
+		this.last_updated = last_updated_by;
 		this.expired_date = expired_date;
 	}
 
@@ -110,11 +113,11 @@ public class Product {
 		this.last_updated = last_updated;
 	}
 
-	public String getExpired_date() {
+	public Date getExpired_date() {
 		return expired_date;
 	}
 
-	public void setExpired_date(String expired_date) {
+	public void setExpired_date(Date expired_date) {
 		this.expired_date = expired_date;
 	}
 }
