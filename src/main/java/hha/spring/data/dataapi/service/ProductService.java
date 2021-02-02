@@ -21,6 +21,6 @@ public class ProductService {
 		return repo.findAll();
 	}
 
-	public List<Item> listAllResearch(String keyword) { return (List<Item>) repo.findBySearchKeyword(keyword);}
+	public List<Item> listAllSearch(String keyword) { return (List<Item>) repo.findBySearchKeyword(keyword);}
 
 }
