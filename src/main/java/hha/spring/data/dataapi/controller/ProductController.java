@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,6 +20,12 @@ public class ProductController {
 	@GetMapping("/api/products")
 	public List<Product> list() {
 		return service.listAllProducts();
+	}
+
+	@GetMapping("/api/products/search/{keyword}")
+	public List<Product> searchResult(@PathVariable String keyword) {
+		return null;
+		//need to be updated with the specific code
 	}
 
 }
