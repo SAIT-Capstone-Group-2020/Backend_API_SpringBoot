@@ -3,8 +3,9 @@ package hha.spring.data.dataapi.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Category")
-public class Category {
+@Table(name = "Weight_type")
+public class WeightType {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -12,11 +13,7 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    public Category() {
-    }
-
-    public Category(int id, String name) {
-        this.id = id;
+    public WeightType(String name) {
         this.name = name;
     }
 
@@ -36,4 +33,3 @@ public class Category {
         this.name = name;
     }
 }
-

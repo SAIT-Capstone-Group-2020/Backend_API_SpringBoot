@@ -1,5 +1,6 @@
 package hha.spring.data.dataapi.service;
 
+import hha.spring.data.dataapi.domain.Item;
 import hha.spring.data.dataapi.domain.Product;
 import hha.spring.data.dataapi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,7 @@ public class ProductService {
 	public List<Product> listAllProducts() {
 		return repo.findAll();
 	}
+
+	public List<Item> listAllResearch(String keyword) { return (List<Item>) repo.findBySearchKeyword(keyword);}
 
 }

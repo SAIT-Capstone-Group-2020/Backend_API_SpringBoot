@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "product")
+@Table(name = "Product")
 public class Product {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,9 @@ public class Product {
 	private String name;
 	@Column(name = "description")
 	private String description;
-	@Column(name = "price")
+	@Column(name = "brand_name")
+	private String brand;
+	@Column(name = "retail_price")
 	private float price;
 	@Column(name = "active")
 	private boolean active;
@@ -27,26 +29,27 @@ public class Product {
 	private String image;
 	@Column(name = "category")
 	private int category;
-	@Column(name = "inventory")
-	private int inventory;
-	@Column(name = "last_updated_by")
-	private String last_updated;
-	@Column(name = "expired_date")
-	private Date expired_date;
+	@Column(name = "quantity")
+	private int quantity;
+	@Column(name = "weight_value")
+	private String weightValue;
+	@Column(name = "weight_type")
+	private int weightType;
 
 	public Product() {
 	}
 
-	public Product(String name, String description, float price, boolean active, String image, int category, int inventory, String last_updated_by, Date expired_date) {
+	public Product(String name, String description, String brand, float price, boolean active, String image, int category, int quantity, String weightValue, int weightType) {
 		this.name = name;
 		this.description = description;
-		this.active = active;
+		this.brand = brand;
 		this.price = price;
+		this.active = active;
 		this.image = image;
 		this.category = category;
-		this.inventory = inventory;
-		this.last_updated = last_updated_by;
-		this.expired_date = expired_date;
+		this.quantity = quantity;
+		this.weightValue = weightValue;
+		this.weightType = weightType;
 	}
 
 	public int getId() {
@@ -73,12 +76,28 @@ public class Product {
 		this.description = description;
 	}
 
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
 	public float getPrice() {
 		return price;
 	}
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public String getImage() {
@@ -97,27 +116,27 @@ public class Product {
 		this.category = category;
 	}
 
-	public int getInventory() {
-		return inventory;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setInventory(int inventory) {
-		this.inventory = inventory;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
-	public String getLast_updated() {
-		return last_updated;
+	public String getWeightValue() {
+		return weightValue;
 	}
 
-	public void setLast_updated(String last_updated) {
-		this.last_updated = last_updated;
+	public void setWeightValue(String weightValue) {
+		this.weightValue = weightValue;
 	}
 
-	public Date getExpired_date() {
-		return expired_date;
+	public int getWeightType() {
+		return weightType;
 	}
 
-	public void setExpired_date(Date expired_date) {
-		this.expired_date = expired_date;
+	public void setWeightType(int weightType) {
+		this.weightType = weightType;
 	}
 }
