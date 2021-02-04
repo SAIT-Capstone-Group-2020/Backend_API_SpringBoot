@@ -1,11 +1,6 @@
 package hha.spring.data.dataapi.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -13,9 +8,9 @@ import java.util.Date;
 public class Product {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "product_id")
 	private int id;
-	@Column(name = "name")
+	@Column(name = "product_name")
 	private String name;
 	@Column(name = "description")
 	private String description;
@@ -27,13 +22,13 @@ public class Product {
 	private boolean active;
 	@Column(name = "image_url")
 	private String image;
-	@Column(name = "category")
+	@Column(name = "category_id")
 	private int category;
 	@Column(name = "quantity")
 	private int quantity;
 	@Column(name = "weight_value")
 	private String weightValue;
-	@Column(name = "weight_type")
+	@Column(name = "weight_type_id")
 	private int weightType;
 
 	public Product() {

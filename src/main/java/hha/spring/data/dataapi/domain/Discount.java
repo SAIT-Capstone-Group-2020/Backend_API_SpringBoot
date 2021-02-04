@@ -8,7 +8,7 @@ public class Discount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "discount_id")
     private int id;
     @Column(name = "product_id")
     private int productId;

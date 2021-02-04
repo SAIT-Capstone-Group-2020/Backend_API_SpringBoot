@@ -8,9 +8,9 @@ public class WeightType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "weight_type_id")
     private int id;
-    @Column(name = "name")
+    @Column(name = "weight_name")
     private String name;
 
     public WeightType(String name) {

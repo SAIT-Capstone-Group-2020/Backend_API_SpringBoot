@@ -16,7 +16,7 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="user_id")
     private String uuid;
 
     @Column(name = "email")
@@ -37,8 +37,8 @@ public class Users {
 
     //fetch user_roles table when users row inserted or updated
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name="user_id", referencedColumnName = "id")},
-    inverseJoinColumns = {@JoinColumn(name="role_id", referencedColumnName = "id")})
+    @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name="user_id", referencedColumnName = "user_id")},
+    inverseJoinColumns = {@JoinColumn(name="role_id", referencedColumnName = "role_id")})
 
     private List<Role> roles;
 
