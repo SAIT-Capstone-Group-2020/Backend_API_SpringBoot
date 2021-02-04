@@ -3,7 +3,7 @@ package hha.spring.data.dataapi.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Discount")
+@Table(name = "discount")
 public class Discount {
 
     @Id

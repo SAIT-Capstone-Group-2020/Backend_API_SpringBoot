@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 public class ProductController {
@@ -23,7 +24,8 @@ public class ProductController {
 	//api/search?term=something
 	@GetMapping("/api/search")
 	public List<Item> searchResult(@RequestParam("term") String term) {
-		return service.listAllSearch(term);
+		String keyword = term.toLowerCase(Locale.ROOT);
+		return service.listAllSearch(keyword);
 		//need to be updated with the specific code
 	}
 

@@ -11,12 +11,12 @@ import java.util.List;
 
 
 @Entity
-@Table(name="User")
+@Table(name="user")
 public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="uuid")
+    @Column(name="id")
     private String uuid;
 
     @Column(name = "email")

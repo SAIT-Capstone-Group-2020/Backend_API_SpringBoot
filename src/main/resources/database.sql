@@ -15,6 +15,9 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+-- need to check the meaning of 40101, 50503, engine, set, etc.
+
 --
 -- Table structure for table `category`
 --
@@ -26,9 +29,9 @@ DROP SCHEMA IF EXISTS `hha` ;
 CREATE SCHEMA IF NOT EXISTS `hha` DEFAULT CHARACTER SET latin1 ;
 USE `hha` ;
 
--- 'category' table
+-- 'Category' table
 
-DROP TABLE IF EXISTS `category`;
+DROP TABLE IF EXISTS category;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `category` (
@@ -38,71 +41,60 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `category`
---
 
-LOCK TABLES `category` WRITE;
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-/*INSERT INTO `category` VALUES (1,'Frozen'),(2,'Meat');
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
+-- 'Weight_type' table
 
---
--- `product` table
---
+DROP TABLE IF EXISTS `weight_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `weight_type` (
+                            `id` int(11) auto_increment NOT NULL,
+                            `name` varchar(45) NOT NULL,
+                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-DROP TABLE IF EXISTS `product`;
+
+-- `Product` table
+
+DROP TABLE IF EXISTS product;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product` (
                            `id` int(11) auto_increment NOT NULL,
                            `name` varchar(45) NOT NULL,
                            `description` longtext,
-                           `price` float NOT NULL,
+                           `retail_price` float NOT NULL,
                            `active` BOOLEAN NOT NULL,
                            `image_url` varchar(45) DEFAULT NULL,
                            `category` int(11) NOT NULL,
-                           `inventory` int(11) NOT NULL,
-                           `last_updated_by` varchar(11),
-                           `expired_date` date,
+                           `quantity` int(11) NOT NULL,
+                           `weight_value` double not null,
+                           `weight_type` int(11) NOT NULL,
+                           `brand_name` varchar(45),
                            PRIMARY KEY (`id`),
                            KEY `fk_product_category_idx` (`category`),
-                           CONSTRAINT `fk_product_category` FOREIGN KEY (`category`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+                           CONSTRAINT `fk_product_category` FOREIGN KEY (`category`) REFERENCES category (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                           KEY `fk_product_weight_idx` (`weight_type`),
+                           CONSTRAINT `fk_product_weight` FOREIGN KEY (`weight_type`) REFERENCES `weight_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `product`
---
 
-LOCK TABLES `product` WRITE;
-/*!40000 ALTER TABLE `product` DISABLE KEYS */;
-/*INSERT INTO `product` VALUES (1,'Frozen Crap','FCRA','Frozen Crap',10.99,'image.png',1),(2,'Frozen Crap','FCRA','Frozen Crap',10.99,'image.png',1),(3,'Beef finger meat','BEFM','Beef finger meat',10.99,'image.png',2);
-/*!40000 ALTER TABLE `product` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+-- 'Event_type' table
 
---
--- 'item' table
--- salesPrice updated(triggered) on server side daily & when promotion table updated
-
-DROP TABLE IF EXISTS `sales_item`;
+DROP TABLE IF EXISTS `event_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sales_item` (
-                              `id` int(11) auto_increment NOT NULL,
-                              `product_id` int(11) NOT NULL,
-                              `sales_price` float not null,
-                              PRIMARY KEY (`id`),
-                              KEY `fk_item_productId_idx` (`product_id`),
-                              CONSTRAINT `fk_item_productId_idx` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE `event_type` (
+                               `id` int(11) auto_increment NOT NULL,
+                               `name` varchar(45) NOT NULL,
+                               PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- 'event' table
--- need the idea from management side too
+
+-- 'Event' table
 
 DROP TABLE IF EXISTS `event`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -112,70 +104,88 @@ CREATE TABLE `event` (
                              `event_title` varchar(45),
                              `start_date` date not null,
                              `end_date` date not null,
-                             `description` varchar(45),
-                             `image_url` varchar(45),
-                             PRIMARY KEY (`id`)
+                             `description` longtext,
+                             `event_type` int(11) not null,
+                             PRIMARY KEY (`id`),
+                             KEY `fk_event_type_idx` (`event_type`),
+                             CONSTRAINT `fk_event_type` FOREIGN KEY (`event_type`) REFERENCES `event_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
---
--- 'promotion' table
--- should decrease the limit when order was made
+-- 'Discount' table
 
-DROP TABLE IF EXISTS `promotion`;
+DROP TABLE IF EXISTS `discount`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `promotion` (
+CREATE TABLE `discount` (
                              `id` int(11) auto_increment NOT NULL,
                              `product_id` int(11) NOT NULL,
-                             `start_date` date not null,
-                             `end_date` date not null,
-                             `discount` float not null,
+                             `event_id` int(11) NOT NULL,
+                             `discount_price` float not null,
                              `limit` int(11) not null,
                              PRIMARY KEY (`id`),
-                             KEY `fk_promotion_productId_idx` (`product_id`),
-                             CONSTRAINT `fk_promotion_productId_idx` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+                             KEY `fk_discount_product_idx` (`product_id`),
+                             CONSTRAINT `fk_discount_product_idx` FOREIGN KEY (`product_id`) REFERENCES product (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                             KEY `fk_discount_event_idx` (`event_id`),
+                             CONSTRAINT `fk_discount_event_idx` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
---
--- 'order' table
---
+-- 'Orders' table
 
-DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order` (
+CREATE TABLE `orders` (
                          `id` int(11) auto_increment NOT NULL,
-                         `order_date` date NOT NULL,
-                         `pickup_date` date NOT NULL,
-                         `status` varchar(10),
-                         `total` float not null,
-                         `payment_id` int(11) not null,
-                         `item_id` int(11) not null,
+                         `pickup_date` date not null,
+                         `price_sum` double not null,
+                         `paid_status` boolean not null,
+                         `prepared` boolean not null,
+                         `email` varchar(55),
+                         `phone` varchar(12),
+                         `name` varchar(25),
+                         PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+-- 'Order_items' table
+
+DROP TABLE IF EXISTS `order_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `order_items` (
+                         `id` int(11) auto_increment NOT NULL,
+                         `total_price` double,
+                         `product_id` int(11) not null,
+                         `qty` int(11),
+                         `orders_id` int(11) not null,
                          PRIMARY KEY (`id`),
-                         KEY `fk_order_itemId_idx` (`item_id`),
-                         CONSTRAINT `fk_order_itemId_idx` FOREIGN KEY (`item_id`) REFERENCES `sales_item` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-                         KEY `fk_order_paymentId_idx` (`payment_id`),
-                         CONSTRAINT `fk_order_paymentId_idx` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                         KEY `fk_order_item_product_idx` (`product_id`),
+                         CONSTRAINT `fk_order_item_product_idx` FOREIGN KEY (`product_id`) REFERENCES product (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+                         KEY `fk_order_item_order_idx` (`orders_id`),
+                         CONSTRAINT `fk_order_item_order_idx` FOREIGN KEY (`orders_id`) REFERENCES orders (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
 --
 -- 'users' table
---
+-- need to change the type id to varchar(32) UUID
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
+CREATE TABLE `user` (
                             `id` int(11) auto_increment NOT NULL,
-                            `username` varchar(20) NOT NULL,
+                            `email` varchar(20) NOT NULL,
                             `password` varchar(255) NOT NULL,
-
+                            `active` boolean not null,
+                            `name` varchar(32),
                             PRIMARY KEY (`id`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -183,16 +193,15 @@ CREATE TABLE `users` (
 
 
 --
--- 'roles' table
+-- 'role_info' table
 --
 
-DROP TABLE IF EXISTS `security_roles`;
+DROP TABLE IF EXISTS `role_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `security_roles` (
+CREATE TABLE `role_info` (
                             `id` int(11) auto_increment NOT NULL,
-                            `role_name` varchar(11) NOT NULL,
-                            `role_description` varchar(45) NOT NULL,
+                            `role` varchar(11) NOT NULL,
                             PRIMARY KEY (`id`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -210,78 +219,13 @@ CREATE TABLE `user_roles` (
                               `role_id` int(11),
 
                               KEY `fk_role_user_idx` (`user_id`),
-                              CONSTRAINT `fk_role_user_idx` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+                              CONSTRAINT `fk_role_user_idx` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
                               KEY `fk_role_role_idx` (`role_id`),
-                              CONSTRAINT `fk_role_role_idx` FOREIGN KEY (`role_id`) REFERENCES `security_roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                              CONSTRAINT `fk_role_role_idx` FOREIGN KEY (`role_id`) REFERENCES `role_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
---
--- 'customer' table
---
-
-DROP TABLE IF EXISTS `customer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `customer` (
-                           `id` int(11) auto_increment not null,
-                           `user_id` int(11) not null,
-                           `email` varchar(45) NOT NULL,
-                           `last_login` date not null,
-                           `active` boolean not null,
-                           `uuid` varchar(11),
-                           PRIMARY KEY (`id`),
-
-                           KEY `fk_customer_userid_idx` (`user_id`),
-                           CONSTRAINT `fk_customer_userid_idx` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-
---
--- 'payment' table
---
-
-DROP TABLE IF EXISTS `payment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `payment` (
-                           `id` int(11) auto_increment NOT NULL,
-                           `paid_date` date NOT NULL,
-                           `total` float not null,
-                           `customer_id` int(11) not null,
-                           PRIMARY KEY (`id`),
-                           KEY `fk_payment_username_idx` (`customer_id`),
-                           CONSTRAINT `fk_payment_username_idx` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- 'administrator' table
---
-
-DROP TABLE IF EXISTS `administrator`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-
-/*
-CREATE TABLE `administrator` (
-                            `id` int(11) not null,
-                            `user_id` int(11) not null,
-                            `username` varchar(11) NOT NULL,
-                            `password` varchar(11) NOT NULL,
-                            `role` varchar(11) NOT NULL,
-                            PRIMARY KEY (`id`),
-
-                            KEY `fk_admin_userid_idx` (`user_id`),
-                            CONSTRAINT `fk_admin_userid_idx` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-
-) ENGINE=InnoDB DEFAULT CHARSET=latin1; */
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -291,6 +235,3 @@ CREATE TABLE `administrator` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2020-12-27 19:55:11
-
