@@ -1,13 +1,11 @@
 package hha.spring.data.dataapi.controller;
 
+import hha.spring.data.dataapi.domain.Item;
 import hha.spring.data.dataapi.domain.Product;
 import hha.spring.data.dataapi.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.web.bind.annotation.GetMapping;
-
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,9 +20,10 @@ public class ProductController {
 		return service.listAllProducts();
 	}
 
-	@GetMapping("/api/products/search/{keyword}")
-	public List<Product> searchResult(@PathVariable String keyword) {
-		return null;
+	//api/search?term=something
+	@GetMapping("/api/search")
+	public List<Item> searchResult(@RequestParam("term") String term) {
+		return service.listAllSearch(term);
 		//need to be updated with the specific code
 	}
 

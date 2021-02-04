@@ -1,6 +1,7 @@
 package hha.spring.data.dataapi.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /*
 *THIS CLASS IS TO DISPLAY ITEM INFORMATION ON CUSTOMER SIDE
@@ -8,11 +9,10 @@ import javax.persistence.Entity;
 
 @Entity
 public class Item {
-
+    @Id
     private int id;
     private String name;
     private double sales_price;
-    //private booelan active;
     private String img_url;
     private String category;
     private int quantity;

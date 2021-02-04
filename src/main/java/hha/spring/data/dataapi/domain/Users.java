@@ -6,24 +6,28 @@ import javax.persistence.*;
 import java.util.Arrays;
 import java.util.List;
 
+
+//need to be updated when make the products endpoints for admin side
+
+
 @Entity
-@Table(name="users")
+@Table(name="User")
 public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private int userId;
+    @Column(name="uuid")
+    private String uuid;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     @JsonIgnore
     private String password;
 
-    public Users(String username, String password, Role role) {
-        this.username = username;
+    public Users(String email, String password, Role role) {
+        this.email = email;
         this.password = password;
         this.roles = Arrays.asList(role);
     }
@@ -42,16 +46,20 @@ public class Users {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public String getUuid() {
+        return uuid;
     }
 
-    public String getUsername() {
-        return username;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -61,13 +69,4 @@ public class Users {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
 }

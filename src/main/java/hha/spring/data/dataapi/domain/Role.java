@@ -6,7 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 
 @Entity
-@Table(name="security_roles")
+@Table(name="role_info")
 public class Role implements GrantedAuthority{
 
     @Id
@@ -14,11 +14,8 @@ public class Role implements GrantedAuthority{
     @Column(name="id")
     private int id;
 
-    @Column(name="role_name")
+    @Column(name="role")
     private String roleName;
-
-    @Column(name="role_description")
-    private String description;
 
     @Override
     public String getAuthority() {
@@ -41,11 +38,5 @@ public class Role implements GrantedAuthority{
         this.roleName = roleName;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
