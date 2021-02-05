@@ -34,12 +34,12 @@ public class JwtService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
-            Users user = repository.findByUsername(s);
+            Users user = repository.findByEmail(s);
 
             if(user == null) {
                 throw new UsernameNotFoundException("User not found with username: "+ s); }
 
-            return withUsername(user.getUsername())
+            return withUsername(user.getEmail())
                     .password(user.getPassword())
                     .authorities(user.getRoles())
                     .accountExpired(false)

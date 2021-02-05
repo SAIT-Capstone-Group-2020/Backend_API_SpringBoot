@@ -3,13 +3,13 @@ package hha.spring.data.dataapi.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Category")
+@Table(name="category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "category_id")
     private int id;
-    @Column(name = "name")
+    @Column(name = "category_name")
     private String name;
 
     public Category() {

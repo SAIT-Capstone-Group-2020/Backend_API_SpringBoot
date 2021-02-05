@@ -44,7 +44,7 @@ public class UserService {
 
         LOGGER.info("New Customer attempting to sign in "+username);
         String token = "";
-        Users user = userRepository.findByUsername(username);
+        Users user = userRepository.findByEmail(username);
 
         if(user != null) {
             try {
@@ -59,7 +59,7 @@ public class UserService {
 
     public Users customerSignUP(String username, String password) {
         LOGGER.info("New user attempting to sign up");
-        Users user = userRepository.findByUsername(username);
+        Users user = userRepository.findByEmail(username);
         //Customer
         if( user == null) {
             Role role = roleRepo.findByRoleName("ROLE_CUSTOMER");

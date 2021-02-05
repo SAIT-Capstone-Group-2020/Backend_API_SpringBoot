@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Event")
+@Table(name = "event")
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "event_id")
     private int id;
     @Column(name = "event_title")
     private String title;
@@ -17,7 +17,7 @@ public class Event {
     private Date startDate;
     @Column(name = "end_date")
     private Date endDate;
-    @Column(name = "event_type")
+    @Column(name = "event_type_id")
     private int eventType;
     @Column(name = "description")
     private String description;

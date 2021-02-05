@@ -3,14 +3,14 @@ package hha.spring.data.dataapi.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Weight_type")
+@Table(name = "weight_type")
 public class WeightType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "weight_type_id")
     private int id;
-    @Column(name = "name")
+    @Column(name = "weight_name")
     private String name;
 
     public WeightType(String name) {
