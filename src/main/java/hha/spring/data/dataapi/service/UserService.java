@@ -16,6 +16,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class UserService {
 
@@ -40,7 +42,7 @@ public class UserService {
         this.jwtUtil = jwtUtil;
     }
 
-    public String customerSignIn(String username, String password) {
+    public String adminSignIn(String username, String password) {
 
         LOGGER.info("New Customer attempting to sign in "+username);
         String token = "";
@@ -57,18 +59,33 @@ public class UserService {
         return token;
     }
 
-    public Users customerSignUP(String username, String password) {
+    public Users adminSignUP(String email, String password, String name) {
         LOGGER.info("New user attempting to sign up");
-        Users user = userRepository.findByEmail(username);
+        Users user = userRepository.findByEmail(email);
         //Customer
         if( user == null) {
-            Role role = roleRepo.findByRoleName("ROLE_CUSTOMER");
+            Role role = roleRepo.findByRoleName("ROLE_ADMIN");
 
-            LOGGER.info("New user attempting to sign up");
+            UUID uuid = UUID.fromString(email);
 
-            user = userRepository.save(new Users(username, passwordEncoder.encode(password), role));
-            //Customer.save
+            user = userRepository.save(new Users(email, passwordEncoder.encode(password), name, uuid.toString(), role));
+
+            //NEED TO SEND EMAIL WITH UUID
+
         }
+        return user;
+    }
+
+    public Users confirmSignUp(String uuid) {
+        Users user = userRepository.findByUuid(uuid);
+
+        if( user == null) {
+            return null;
+        }
+
+        user.setUuid(null);
+        user.setActive(1);
+
         return user;
     }
 

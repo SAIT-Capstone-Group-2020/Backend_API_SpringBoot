@@ -8,21 +8,27 @@ import com.sun.istack.NotNull;
 
 public class LoginDto {
     @NotNull
-    private String username;
+    private String email;
     @NotNull
     private String password;
+    @NotNull
+    private String user_name;
 
-
-    public LoginDto(String username, String password) {
-        this.username = username;
+    public LoginDto(String email, String password, String user_name) {
+        this.email = email;
         this.password = password;
+        this.user_name = user_name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public String getUser_name() {
+        return user_name;
     }
 }

@@ -181,12 +181,12 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-                            `user_id` int(11) auto_increment NOT NULL,
                             `email` varchar(20) NOT NULL,
                             `password` varchar(255) NOT NULL,
                             `active` boolean not null,
-                            `name` varchar(32),
-                            PRIMARY KEY (`user_id`)
+                            `user_name` varchar(32),
+                            `uuid` varchar(36),
+                            PRIMARY KEY (`email`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -215,11 +215,11 @@ DROP TABLE IF EXISTS `user_roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_roles` (
-                              `user_id` int(11),
+                              `user_id` varchar(20),
                               `role_id` int(11),
 
                               KEY `fk_role_user_idx` (`user_id`),
-                              CONSTRAINT `fk_role_user_idx` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+                              CONSTRAINT `fk_role_user_idx` FOREIGN KEY (`user_id`) REFERENCES `user` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION,
                               KEY `fk_role_role_idx` (`role_id`),
                               CONSTRAINT `fk_role_role_idx` FOREIGN KEY (`role_id`) REFERENCES `role_info` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 
