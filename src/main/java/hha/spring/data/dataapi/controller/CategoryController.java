@@ -17,14 +17,18 @@ public class CategoryController {
     @Autowired
     private CategoryService service;
 
-    @GetMapping("/api/categories")
+    @GetMapping("/api/customer/categories")
     public List<Category> list() {
         return service.listAllCategories();
     }
 
-    //test for token authorization
-    @GetMapping("/api/categories/{id}")
-    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @GetMapping("/api/admin/categories")
+    public List<Category> listAdminCategory() {
+        return service.listAllCategories();
+    }
+
+    @GetMapping("/api/customer/categories/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Category> get(@PathVariable int id) {
         try {
             Category category = service.getCategoryById(id);
@@ -34,12 +38,12 @@ public class CategoryController {
         }
     }
 
-    @PostMapping("/api/categories")
+    @PostMapping("/api/admin/categories")
     public void add(@RequestBody Category category) {
         service.saveCategory(category);
     }
 
-    @PutMapping("/api/categories/{id}")
+    @PutMapping("/api/admin/categories/{id}")
     public ResponseEntity<?> update(@RequestBody Category category, @PathVariable int id) {
         try {
             Category existCategory = service.getCategoryById(id);
@@ -51,7 +55,7 @@ public class CategoryController {
         }
     }
 
-    @DeleteMapping("/api/categories/{id}")
+    @DeleteMapping("/api/admin/categories/{id}")
     public void delete(@PathVariable int id) {
         service.deleteCategory(id);
     }
