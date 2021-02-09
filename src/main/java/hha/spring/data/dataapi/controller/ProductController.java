@@ -31,8 +31,8 @@ public class ProductController {
 
 	//api/search?term=something
 	@GetMapping("/api/search")
-	public List<Item> searchResult(@RequestParam("term") String term, @RequestHeader("HOST") String host) {
-		System.out.println(host);
+	public List<Item> searchResult(@RequestParam("term") String term) {
+
 		String keyword = term.toLowerCase(Locale.ROOT);
 		List<Item> result = itemService.listAllSearch(keyword);
 		return result;

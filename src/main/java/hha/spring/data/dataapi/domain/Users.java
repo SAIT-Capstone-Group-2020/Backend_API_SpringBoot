@@ -30,6 +30,7 @@ public class Users {
     private String name;
 
     @Column(name="uuid")
+    @JsonIgnore
     private String uuid;
 
     public Users(String email, String password, String name, String uuid, Role role) {

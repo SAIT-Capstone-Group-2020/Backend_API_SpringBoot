@@ -1,5 +1,6 @@
 package hha.spring.data.dataapi.controller;
 
+import hha.spring.data.dataapi.domain.Item;
 import hha.spring.data.dataapi.domain.Users;
 import hha.spring.data.dataapi.security.LoginDto;
 import hha.spring.data.dataapi.service.UserService;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.client.HttpServerErrorException;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -33,10 +36,24 @@ public class UserController {
 	@PostMapping("/api/admin/signup")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Users signup(@RequestBody LoginDto loginDto) {
+		System.out.println(loginDto.getEmail()+loginDto.getPassword()+loginDto.getUser_name());
+
 		Users user = service.adminSignUP(loginDto.getEmail(), loginDto.getPassword(), loginDto.getUser_name());
 
 		if(user == null) {
 			new HttpServerErrorException(HttpStatus.BAD_REQUEST, "User already exists");
+		}
+
+		return user;
+	}
+
+	@PostMapping("/api/admin/activate")
+	public Users activateAdmin(@RequestParam("uuid") String uuid) {
+
+		Users user = service.adminActivate(uuid);
+
+		if(user == null) {
+			new HttpServerErrorException(HttpStatus.BAD_REQUEST, "User is not exists");
 		}
 
 		return user;

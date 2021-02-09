@@ -43,11 +43,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         //Entry points
         http.authorizeRequests()
                 .antMatchers("/api/categories/**").permitAll()
-                .antMatchers("/api/customer/signin/**").permitAll()
-                .antMatchers("/api/customer/signup/**").permitAll()
+                .antMatchers("/api/admin/signin/**").permitAll()
+                .antMatchers("/api/admin/signup/**").permitAll()
                 .antMatchers("/api/products/**").permitAll()
                 .antMatchers("/api/search/**").permitAll()
-                //.antMatchers("/api/products/**").access("hasRole('CUSTOMER')")
+                .antMatchers("/api/admin/activate/**").access("hasRole('ADMIN')")
                 //Disallow everthing else..
                 .anyRequest().authenticated();
 
