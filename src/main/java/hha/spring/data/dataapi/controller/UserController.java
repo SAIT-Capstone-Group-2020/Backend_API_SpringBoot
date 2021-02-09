@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
 
 @RestController
-public class CustomerController {
+public class UserController {
 
 	@Autowired
 	private UserService service;
 
 	//It needs more logic and need to check the error exception
-	@PostMapping("/api/customer/signin")
+	@PostMapping("/api/admin/signin")
 	public String login(@RequestBody LoginDto loginDto) {
 
 		//go to the sign in process and recieve the token if there is no problem.
-		String token = service.customerSignIn(loginDto.getUsername(), loginDto.getPassword());
+		String token = service.adminSignIn(loginDto.getEmail(), loginDto.getPassword());
 
 		if(token == "") {
 			new HttpServerErrorException(HttpStatus.FORBIDDEN, "Login Failed");
@@ -30,10 +30,10 @@ public class CustomerController {
 		return token;
 	}
 
-	@PostMapping("/api/customer/signup")
+	@PostMapping("/api/admin/signup")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Users signup(@RequestBody LoginDto loginDto) {
-		Users user = service.customerSignUP(loginDto.getUsername(), loginDto.getPassword());
+		Users user = service.adminSignUP(loginDto.getEmail(), loginDto.getPassword(), loginDto.getUser_name());
 
 		if(user == null) {
 			new HttpServerErrorException(HttpStatus.BAD_REQUEST, "User already exists");
@@ -41,13 +41,5 @@ public class CustomerController {
 
 		return user;
 	}
-
-	/*
-	@GetMapping
-	@PreAuthorize("hasRole('customer')")
-	public List<Users> getAllProducts() {
-
-		return service.getAll();
-	}*/
 
 }

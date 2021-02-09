@@ -15,10 +15,6 @@ import java.util.List;
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_id")
-    private String uuid;
-
     @Column(name = "email")
     private String email;
 
@@ -26,9 +22,22 @@ public class Users {
     @JsonIgnore
     private String password;
 
-    public Users(String email, String password, Role role) {
+    //1 true / 0 false
+    @Column(name = "active")
+    private int active;
+
+    @Column(name = "user_name")
+    private String name;
+
+    @Column(name="uuid")
+    private String uuid;
+
+    public Users(String email, String password, String name, String uuid, Role role) {
         this.email = email;
         this.password = password;
+        this.active = 0;
+        this.name = name;
+        this.uuid = uuid;
         this.roles = Arrays.asList(role);
     }
 
@@ -37,7 +46,7 @@ public class Users {
 
     //fetch user_roles table when users row inserted or updated
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name="user_id", referencedColumnName = "user_id")},
+    @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name="user_id", referencedColumnName = "email")},
     inverseJoinColumns = {@JoinColumn(name="role_id", referencedColumnName = "role_id")})
 
     private List<Role> roles;
@@ -69,4 +78,22 @@ public class Users {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
 }
