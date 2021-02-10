@@ -58,9 +58,21 @@ public class UserController {
 		return user;
 	}
 
+	@GetMapping("/api/admin/users/uuid")
+	public String findUuidByEmail(@RequestParam("email") String email) {
+		String uuid = service.findUuidByEmail(email);
+
+		if(uuid == null) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "UUID is null");
+		}
+
+		return uuid;
+	}
+
 	@GetMapping("/api/admin/users/list")
 	public List<Users> getAllUsers() {
 		return service.findAllUsers();
 	}
+
 
 }

@@ -111,4 +111,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public String findUuidByEmail(String email) {return userRepository.findByEmail(email).getUuid();}
+
 }
