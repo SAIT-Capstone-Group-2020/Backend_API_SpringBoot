@@ -5,7 +5,6 @@ import hha.spring.data.dataapi.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,14 +16,12 @@ public class CategoryController {
     @Autowired
     private CategoryService service;
 
-    @GetMapping("/api/categories")
+    @GetMapping("/api/customer/categories")
     public List<Category> list() {
         return service.listAllCategories();
     }
 
-    //test for token authorization
-    @GetMapping("/api/categories/{id}")
-    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @GetMapping("/api/customer/categories/{id}")
     public ResponseEntity<Category> get(@PathVariable int id) {
         try {
             Category category = service.getCategoryById(id);
@@ -34,12 +31,18 @@ public class CategoryController {
         }
     }
 
-    @PostMapping("/api/categories")
+    @GetMapping("/api/admin/categories")
+    public List<Category> listAdminCategory() {
+        return service.listAllCategories();
+    }
+
+    @PostMapping("/api/admin/categories")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public void add(@RequestBody Category category) {
         service.saveCategory(category);
     }
 
-    @PutMapping("/api/categories/{id}")
+    @PutMapping("/api/admin/categories/{id}")
     public ResponseEntity<?> update(@RequestBody Category category, @PathVariable int id) {
         try {
             Category existCategory = service.getCategoryById(id);
@@ -51,7 +54,7 @@ public class CategoryController {
         }
     }
 
-    @DeleteMapping("/api/categories/{id}")
+    @DeleteMapping("/api/admin/categories/{id}")
     public void delete(@PathVariable int id) {
         service.deleteCategory(id);
     }

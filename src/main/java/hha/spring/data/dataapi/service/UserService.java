@@ -9,13 +9,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -42,51 +45,72 @@ public class UserService {
         this.jwtUtil = jwtUtil;
     }
 
-    public String adminSignIn(String username, String password) {
+    public String adminSignIn(String email, String password) {
 
-        LOGGER.info("New Customer attempting to sign in "+username);
+        LOGGER.info("New Admin attempting to sign in "+email);
         String token = "";
-        Users user = userRepository.findByEmail(username);
+        Users user = userRepository.findByEmail(email);
 
-        if(user != null) {
+        if(user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+
+        else {
+
+            if(user.getActive() == 0) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not activated");
+            }
+
             try {
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-                token = jwtUtil.createToken(username, user.getRoles());
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+                token = jwtUtil.createToken(email, user.getRoles());
+
             } catch (AuthenticationException e) {
-                LOGGER.info("Log in failed for user {}", username);
+                //throw when password is not match
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+            } catch (Exception ee) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ee.getMessage());
             }
         }
+
         return token;
     }
 
     public Users adminSignUP(String email, String password, String name) {
         LOGGER.info("New user attempting to sign up");
         Users user = userRepository.findByEmail(email);
-        //Customer
+
         if( user == null) {
             Role role = roleRepo.findByRoleName("ROLE_ADMIN");
 
-            UUID uuid = UUID.fromString(email);
+            UUID uuid = UUID.randomUUID();
 
             user = userRepository.save(new Users(email, passwordEncoder.encode(password), name, uuid.toString(), role));
 
-            //NEED TO SEND EMAIL WITH UUID
-
+            return user;
         }
-        return user;
+        return null;
     }
 
-    public Users confirmSignUp(String uuid) {
+    public Users adminActivate(String uuid) {
         Users user = userRepository.findByUuid(uuid);
 
-        if( user == null) {
+        if(user == null) {
             return null;
         }
 
         user.setUuid(null);
         user.setActive(1);
 
+        userRepository.save(user);
+
         return user;
     }
+
+    public List<Users> findAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public String findUuidByEmail(String email) {return userRepository.findByEmail(email).getUuid();}
 
 }

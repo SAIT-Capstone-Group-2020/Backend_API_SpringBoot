@@ -10,7 +10,7 @@
     </parent>
     <groupId>HHA.spring.data</groupId>
     <artifactId>data-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>data-api</name>
     <description>Capstone Project</description>
 

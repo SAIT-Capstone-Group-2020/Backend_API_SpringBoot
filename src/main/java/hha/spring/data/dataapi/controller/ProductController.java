@@ -22,7 +22,7 @@ public class ProductController {
 	@Autowired
 	private ItemService itemService;
 
-	@GetMapping("/api/products")
+	@GetMapping("/api/customer/products")
 	public List<Product> list() {
 
 		return service.listAllProducts();
@@ -30,9 +30,9 @@ public class ProductController {
 	}
 
 	//api/search?term=something
-	@GetMapping("/api/search")
-	public List<Item> searchResult(@RequestParam("term") String term, @RequestHeader("HOST") String host) {
-		System.out.println(host);
+	@GetMapping("/api/customer/search")
+	public List<Item> searchResult(@RequestParam("term") String term) {
+
 		String keyword = term.toLowerCase(Locale.ROOT);
 		List<Item> result = itemService.listAllSearch(keyword);
 		return result;

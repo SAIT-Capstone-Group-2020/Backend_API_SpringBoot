@@ -36,18 +36,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         //Entry points
         http.authorizeRequests()
-                .antMatchers("/api/categories/**").permitAll()
-                .antMatchers("/api/customer/signin/**").permitAll()
-                .antMatchers("/api/customer/signup/**").permitAll()
-                .antMatchers("/api/products/**").permitAll()
-                .antMatchers("/api/search/**").permitAll()
-                //.antMatchers("/api/products/**").access("hasRole('CUSTOMER')")
+                .antMatchers("/api/customer/**").permitAll()
+                .antMatchers("/api/admin/signin/**").permitAll()
+                .antMatchers("/api/admin/signup/**").permitAll()
+                .antMatchers("/api/admin/users/**").access("hasRole('ADMIN')")
+                .antMatchers("/api/admin/categories/**").access("hasRole('ADMIN')")
                 //Disallow everthing else..
                 .anyRequest().authenticated();
 
