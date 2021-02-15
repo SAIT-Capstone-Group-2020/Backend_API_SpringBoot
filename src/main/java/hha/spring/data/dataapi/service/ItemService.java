@@ -21,4 +21,6 @@ public class ItemService {
 
     public List<Item> listAllSearch(String keyword) { return repo.findBySearchKeyword(keyword);}
 
+    public List<Item> listAllItem() { return repo.listAllItem();}
+
 }

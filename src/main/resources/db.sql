@@ -78,4 +78,4 @@ INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VAL
 INSERT INTO `role_info` (`role`) VALUES ('ROLE_ADMIN');
  */
 
-
+UPDATE product SET image_url = 'https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png';
