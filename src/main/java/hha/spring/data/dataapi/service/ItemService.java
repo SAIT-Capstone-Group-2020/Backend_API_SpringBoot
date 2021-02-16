@@ -23,4 +23,6 @@ public class ItemService {
 
     public List<Item> listAllItem() { return repo.listAllItem();}
 
+    public Item listSingleItem(int id) { return repo.findByProductId(id);}
+
 }

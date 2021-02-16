@@ -11,9 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 
 @RestController
 public class ProductController {
@@ -38,6 +38,17 @@ public class ProductController {
 		return result;
 		//need to be updated with the specific code
 	}
+
+	@GetMapping("/api/customer/product/{id}")
+	public ResponseEntity<Item> get(@PathVariable int id) {
+		try {
+			Item item = itemService.listSingleItem(id);
+			return new ResponseEntity<Item>(item, HttpStatus.OK);
+		} catch (NoSuchElementException e) {
+			return new ResponseEntity<Item>(HttpStatus.NOT_FOUND);
+		}
+	}
+
 
 	@GetMapping("/api/admin/product")
 	public List<Product> listAdminSide() {
