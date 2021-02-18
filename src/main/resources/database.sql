@@ -66,7 +66,7 @@ CREATE TABLE `product` (
                            `description` longtext,
                            `retail_price` float NOT NULL,
                            `active` BOOLEAN NOT NULL,
-                           `image_url` varchar(45) DEFAULT NULL,
+                           `image_url` varchar(255) DEFAULT NULL,
                            `category_id` int(11) NOT NULL,
                            `quantity` int(11) NOT NULL,
                            `weight_value` double not null,

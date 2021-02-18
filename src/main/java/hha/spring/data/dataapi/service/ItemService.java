@@ -21,4 +21,8 @@ public class ItemService {
 
     public List<Item> listAllSearch(String keyword) { return repo.findBySearchKeyword(keyword);}
 
+    public List<Item> listAllItem() { return repo.listAllItem();}
+
+    public Item listSingleItem(int id) { return repo.findByProductId(id);}
+
 }

@@ -10,4 +10,10 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
     @Query(nativeQuery = true, name = "findItemDataMapping")
     List<Item> findBySearchKeyword(String keyword);
 
+    @Query(nativeQuery = true, name = "allItemDataMapping")
+    List<Item> listAllItem();
+
+    @Query(nativeQuery = true, name = "singleItemDataMapping")
+    Item findByProductId(int id);
+
 }
