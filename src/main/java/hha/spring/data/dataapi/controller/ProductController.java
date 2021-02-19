@@ -25,16 +25,16 @@ public class ProductController {
 	private ItemService itemService;
 
 	@GetMapping("/api/customer/product")
-	public List<Item> list() {
-		return itemService.listAllItem();
+	public List<Item> list(@RequestParam("filter") String filter) {
+		return itemService.listAllItem(filter);
 	}
 
 	//api/search?term=something
 	@GetMapping("/api/customer/search")
-	public List<Item> searchResult(@RequestParam("term") String term) {
+	public List<Item> searchResult(@RequestParam("kw") String keyword, @RequestParam("ft") String filter) {
 
-		String keyword = term.toLowerCase(Locale.ROOT);
-		List<Item> result = itemService.listAllSearch(keyword);
+		String key = keyword.toLowerCase(Locale.ROOT);
+		List<Item> result = itemService.listAllSearch(key, filter);
 		return result;
 		//need to be updated with the specific code
 	}
