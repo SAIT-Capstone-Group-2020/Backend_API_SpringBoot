@@ -20,7 +20,7 @@ public class ItemService {
     @Autowired
     private ItemRepository repo;
 
-    public List<Item> listAllSearch(String keyword, String filter) {
+    public List<Item> listAllSearch(String keyword) {
         /**
         if ( filter != null ) {
             String keyword = filter.split(":")[0];
@@ -39,7 +39,7 @@ public class ItemService {
         */
         return repo.findBySearchKeyword(keyword);}
 
-    public List<Item> listAllItem(String filter) {
+    public List<Item> listAllItem() {
         return repo.listAllItem();}
 
     public Item listSingleItem(int id) { return repo.findByProductId(id);}

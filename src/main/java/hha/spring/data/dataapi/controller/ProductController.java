@@ -25,16 +25,16 @@ public class ProductController {
 	private ItemService itemService;
 
 	@GetMapping("/api/customer/product")
-	public List<Item> list(@RequestParam("filter") String filter) {
-		return itemService.listAllItem(filter);
+	public List<Item> list() {
+		return itemService.listAllItem();
 	}
 
 	//api/search?term=something
 	@GetMapping("/api/customer/search")
-	public List<Item> searchResult(@RequestParam("kw") String keyword, @RequestParam("ft") String filter) {
+	public List<Item> searchResult(@RequestParam("term") String keyword) {
 
 		String key = keyword.toLowerCase(Locale.ROOT);
-		List<Item> result = itemService.listAllSearch(key, filter);
+		List<Item> result = itemService.listAllSearch(key);
 		return result;
 		//need to be updated with the specific code
 	}
@@ -55,7 +55,7 @@ public class ProductController {
 		return service.listAllProducts();
 	}
 
-	@PutMapping("/api/admin/product/add")
+	@PostMapping("/api/admin/product")
 	public String addProduct(@RequestBody Product prod) {
 
 		Product check = null;
@@ -70,7 +70,7 @@ public class ProductController {
 		return result;
 	}
 
-	@DeleteMapping("/api/admin/product/remove")
+	@DeleteMapping("/api/admin/product")
 	public String removeProduct(@RequestParam("id") int id) {
 
 		Product check = null;
@@ -85,7 +85,7 @@ public class ProductController {
 		return result;
 	}
 
-	@PutMapping("/api/admin/product/edit")
+	@PutMapping("/api/admin/product")
 	public String removeProduct(@RequestBody Product prod){
 
 		Product check = null;
