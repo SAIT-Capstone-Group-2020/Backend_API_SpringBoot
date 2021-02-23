@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.awt.print.Pageable;
 import java.sql.Date;
 import java.util.List;
 
@@ -19,9 +20,27 @@ public class ItemService {
     @Autowired
     private ItemRepository repo;
 
-    public List<Item> listAllSearch(String keyword) { return repo.findBySearchKeyword(keyword);}
+    public List<Item> listAllSearch(String keyword) {
+        /**
+        if ( filter != null ) {
+            String keyword = filter.split(":")[0];
+            String operator = filter.split(":")[1];
+            String val = filter.split(":")[2];
 
-    public List<Item> listAllItem() { return repo.listAllItem();}
+            String whereClause = "";
+
+            if ( operator.equals("eq") ) whereClause = field + " = " + val;
+            else if ( operator.equals("gt") ) whereClause = field + " > " + val;
+            else if ( operator.equals("lt") ) whereClause = field + " < " + val;
+            else if ( operator.equals("like") ) whereClause = field + " LIKE %" + val + "%";
+
+            return repo.findAll(whereClause, pageable);
+        }
+        */
+        return repo.findBySearchKeyword(keyword);}
+
+    public List<Item> listAllItem() {
+        return repo.listAllItem();}
 
     public Item listSingleItem(int id) { return repo.findByProductId(id);}
 

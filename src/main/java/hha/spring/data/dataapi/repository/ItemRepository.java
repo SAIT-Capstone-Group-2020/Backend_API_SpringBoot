@@ -4,6 +4,7 @@ import hha.spring.data.dataapi.domain.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Integer> {
@@ -15,5 +16,4 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
     @Query(nativeQuery = true, name = "singleItemDataMapping")
     Item findByProductId(int id);
-
 }

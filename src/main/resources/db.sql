@@ -78,4 +78,8 @@ INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VAL
 INSERT INTO `role_info` (`role`) VALUES ('ROLE_ADMIN');
  */
 
-UPDATE product SET image_url = 'https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png';
+INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `event_type_id`, `description`) VALUES
+('2021 Feb 4th week', '2021-02-22', '2021-02-28', 1, '2021 Feb 4th week');
+
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
+(10, 3, 0.5, 50);

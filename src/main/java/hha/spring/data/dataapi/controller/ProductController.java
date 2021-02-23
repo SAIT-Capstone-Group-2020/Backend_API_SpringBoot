@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 
+@CrossOrigin
 @RestController
 public class ProductController {
 
@@ -31,10 +32,10 @@ public class ProductController {
 
 	//api/search?term=something
 	@GetMapping("/api/customer/search")
-	public List<Item> searchResult(@RequestParam("term") String term) {
+	public List<Item> searchResult(@RequestParam("term") String keyword) {
 
-		String keyword = term.toLowerCase(Locale.ROOT);
-		List<Item> result = itemService.listAllSearch(keyword);
+		String key = keyword.toLowerCase(Locale.ROOT);
+		List<Item> result = itemService.listAllSearch(key);
 		return result;
 		//need to be updated with the specific code
 	}
@@ -55,7 +56,7 @@ public class ProductController {
 		return service.listAllProducts();
 	}
 
-	@PutMapping("/api/admin/product/add")
+	@PostMapping("/api/admin/product")
 	public String addProduct(@RequestBody Product prod) {
 
 		Product check = null;
@@ -70,7 +71,7 @@ public class ProductController {
 		return result;
 	}
 
-	@DeleteMapping("/api/admin/product/remove")
+	@DeleteMapping("/api/admin/product")
 	public String removeProduct(@RequestParam("id") int id) {
 
 		Product check = null;
@@ -85,7 +86,7 @@ public class ProductController {
 		return result;
 	}
 
-	@PutMapping("/api/admin/product/edit")
+	@PutMapping("/api/admin/product")
 	public String removeProduct(@RequestBody Product prod){
 
 		Product check = null;

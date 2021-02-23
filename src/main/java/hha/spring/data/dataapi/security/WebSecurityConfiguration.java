@@ -44,14 +44,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/customer/**").permitAll()
                 .antMatchers("/api/admin/signin/**").permitAll()
                 .antMatchers("/api/admin/signup/**").permitAll()
+                .antMatchers("/api/categories/**").permitAll()
                 .antMatchers("/api/admin/users/**").access("hasRole('ADMIN')")
                 .antMatchers("/api/admin/product/**").access("hasRole('ADMIN')")
-                .antMatchers("/api/admin/categories/**").access("hasRole('ADMIN')")
                 //Disallow everthing else..
                 .anyRequest().authenticated();
 
         //Disable CSRF(cross site request forgery)
-        http.csrf().disable();
+        http.cors().and().csrf().disable();
 
         //No session will be created or used by spring security
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
