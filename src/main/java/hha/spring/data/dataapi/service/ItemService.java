@@ -5,12 +5,17 @@ import hha.spring.data.dataapi.domain.Product;
 import hha.spring.data.dataapi.repository.ItemRepository;
 import hha.spring.data.dataapi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.awt.print.Pageable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 @Service
@@ -20,24 +25,81 @@ public class ItemService {
     @Autowired
     private ItemRepository repo;
 
-    public List<Item> listAllSearch(String keyword) {
-        /**
-        if ( filter != null ) {
-            String keyword = filter.split(":")[0];
-            String operator = filter.split(":")[1];
-            String val = filter.split(":")[2];
+    public Page<Item> listKeywordSearch(String keyword, String price, String category, String sort, String page) {
 
-            String whereClause = "";
+        String sortProp = "product_id";
+        String order = "desc";
+        int pageNumber = 1;
 
-            if ( operator.equals("eq") ) whereClause = field + " = " + val;
-            else if ( operator.equals("gt") ) whereClause = field + " > " + val;
-            else if ( operator.equals("lt") ) whereClause = field + " < " + val;
-            else if ( operator.equals("like") ) whereClause = field + " LIKE %" + val + "%";
+        String key = "";
+        double gt = 0;
+        double lt = 9999.99;
+        String cate = "";
 
-            return repo.findAll(whereClause, pageable);
+        if(keyword != null) {
+            key = keyword.toLowerCase(Locale.ROOT);
         }
-        */
-        return repo.findBySearchKeyword(keyword);}
+
+        if ( price != null ) {
+            gt = Double.parseDouble(price.split(":")[0]);
+            lt = Double.parseDouble(price.split(":")[1]);
+        }
+
+        if(category != null) {
+            cate = category.toLowerCase(Locale.ROOT);
+        }
+
+        if(sort != null) {
+            //discount_price, product_id, product_name
+            sortProp= sort.split(":")[0];
+            order = sort.split(":")[1];
+        }
+
+        if ( page != null ) {
+            pageNumber = Integer.parseInt(page);
+        }
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, 10, Sort.Direction.fromString(order), sortProp);
+
+        return repo.findBySearchKeyword(key, gt, lt, cate, pageable);}
+
+    public Page<Item> listKeywordSearchProm(String keyword, String price, String category, String sort, String page) {
+
+        String sortProp = "product_id";
+        String order = "desc";
+        int pageNumber = 1;
+
+        String key = "";
+        double gt = 0;
+        double lt = 9999.99;
+        String cate = "";
+
+        if(keyword != null) {
+            key = keyword.toLowerCase(Locale.ROOT);
+        }
+
+        if ( price != null ) {
+            gt = Double.parseDouble(price.split(":")[0]);
+            lt = Double.parseDouble(price.split(":")[1]);
+        }
+
+        if(category != null) {
+            cate = category.toLowerCase(Locale.ROOT);
+        }
+
+        if(sort != null) {
+            //discount_price, product_id, product_name
+            sortProp= sort.split(":")[0];
+            order = sort.split(":")[1];
+        }
+
+        if ( page != null ) {
+            pageNumber = Integer.parseInt(page);
+        }
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, 10, Sort.Direction.fromString(order), sortProp);
+
+        return repo.findBySearchKeywordProm(key, gt, lt, cate, pageable);}
 
     public List<Item> listAllItem() {
         return repo.listAllItem();}

@@ -66,6 +66,7 @@ import java.io.Serializable;
                 +"AND pp.active = 1) AS s1"
 )
 
+/*
 @NamedNativeQuery(name = "findItemDataMapping", resultClass = Item.class,
         query = "SELECT * FROM "
                 +"(SELECT p.product_id AS product_id, p.product_name AS product_name, p.description AS description, p.retail_price as original_price, TRUE AS is_discount, d.discount_price AS discount_price, p.image_url AS image_url, c.category_name AS category_name, p.quantity AS quantity, p.weight_value AS weight_value, wt.weight_type_name AS weight_type_name, p.brand_name AS brand_name "
@@ -83,7 +84,7 @@ import java.io.Serializable;
                    +"WHERE (CURRENT_DATE >= ee.start_date AND CURRENT_DATE < ee.end_date + INTERVAL 1 DAY)) "
                    +"AND (pp.product_name LIKE LOWER(CONCAT('%', ?1, '%')) OR cc.category_name LIKE LOWER(CONCAT('%', ?1, '%')) OR pp.brand_name LIKE LOWER(CONCAT('%', ?1, '%'))) "
                    +"AND pp.active = 1) AS s1"
-)
+)*/
 
 @Table(name = "item")
 public class Item {
