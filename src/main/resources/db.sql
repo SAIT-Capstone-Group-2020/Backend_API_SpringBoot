@@ -81,7 +81,5 @@ INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VAL
 INSERT INTO `role_info` (`role`) VALUES ('ROLE_ADMIN');
  */
 
-UPDATE `product` SET weight_value = 284, weight_type_id = 2 WHERE weight_type_id = 284;
-UPDATE `product` SET weight_value = 813, weight_type_id = 2 WHERE weight_type_id = 813;
-UPDATE `product` SET weight_value = 454, weight_type_id = 2 WHERE weight_type_id = 454;
+UPDATE `product` SET brand_name = '' WHERE brand_name IS NULL;
 

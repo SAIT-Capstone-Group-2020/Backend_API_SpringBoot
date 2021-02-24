@@ -4,6 +4,10 @@ import hha.spring.data.dataapi.domain.Item;
 import hha.spring.data.dataapi.domain.Product;
 import hha.spring.data.dataapi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -106,8 +110,30 @@ public class ProductService {
 		return "Successfully edited";
 	}
 
-	public List<Product> listAllSearch(String keyword) {
-			return repo.findByKeyword(keyword);
+	public Page<Product> searchProductsAdmin(String page, String prodName, String bran, String cate,String sort) {
+
+		String sortProp = "product_id";
+		String order = "desc";
+		int pageNumber = 1;
+
+		if ( page != null ) pageNumber = Integer.parseInt(page);
+
+		if ( sort != null) {
+			sortProp= sort.split(":")[0];
+			order = sort.split(":")[1];
+		}
+
+		Pageable pageable = PageRequest.of(pageNumber - 1, 10, Sort.Direction.fromString(order), sortProp);
+
+		String name = "";
+		String category = "";
+		String brand = "";
+
+		if ( prodName != null ) name = prodName;
+		if ( cate != null) category = cate;
+		if ( bran != null) brand = bran;
+
+		return repo.findAll(name, category, brand, pageable);
 	}
 
 }

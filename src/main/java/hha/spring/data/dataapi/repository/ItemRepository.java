@@ -17,7 +17,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
                     +"WHERE "
                     +"(p.product_name LIKE LOWER(CONCAT('%', ?1, '%')) OR c.category_name LIKE LOWER(CONCAT('%', ?1, '%')) OR p.brand_name LIKE LOWER(CONCAT('%', ?1, '%'))) "
-                    //+"AND (d.discount_price >= ?2 AND d.discount_price <= ?3)"
+                    +"AND (d.discount_price >= ?2 AND d.discount_price <= ?3)"
                     +"AND (c.category_name LIKE LOWER(CONCAT('%', ?4, '%'))) "
 
                     +"AND CURRENT_DATE >= e.start_date and CURRENT_DATE < e.end_date + INTERVAL 1 DAY "
@@ -30,7 +30,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
                     +"WHERE (CURRENT_DATE >= ee.start_date AND CURRENT_DATE < ee.end_date + INTERVAL 1 DAY)) "
 
                     +"AND (pp.product_name LIKE LOWER(CONCAT('%', ?1, '%')) OR cc.category_name LIKE LOWER(CONCAT('%', ?1, '%')) OR pp.brand_name LIKE LOWER(CONCAT('%', ?1, '%'))) "
-                    //+"AND (pp.retail_price >= ?2 AND pp.retail_price <= ?3)"
+                    +"AND (pp.retail_price >= ?2 AND pp.retail_price <= ?3)"
                     +"AND (cc.category_name LIKE LOWER(CONCAT('%', ?4, '%'))) "
 
                     +"AND pp.active = 1) AS s1"
@@ -42,7 +42,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
                     +"WHERE "
                     +"(p.product_name LIKE LOWER(CONCAT('%', ?1, '%')) OR c.category_name LIKE LOWER(CONCAT('%', ?1, '%')) OR p.brand_name LIKE LOWER(CONCAT('%', ?1, '%'))) "
-                    //+"AND (d.discount_price >= ?2 AND d.discount_price <= ?3)"
+                    +"AND (d.discount_price >= ?2 AND d.discount_price <= ?3)"
                     +"AND (c.category_name LIKE LOWER(CONCAT('%', ?4, '%'))) "
 
                     +"AND CURRENT_DATE >= e.start_date and CURRENT_DATE < e.end_date + INTERVAL 1 DAY "
@@ -55,7 +55,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
                     +"WHERE (CURRENT_DATE >= ee.start_date AND CURRENT_DATE < ee.end_date + INTERVAL 1 DAY)) "
 
                     +"AND (pp.product_name LIKE LOWER(CONCAT('%', ?1, '%')) OR cc.category_name LIKE LOWER(CONCAT('%', ?1, '%')) OR pp.brand_name LIKE LOWER(CONCAT('%', ?1, '%'))) "
-                    //+"AND (pp.retail_price >= ?2 AND pp.retail_price <= ?3)"
+                    +"AND (pp.retail_price >= ?2 AND pp.retail_price <= ?3)"
                     +"AND (cc.category_name LIKE LOWER(CONCAT('%', ?4, '%'))) "
 
                     +"AND pp.active = 1) AS s1"
@@ -69,7 +69,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
                         +"WHERE "
                         +"(p.product_name LIKE LOWER(CONCAT('%', ?1, '%')) OR c.category_name LIKE LOWER(CONCAT('%', ?1, '%')) OR p.brand_name LIKE LOWER(CONCAT('%', ?1, '%'))) "
-                        //+"AND (d.discount_price >= ?2 AND d.discount_price <= ?3)"
+                        +"AND (d.discount_price >= ?2 AND d.discount_price <= ?3)"
                         +"AND (c.category_name LIKE LOWER(CONCAT('%', ?4, '%'))) "
 
                         +"AND CURRENT_DATE >= e.start_date and CURRENT_DATE < e.end_date + INTERVAL 1 DAY "
@@ -81,7 +81,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
                         +"WHERE "
                         +"(p.product_name LIKE LOWER(CONCAT('%', ?1, '%')) OR c.category_name LIKE LOWER(CONCAT('%', ?1, '%')) OR p.brand_name LIKE LOWER(CONCAT('%', ?1, '%'))) "
-                        //+"AND (d.discount_price >= ?2 AND d.discount_price <= ?3)"
+                        +"AND (d.discount_price >= ?2 AND d.discount_price <= ?3)"
                         +"AND (c.category_name LIKE LOWER(CONCAT('%', ?4, '%'))) "
 
                         +"AND CURRENT_DATE >= e.start_date and CURRENT_DATE < e.end_date + INTERVAL 1 DAY "
