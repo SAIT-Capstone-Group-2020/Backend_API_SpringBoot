@@ -42,6 +42,41 @@ public class ProductService {
 		return "Successfully added";
 	}
 
+	public String addProductBulk(List<Product> prodList) {
+
+		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
+		//need to make feature upload image file to the cloud
+
+		try {
+
+			for(int i=0; i <prodList.size(); i++) {
+
+				if(findByName(prodList.get(i).getName()) != null) {
+					repo.save(prodList.get(i));
+				}
+
+				else {
+					repo.save(new Product(prodList.get(i).getName(),
+							prodList.get(i).getDescription(),
+							prodList.get(i).getBrand(),
+							prodList.get(i).getPrice(),
+							prodList.get(i).isActive(),
+							url,
+							prodList.get(i).getCategory(),
+							prodList.get(i).getQuantity(),
+							prodList.get(i).getWeightValue(),
+							prodList.get(i).getWeightType()));
+				}
+			}
+
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+		}
+
+		return "Successfully added";
+	}
+
+
 	public Product findById(int id) {
 		return repo.findById(id);
 	}

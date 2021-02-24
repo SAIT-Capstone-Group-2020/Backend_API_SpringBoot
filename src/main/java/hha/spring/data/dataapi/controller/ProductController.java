@@ -82,6 +82,14 @@ public class ProductController {
 		return result;
 	}
 
+	@PostMapping("/api/admin/product/bulk")
+	public String addProductBulk(@RequestBody List<Product> prodList) {
+
+		String result = service.addProductBulk(prodList);
+
+		return result;
+	}
+
 	@DeleteMapping("/api/admin/product")
 	public String removeProduct(@RequestParam("id") int id) {
 
