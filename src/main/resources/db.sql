@@ -42,13 +42,13 @@ INSERT INTO `product` (`product_name`, `description`, `retail_price`, `active`, 
 INSERT INTO `product` (`product_name`, `description`, `retail_price`, `active`, `image_url`, `category_id`, `quantity`, `weight_value`, `weight_type_id`, `brand_name`) VALUES
 ('Apple Red Delicious', 'Apple Red Delicious', 1.99, 1, 'https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png', 2, 100, 1, 1, null);
 INSERT INTO `product` (`product_name`, `description`, `retail_price`, `active`, `image_url`, `category_id`, `quantity`, `weight_value`, `weight_type_id`, `brand_name`) VALUES
-('Soup Beef Flavour', 'Soup Beef Flavour', 9.99, 1, 'https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png', 3, 100, 2, 284, 'Quoc Viet');
+('Soup Beef Flavour', 'Soup Beef Flavour', 9.99, 1, 'https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png', 3, 100, 284, 2, 'Quoc Viet');
 INSERT INTO `product` (`product_name`, `description`, `retail_price`, `active`, `image_url`, `category_id`, `quantity`, `weight_value`, `weight_type_id`, `brand_name`) VALUES
-('Soup Chicken Flavour', 'Soup Beef Flavour', 9.99, 1, 'https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png', 3, 100, 2, 284, 'Quoc Viet');
+('Soup Chicken Flavour', 'Soup Beef Flavour', 9.99, 1, 'https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png', 3, 100, 284, 2, 'Quoc Viet');
 INSERT INTO `product` (`product_name`, `description`, `retail_price`, `active`, `image_url`, `category_id`, `quantity`, `weight_value`, `weight_type_id`, `brand_name`) VALUES
-('Basa Steak', 'Basa Steak', 4.49, 1, 'https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png', 4, 100, 2, 812.5, 'Dolphins');
+('Basa Steak', 'Basa Steak', 4.49, 1, 'https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png', 4, 100, 812.5, 2, 'Dolphins');
 INSERT INTO `product` (`product_name`, `description`, `retail_price`, `active`, `image_url`, `category_id`, `quantity`, `weight_value`, `weight_type_id`, `brand_name`) VALUES
-('Greenshell Mussels H/S', 'Greenshell Mussels H/S', 6.49, 1, 'https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png', 4, 100, 2, 454, 'Talley\'s');
+('Greenshell Mussels H/S', 'Greenshell Mussels H/S', 6.49, 1, 'https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png', 4, 100, 454, 2, 'Talley\'s');
 INSERT INTO `product` (`product_name`, `description`, `retail_price`, `active`, `image_url`, `category_id`, `quantity`, `weight_value`, `weight_type_id`, `brand_name`) VALUES
 ('Orange', 'Orange', 0.39, 1, 'https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png', 5, 100, 3, 1, null);
 INSERT INTO `product` (`product_name`, `description`, `retail_price`, `active`, `image_url`, `category_id`, `quantity`, `weight_value`, `weight_type_id`, `brand_name`) VALUES
@@ -64,6 +64,8 @@ INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `event_type_id`, `
 ('2021 Feb 2nd week', '2021-02-02', '2021-02-14', 1, '2021 Feb 2nd week');
 INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `event_type_id`, `description`) VALUES
 ('2021 Feb 3rd week', '2021-02-15', '2021-02-21', 1, '2021 Feb 3rd week');
+INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `event_type_id`, `description`) VALUES
+('2021 Feb 4th week', '2021-02-22', '2021-02-28', 1, '2021 Feb 4th week');
 
 -- Discount
 -- apple
@@ -72,14 +74,12 @@ INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VAL
 -- banana
 INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
 (10, 2, 0.5, 50);
-
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
+(10, 3, 0.5, 50);
 
 -- Admin
 INSERT INTO `role_info` (`role`) VALUES ('ROLE_ADMIN');
  */
 
-INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `event_type_id`, `description`) VALUES
-('2021 Feb 4th week', '2021-02-22', '2021-02-28', 1, '2021 Feb 4th week');
+UPDATE `product` SET brand_name = '' WHERE brand_name IS NULL;
 
-INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
-(10, 3, 0.5, 50);

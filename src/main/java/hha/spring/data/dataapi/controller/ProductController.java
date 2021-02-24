@@ -6,6 +6,8 @@ import hha.spring.data.dataapi.service.ItemService;
 import hha.spring.data.dataapi.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,12 +34,22 @@ public class ProductController {
 
 	//api/search?term=something
 	@GetMapping("/api/customer/search")
-	public List<Item> searchResult(@RequestParam("term") String keyword) {
+	public Page<Item> searchResult(
+					@RequestParam(name="term", required = false) String keyword,
+					@RequestParam(name="pric", required = false) String price,
+					@RequestParam(name="cate", required = false) String category,
+					@RequestParam(name="sort", required = false) String sort,
+					@RequestParam(name="page", required = false) String page,
+					@RequestParam(name="prom", required = false) String prom
+	) {
 
-		String key = keyword.toLowerCase(Locale.ROOT);
-		List<Item> result = itemService.listAllSearch(key);
+		if(prom != null && prom.equals("y")) {
+			Page<Item> result = itemService.listKeywordSearchProm(keyword, price, category, sort, page);
+			return result;
+		}
+
+		Page<Item> result = itemService.listKeywordSearch(keyword, price, category, sort, page);
 		return result;
-		//need to be updated with the specific code
 	}
 
 	@GetMapping("/api/customer/product/{id}")
@@ -67,6 +79,14 @@ public class ProductController {
 		}
 
 		String result = service.addProduct(prod);
+
+		return result;
+	}
+
+	@PostMapping("/api/admin/product/bulk")
+	public String addProductBulk(@RequestBody List<Product> prodList) {
+
+		String result = service.addProductBulk(prodList);
 
 		return result;
 	}
@@ -103,10 +123,13 @@ public class ProductController {
 
 	//api/admin/product/search?term=something
 	@GetMapping("/api/admin/product/search")
-	public List<Product> searchResultAdminSide(@RequestParam("term") String term) {
+	public Page<Product> searchResultAdminSide(
+			@RequestParam(name="page", required = false) String page,
+			@RequestParam(name="name", required = false) String name,
+			@RequestParam(name="bran", required = false) String bran,
+			@RequestParam(name="cate", required = false) String cate,
+			@RequestParam(name="sort", required = false) String sort) {
 
-		String keyword = term.toLowerCase(Locale.ROOT);
-		List<Product> result = service.listAllSearch(keyword);
-		return result;
+		return service.searchProductsAdmin(page, name,bran,cate, sort);
 	}
 }

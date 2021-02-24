@@ -4,6 +4,10 @@ import hha.spring.data.dataapi.domain.Item;
 import hha.spring.data.dataapi.domain.Product;
 import hha.spring.data.dataapi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -42,6 +46,41 @@ public class ProductService {
 		return "Successfully added";
 	}
 
+	public String addProductBulk(List<Product> prodList) {
+
+		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
+		//need to make feature upload image file to the cloud
+
+		try {
+
+			for(int i=0; i <prodList.size(); i++) {
+
+				if(findByName(prodList.get(i).getName()) != null) {
+					repo.save(prodList.get(i));
+				}
+
+				else {
+					repo.save(new Product(prodList.get(i).getName(),
+							prodList.get(i).getDescription(),
+							prodList.get(i).getBrand(),
+							prodList.get(i).getPrice(),
+							prodList.get(i).isActive(),
+							url,
+							prodList.get(i).getCategory(),
+							prodList.get(i).getQuantity(),
+							prodList.get(i).getWeightValue(),
+							prodList.get(i).getWeightType()));
+				}
+			}
+
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+		}
+
+		return "Successfully added";
+	}
+
+
 	public Product findById(int id) {
 		return repo.findById(id);
 	}
@@ -71,8 +110,30 @@ public class ProductService {
 		return "Successfully edited";
 	}
 
-	public List<Product> listAllSearch(String keyword) {
-			return repo.findByKeyword(keyword);
+	public Page<Product> searchProductsAdmin(String page, String prodName, String bran, String cate,String sort) {
+
+		String sortProp = "product_id";
+		String order = "desc";
+		int pageNumber = 1;
+
+		if ( page != null ) pageNumber = Integer.parseInt(page);
+
+		if ( sort != null) {
+			sortProp= sort.split(":")[0];
+			order = sort.split(":")[1];
+		}
+
+		Pageable pageable = PageRequest.of(pageNumber - 1, 10, Sort.Direction.fromString(order), sortProp);
+
+		String name = "";
+		String category = "";
+		String brand = "";
+
+		if ( prodName != null ) name = prodName;
+		if ( cate != null) category = cate;
+		if ( bran != null) brand = bran;
+
+		return repo.findAll(name, category, brand, pageable);
 	}
 
 }
