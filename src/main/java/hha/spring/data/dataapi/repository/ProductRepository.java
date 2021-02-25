@@ -25,4 +25,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             ,
             nativeQuery = true)
     Page<Product> findAll(String name, String category, String brand, Pageable pageable);
+
+    @Query(value = "SELECT * FROM product WHERE product_name = ?1 AND brand_name = ?2",
+            nativeQuery = true)
+    Product findByNameAndBrand(String name, String brand);
 }

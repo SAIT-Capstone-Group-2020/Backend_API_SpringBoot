@@ -81,5 +81,5 @@ INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VAL
 INSERT INTO `role_info` (`role`) VALUES ('ROLE_ADMIN');
  */
 
-UPDATE `product` SET brand_name = '' WHERE brand_name IS NULL;
+DELETE FROM product WHERE product_id = 23 OR product_id = 24;
 

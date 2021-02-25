@@ -46,6 +46,52 @@ public class ProductService {
 		return "Successfully added";
 	}
 
+	public String addProductBulkOw(List<Product> prodList) {
+
+		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
+		//need to make feature upload image file to the cloud
+
+		try {
+
+			for(int i=0; i <prodList.size(); i++) {
+
+				Product prod = repo.findByNameAndBrand(prodList.get(i).getName(), prodList.get(i).getBrand());
+				Product source = prodList.get(i);
+
+				if(prod != null) {
+
+					prod.setActive(source.isActive());
+					prod.setCategory(source.getCategory());
+					prod.setDescription(source.getDescription());
+					prod.setPrice(source.getPrice());
+					prod.setWeightValue(source.getWeightValue());
+					prod.setWeightType(source.getWeightType());
+					prod.setQuantity(source.getQuantity());
+
+					repo.save(prod);
+				}
+
+				else {
+					repo.save(new Product(prodList.get(i).getName(),
+							prodList.get(i).getDescription(),
+							prodList.get(i).getBrand(),
+							prodList.get(i).getPrice(),
+							prodList.get(i).isActive(),
+							url,
+							prodList.get(i).getCategory(),
+							prodList.get(i).getQuantity(),
+							prodList.get(i).getWeightValue(),
+							prodList.get(i).getWeightType()));
+				}
+			}
+
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+		}
+
+		return "Successfully added";
+	}
+
 	public String addProductBulk(List<Product> prodList) {
 
 		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
@@ -55,11 +101,9 @@ public class ProductService {
 
 			for(int i=0; i <prodList.size(); i++) {
 
-				if(findByName(prodList.get(i).getName()) != null) {
-					repo.save(prodList.get(i));
-				}
+				System.out.println(prodList.get(i).getName());
 
-				else {
+				if(repo.findByNameAndBrand(prodList.get(i).getName(), prodList.get(i).getBrand()) == null) {
 					repo.save(new Product(prodList.get(i).getName(),
 							prodList.get(i).getDescription(),
 							prodList.get(i).getBrand(),
