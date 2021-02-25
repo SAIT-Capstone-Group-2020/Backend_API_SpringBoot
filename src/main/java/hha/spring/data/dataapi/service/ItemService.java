@@ -59,7 +59,7 @@ public class ItemService {
             pageNumber = Integer.parseInt(page);
         }
 
-        Pageable pageable = PageRequest.of(pageNumber - 1, 10, Sort.Direction.fromString(order), sortProp);
+        Pageable pageable = PageRequest.of(pageNumber - 1, 999, Sort.Direction.fromString(order), sortProp);
 
         return repo.findBySearchKeyword(key, gt, lt, cate, pageable);}
 
@@ -97,7 +97,7 @@ public class ItemService {
             pageNumber = Integer.parseInt(page);
         }
 
-        Pageable pageable = PageRequest.of(pageNumber - 1, 10, Sort.Direction.fromString(order), sortProp);
+        Pageable pageable = PageRequest.of(pageNumber - 1, 999, Sort.Direction.fromString(order), sortProp);
 
         return repo.findBySearchKeywordProm(key, gt, lt, cate, pageable);}
 

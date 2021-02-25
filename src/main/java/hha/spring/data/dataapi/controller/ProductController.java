@@ -83,6 +83,14 @@ public class ProductController {
 		return result;
 	}
 
+	@PutMapping("/api/admin/product/bulk")
+	public String addProductBulkOw(@RequestBody List<Product> prodList) {
+
+		String result = service.addProductBulkOw(prodList);
+
+		return result;
+	}
+
 	@PostMapping("/api/admin/product/bulk")
 	public String addProductBulk(@RequestBody List<Product> prodList) {
 
