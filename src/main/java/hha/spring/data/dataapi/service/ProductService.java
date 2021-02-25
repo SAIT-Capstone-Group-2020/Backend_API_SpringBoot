@@ -167,7 +167,7 @@ public class ProductService {
 			order = sort.split(":")[1];
 		}
 
-		Pageable pageable = PageRequest.of(pageNumber - 1, 10, Sort.Direction.fromString(order), sortProp);
+		Pageable pageable = PageRequest.of(pageNumber - 1, 999, Sort.Direction.fromString(order), sortProp);
 
 		String name = "";
 		String category = "";
