@@ -79,7 +79,12 @@ INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VAL
 
 -- Admin
 INSERT INTO `role_info` (`role`) VALUES ('ROLE_ADMIN');
- */
 
 DELETE FROM product WHERE product_id = 23 OR product_id = 24;
+UPDATE product SET category_id = 2 WHERE product_id = 3;
+ */
 
+INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `event_type_id`, `description`) VALUES
+('2021 Mar 1st week', '2021-03-01', '2021-03-06', 1, '2021 Mar 1st week');
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
+(10, 4, 0.5, 50);

@@ -30,6 +30,7 @@ public class ItemService {
         String sortProp = "product_id";
         String order = "desc";
         int pageNumber = 1;
+        int contentNumber = 999;
 
         String key = "";
         double gt = 0;
@@ -57,9 +58,10 @@ public class ItemService {
 
         if ( page != null ) {
             pageNumber = Integer.parseInt(page);
+            contentNumber = 5;
         }
 
-        Pageable pageable = PageRequest.of(pageNumber - 1, 999, Sort.Direction.fromString(order), sortProp);
+        Pageable pageable = PageRequest.of(pageNumber - 1, contentNumber, Sort.Direction.fromString(order), sortProp);
 
         return repo.findBySearchKeyword(key, gt, lt, cate, pageable);}
 
