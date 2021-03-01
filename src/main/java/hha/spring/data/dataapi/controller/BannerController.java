@@ -30,7 +30,6 @@ public class BannerController {
     @Autowired
     private BannerService bannerService;
 
-
     @GetMapping("/api/admin/banner")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<BannerItem> get(){
