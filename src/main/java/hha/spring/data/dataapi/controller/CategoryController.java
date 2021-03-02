@@ -56,4 +56,6 @@ public class CategoryController {
     public void delete(@PathVariable int id) {
         service.deleteCategory(id);
     }
+
+    String someThing;
 }
