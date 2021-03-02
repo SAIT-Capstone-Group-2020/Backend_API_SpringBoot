@@ -1,5 +1,4 @@
 package hha.spring.data.dataapi.service;
-
 import hha.spring.data.dataapi.domain.*;
 import hha.spring.data.dataapi.email.EmailService;
 import hha.spring.data.dataapi.repository.ItemRepository;
@@ -11,10 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -37,7 +38,7 @@ public class OrderService {
         double sum = 0;
 
             if(!order.getEmail().equals(order.getConfirmEmail())) {
-                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Email is not matched");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email is not matched");
             }
 
         try {
@@ -60,47 +61,43 @@ public class OrderService {
             newOrder.setSum(sum/100);
             orderRepo.save(newOrder);
 
+        }
+        catch(NoSuchElementException se) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, se.getMessage());
+        }
 
-        } catch(Exception e) {
+        catch(Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
 
         try {
-        email.sendSimpleMessage(order.getEmail(), "Invoice HHA",
-                "This is an invoice/n" +
-                        "you should pay $"+sum);
+
+            String body = "<h1>This is an invoice</h1><br><p>you should pay $"+sum/100+"</p>";
+
+            email.sendHtmlMessage(order.getEmail(), "Invoice HHA", body);
+
         //make html code
-        } catch(Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }   catch(MessagingException me) {
+
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, me.getMessage());
         }
-            return "Successfully sent";
+        //need to check more exception handling
+
+        return "Success";
     }
 
-    public List<CartItem> checkCart(List<OrderItem> cart) {
+    public List<Item> checkCart(int[] id) {
 
-        List<CartItem> list = new ArrayList<>();
+        List<Item> list = new ArrayList<>();
 
         try {
 
-        for(int i=0; i<cart.size(); i++) {
+        for(int i=0; i<id.length; i++) {
 
-            int itemId = cart.get(i).getId();
-            Item item = itemRepo.findByProductId(itemId);
+            Item item = itemRepo.findByProductId(id[i]);
 
-            int quantity = cart.get(i).getQuantity();
-
-            double total = ((item.getDiscount_price())*100*quantity)/100;
-            double orignalTotal = ((item.getOriginal_price())*100*quantity)/100;
-            double weightTotal = ((item.getWeight_value()*100)*quantity)/100;
-
-            CartItem cartItem = new CartItem(
-                itemId, total, orignalTotal, item.getIs_discount(), quantity, item.getProduct_name(),
-                    item.getCategory_name(),item.getBrand_name(), weightTotal,
-                    item.getWeight_type_name(), item.getImage_url()
-            );
-
-            list.add(cartItem);
-        } } catch(Exception e) {
+            list.add(item);
+        }} catch(Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
 

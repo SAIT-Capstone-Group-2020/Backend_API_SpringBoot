@@ -11,6 +11,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import javax.mail.MessagingException;
+import javax.mail.SendFailedException;
 import javax.mail.internet.MimeMessage;
 
 @Component
@@ -29,9 +30,10 @@ public class EmailService {
         message.setText(text);
         emailSender.send(message);
 
+
     }
 
-    private void sendHtmlMessage(String to, String subject, String htmlBody) throws MessagingException {
+    public void sendHtmlMessage(String to, String subject, String htmlBody) throws MessagingException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
         helper.setTo(to);
