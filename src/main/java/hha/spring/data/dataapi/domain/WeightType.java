@@ -10,8 +10,11 @@ public class WeightType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "weight_type_id")
     private int id;
-    @Column(name = "weight_name")
+    @Column(name = "weight_type_name")
     private String name;
+
+    public WeightType() {
+    }
 
     public WeightType(String name) {
         this.name = name;

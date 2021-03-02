@@ -29,12 +29,12 @@ public class BannerController {
 
     @Autowired
     private BannerService bannerService;
-
+    /*
     @GetMapping("/api/admin/banner")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<BannerItem> get(){
         return bannerService.getAllBanner();
-    }
+    }*/
 
     @PostMapping("/api/admin/addBanner")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
