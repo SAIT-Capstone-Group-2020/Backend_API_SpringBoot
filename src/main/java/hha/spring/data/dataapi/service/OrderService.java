@@ -6,16 +6,19 @@ import hha.spring.data.dataapi.repository.OrderItemRepository;
 import hha.spring.data.dataapi.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 @Transactional
@@ -41,10 +44,19 @@ public class OrderService {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email is not matched");
             }
 
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        Date minPaidDate = null;
+        try {
+            minPaidDate = sdf.parse("1000-01-01");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         try {
 
             List<OrderItem> itemList = order.getOrderItem();
-            Order newOrder = new Order(new Date(), null, 0.0, "pending", order.getEmail(), order.getPhone(), order.getName());
+            Order newOrder = new Order(new Date(), minPaidDate, 0.0, "pending", order.getEmail(), order.getPhone(), order.getName());
 
             orderRepo.save(newOrder);
 
@@ -58,7 +70,7 @@ public class OrderService {
                 sum += (total*100);
             }
 
-            newOrder.setSum(sum/100);
+            newOrder.setPriceSum(sum/100);
             orderRepo.save(newOrder);
 
         }
@@ -102,6 +114,126 @@ public class OrderService {
         }
 
         return list;
+    }
+
+    public Page<Order> getOrders(
+            String status, String orderDate, String paidDate, String category, String product,
+            String phone, String email, String customerName, String sort, String page) {
+
+        String sortProp = "orders_id";
+        String order = "desc";
+        int pageNumber = 1;
+
+        if ( page != null ) pageNumber = Integer.parseInt(page);
+
+        if ( sort != null) {
+            sortProp= sort.split(":")[0];
+            order = sort.split(":")[1];
+        }
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, 10, Sort.Direction.fromString(order), sortProp);
+
+        String stat = "";
+        String cate = "";
+        String prod = "";
+        String phon = "";
+        String emai = "";
+        String name = "";
+
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+
+        Date minOrderDate = null;
+        Date maxOrderDate = null;
+        Date minPaidDate = null;
+        Date maxPaidDate = null;
+
+             try {
+            minOrderDate = sdf.parse("2021-01-01");
+            maxOrderDate = sdf.parse("3021-01-01");
+            minPaidDate = sdf.parse("0000-00-00");
+            maxPaidDate = sdf.parse("3021-01-01");
+
+                } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+            if(orderDate != null) {
+                String[] dates = orderDate.split(":");
+
+                try {
+                    minOrderDate = sdf.parse(dates[0]);
+                    maxOrderDate = sdf.parse(dates[1]);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        if(paidDate != null) {
+            String[] dates = orderDate.split(":");
+
+            try {
+                minPaidDate = sdf.parse(dates[0]);
+                maxPaidDate = sdf.parse(dates[1]);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        if(status != null) {
+            stat = status;
+        }
+
+        if(product != null) {
+            prod = product;
+        }
+
+        if(category != null) {
+            cate = category;
+        }
+
+        if(phone != null) {
+            phon = phone;
+        }
+
+        if(email != null) {
+            emai = email;
+        }
+
+        if(customerName != null) {
+            name = customerName;
+        }
+
+        return orderRepo.getOrder(
+                    stat,
+                    minOrderDate, maxOrderDate, minPaidDate, maxPaidDate,
+                    cate, prod, phon, emai, name, pageable
+            );
+    }
+
+    public Order editOrder(Order order) {
+
+        try {
+            orderRepo.save(order);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+
+        return order;
+    }
+
+    public Order findById(int id) {
+        return orderRepo.findById(id);
+    }
+
+    public List<Order> removeOrder(Order order) {
+
+        orderRepo.delete(order);
+
+        return orderRepo.findAll();
     }
 
 }

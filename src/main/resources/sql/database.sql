@@ -108,7 +108,7 @@ CREATE TABLE `event` (
                              `event_type_id` int(11) not null,
                              PRIMARY KEY (`event_id`),
                              KEY `fk_event_type_idx` (`event_type_id`),
-                             CONSTRAINT `fk_event_type` FOREIGN KEY (`event_type_id`) REFERENCES `event_type` (`event_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
+                             CONSTRAINT `fk_event_type` FOREIGN KEY (`event_type_id`) REFERENCES `event_type` (`event_type_id`) ON DELETE NO ACTION ON UPDATE CASCADE
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -165,9 +165,9 @@ CREATE TABLE `order_items` (
                          `orders_id` int(11) not null,
                          PRIMARY KEY (`order_items_id`),
                          KEY `fk_order_item_product_idx` (`product_id`),
-                         CONSTRAINT `fk_order_item_product_idx` FOREIGN KEY (`product_id`) REFERENCES product (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+                         CONSTRAINT `fk_order_item_product_idx` FOREIGN KEY (`product_id`) REFERENCES product (`product_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
                          KEY `fk_order_item_order_idx` (`orders_id`),
-                         CONSTRAINT `fk_order_item_order_idx` FOREIGN KEY (`orders_id`) REFERENCES orders (`orders_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                         CONSTRAINT `fk_order_item_order_idx` FOREIGN KEY (`orders_id`) REFERENCES orders (`orders_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -220,30 +220,11 @@ CREATE TABLE `user_roles` (
                               KEY `fk_role_user_idx` (`user_id`),
                               CONSTRAINT `fk_role_user_idx` FOREIGN KEY (`user_id`) REFERENCES `user` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION,
                               KEY `fk_role_role_idx` (`role_id`),
-                              CONSTRAINT `fk_role_role_idx` FOREIGN KEY (`role_id`) REFERENCES `role_info` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                              CONSTRAINT `fk_role_role_idx` FOREIGN KEY (`role_id`) REFERENCES `role_info` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
--- Item table
-
-DROP TABLE IF EXISTS item;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `item` (
-                        `product_id` int(11) auto_increment NOT NULL,
-                        `product_name` varchar(45) NOT NULL,
-                        `description` longtext,
-                        `sales_price` float NOT NULL,
-                        `image_url` varchar(45) DEFAULT NULL,
-                        `category_name` varchar(45) DEFAULT NULL,
-                        `quantity` int(11) NOT NULL,
-                        `weight_value` double not null,
-                        `weight_type_id` int(11) NOT NULL,
-                        `brand_name` varchar(45),
-                        PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

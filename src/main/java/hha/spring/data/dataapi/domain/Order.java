@@ -2,6 +2,7 @@ package hha.spring.data.dataapi.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -11,12 +12,16 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "orders_id")
     private int id;
+
     @Column(name = "order_date")
+    @Temporal(TemporalType.DATE)
     private Date orderDate;
+
     @Column(name = "paid_date")
+    @Temporal(TemporalType.DATE)
     private Date paidDate;
     @Column(name = "price_sum")
-    private double sum;
+    private double priceSum;
     @Column(name = "status")
     private String status;
     @Column(name = "order_email")
@@ -24,16 +29,19 @@ public class Order {
     @Column(name = "order_phone")
     private String phone;
     @Column(name = "order_name")
-    private String name;
+    private String orderName;
 
     public Order(Date orderDate, Date paidDate, double sum, String status, String email, String phone, String name) {
         this.orderDate = orderDate;
         this.paidDate = paidDate;
-        this.sum = sum;
+        this.priceSum = sum;
         this.status = status;
         this.email = email;
         this.phone = phone;
-        this.name = name;
+        this.orderName = name;
+    }
+
+    public Order(){
     }
 
     public int getId() {
@@ -54,14 +62,6 @@ public class Order {
 
     public void setPaidDate(Date paidDate) {
         this.paidDate = paidDate;
-    }
-
-    public double getSum() {
-        return sum;
-    }
-
-    public void setSum(double sum) {
-        this.sum = sum;
     }
 
     public String getStatus() {
@@ -88,12 +88,24 @@ public class Order {
         this.phone = phone;
     }
 
-    public String getName() {
-        return name;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public double getPriceSum() {
+        return priceSum;
+    }
+
+    public void setPriceSum(double priceSum) {
+        this.priceSum = priceSum;
+    }
+
+    public String getOrderName() {
+        return orderName;
+    }
+
+    public void setOrderName(String orderName) {
+        this.orderName = orderName;
     }
 }
 
