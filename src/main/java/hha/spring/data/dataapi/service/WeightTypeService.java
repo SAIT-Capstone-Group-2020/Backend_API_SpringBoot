@@ -25,12 +25,16 @@ public class WeightTypeService {
         return repo.findById(id).get();
     }
 
-    public void saveWeightType(WeightType wt) {
+    public List<WeightType> saveWeightType(WeightType wt) {
+
         repo.save(wt);
+        return repo.findAll();
     }
 
-    public void deleteWeightType(int id) {
+    public List<WeightType> deleteWeightType(int id) {
+
         repo.deleteById(id);
+        return repo.findAll();
     }
 
 }
