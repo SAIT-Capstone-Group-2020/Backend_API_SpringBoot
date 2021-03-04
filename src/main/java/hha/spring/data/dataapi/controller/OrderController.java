@@ -1,9 +1,10 @@
 package hha.spring.data.dataapi.controller;
 
-import hha.spring.data.dataapi.domain.Item;
-import hha.spring.data.dataapi.domain.Order;
-import hha.spring.data.dataapi.domain.OrderDto;
-import hha.spring.data.dataapi.domain.Product;
+import hha.spring.data.dataapi.domain.*;
+import hha.spring.data.dataapi.domain.order.Order;
+import hha.spring.data.dataapi.domain.order.OrderDto;
+import hha.spring.data.dataapi.domain.order.OrderInfoDto;
+import hha.spring.data.dataapi.domain.order.OrderItem;
 import hha.spring.data.dataapi.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -48,6 +48,11 @@ public class OrderController {
 
             ) {
         return service.getOrders(status, orderDate, paidDate, category, product, phone, email, name, sort, page);
+    }
+
+    @GetMapping("/api/admin/order/{id}")
+    public OrderInfoDto getOrderItems(@PathVariable int id){
+        return service.getOrderItem(id);
     }
 
     @DeleteMapping("/api/admin/order")

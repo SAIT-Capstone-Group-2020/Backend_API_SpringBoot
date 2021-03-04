@@ -1,7 +1,9 @@
 package hha.spring.data.dataapi.service;
 import hha.spring.data.dataapi.domain.*;
+import hha.spring.data.dataapi.domain.order.*;
 import hha.spring.data.dataapi.email.EmailService;
 import hha.spring.data.dataapi.repository.ItemRepository;
+import hha.spring.data.dataapi.repository.OrderInfoRepository;
 import hha.spring.data.dataapi.repository.OrderItemRepository;
 import hha.spring.data.dataapi.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class OrderService {
 
     @Autowired
     private ItemRepository itemRepo;
+
+    @Autowired
+    private OrderInfoRepository orderInfoRepo;
 
     @Autowired
     private EmailService email;
@@ -84,7 +89,8 @@ public class OrderService {
 
         try {
 
-            String body = "<h1>This is an invoice</h1><br><p>you should pay $"+sum/100+"</p>";
+            String body = "<h1>This is an invoice</h1><br><p>total payment due $"+sum/100+" :)</p>";
+            body += "<p>enjoy the test</p>";
 
             email.sendHtmlMessage(order.getEmail(), "Invoice HHA", body);
 
@@ -234,6 +240,16 @@ public class OrderService {
         orderRepo.delete(order);
 
         return orderRepo.findAll();
+    }
+
+    public OrderInfoDto getOrderItem(int id) {
+        List<OrderItemDto> list = orderInfoRepo.listAllItem(id);
+        Order order = orderRepo.findById(id);
+
+        OrderInfoDto orderInfo = new OrderInfoDto(order.getEmail(), order.getPhone(), order.getOrderName(), order.getId());
+        orderInfo.setItemList(list);
+
+        return orderInfo;
     }
 
 }

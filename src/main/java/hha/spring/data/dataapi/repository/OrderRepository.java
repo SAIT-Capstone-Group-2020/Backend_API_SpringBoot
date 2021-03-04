@@ -1,22 +1,12 @@
 package hha.spring.data.dataapi.repository;
 
-import hha.spring.data.dataapi.domain.Item;
-import hha.spring.data.dataapi.domain.Order;
-import hha.spring.data.dataapi.domain.Product;
-import hha.spring.data.dataapi.domain.Users;
+import hha.spring.data.dataapi.domain.order.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.Temporal;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.TemporalType;
 
 import java.util.Date;
-import java.util.List;
-
-import static org.hibernate.type.descriptor.java.JdbcDateTypeDescriptor.DATE_FORMAT;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
