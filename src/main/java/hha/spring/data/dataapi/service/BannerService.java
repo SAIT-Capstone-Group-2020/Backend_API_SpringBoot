@@ -21,10 +21,10 @@ public class BannerService {
 
     @Autowired
     private BannerRepository bannerRepository;
-
+    /*
     public List<BannerItem> getAllBanner() {
         return bannerDao.getAllBannerInfo();
-    }
+    }*/
 
 
     public Banner findByUrl(String url) {

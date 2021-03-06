@@ -9,10 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@CrossOrigin
 @RestController
 public class WeightTypeController {
 
@@ -36,26 +38,27 @@ public class WeightTypeController {
 
     @PostMapping("/api/weighttype")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void add(@RequestBody WeightType weightType) {
-        service.saveWeightType(weightType);
+    public List<WeightType> add(@RequestBody WeightType weightType) {
+
+        return service.saveWeightType(weightType);
     }
 
     @PutMapping("/api/weighttype/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<?> update(@RequestBody WeightType weightType, @PathVariable int id) {
+    public List<WeightType> update(@RequestBody WeightType weightType, @PathVariable int id) {
         try {
             WeightType existWeightType = service.getWeightTypeById(id);
             weightType.setId(id);
-            service.saveWeightType(weightType);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return service.saveWeightType(weightType);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Weight Type not exists");
         }
     }
 
     @DeleteMapping("/api/weighttype/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void delete(@PathVariable int id) {
-        service.deleteWeightType(id);
+    public List<WeightType> delete(@PathVariable int id) {
+
+        return service.deleteWeightType(id);
     }
 }
