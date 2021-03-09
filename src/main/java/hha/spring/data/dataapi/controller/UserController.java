@@ -1,6 +1,5 @@
 package hha.spring.data.dataapi.controller;
 
-import hha.spring.data.dataapi.domain.Message;
 import hha.spring.data.dataapi.domain.Users;
 import hha.spring.data.dataapi.security.LoginDto;
 import hha.spring.data.dataapi.service.UserService;
@@ -15,7 +14,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 public class UserController {
 
@@ -23,14 +21,12 @@ public class UserController {
 	private UserService service;
 
 	@PostMapping("/api/admin/signin")
-	public Message login(@RequestBody LoginDto loginDto) {
+	public String login(@RequestBody LoginDto loginDto) {
 
 		//go to the sign in process and receive the token if there is no problem.
 		String token = service.adminSignIn(loginDto.getEmail(), loginDto.getPassword());
 
-		Message message = new Message("ok", token);
-
-		return message;
+		return token;
 	}
 
 	//request body should be json type({email: '', password: '', name: ''})
@@ -63,16 +59,14 @@ public class UserController {
 	}
 
 	@GetMapping("/api/admin/users/uuid")
-	public Message findUuidByEmail(@RequestParam("email") String email) {
+	public String findUuidByEmail(@RequestParam("email") String email) {
 		String uuid = service.findUuidByEmail(email);
 
 		if(uuid == null) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "UUID is null");
 		}
 
-		Message message = new Message("ok", uuid);
-
-		return message;
+		return uuid;
 	}
 
 	@GetMapping("/api/admin/users/list")

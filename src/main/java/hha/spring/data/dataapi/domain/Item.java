@@ -86,6 +86,7 @@ import java.io.Serializable;
                    +"AND pp.active = 1) AS s1"
 )*/
 
+@Table(name = "item")
 public class Item {
     @Id
     private int product_id;
