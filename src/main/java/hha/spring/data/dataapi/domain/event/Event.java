@@ -1,4 +1,4 @@
-package hha.spring.data.dataapi.domain;
+package hha.spring.data.dataapi.domain.event;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,17 +17,17 @@ public class Event {
     private Date startDate;
     @Column(name = "end_date")
     private Date endDate;
-    @Column(name = "event_type_id")
-    private int eventType;
     @Column(name = "description")
     private String description;
 
-    public Event(String title, Date startDate, Date endDate, int eventType, String description) {
+    public Event(String title, Date startDate, Date endDate, String description) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.eventType = eventType;
         this.description = description;
+    }
+
+    public Event() {
     }
 
     public int getId() {
@@ -60,14 +60,6 @@ public class Event {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
-    }
-
-    public int getEventType() {
-        return eventType;
-    }
-
-    public void setEventType(int eventType) {
-        this.eventType = eventType;
     }
 
     public String getDescription() {

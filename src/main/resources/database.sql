@@ -81,21 +81,7 @@ CREATE TABLE `product` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
--- 'Event_type' table
-
-DROP TABLE IF EXISTS `event_type`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `event_type` (
-                              `event_type_id` int(11) auto_increment NOT NULL,
-                              `event_type_name` varchar(45) NOT NULL,
-                              PRIMARY KEY (`event_type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-
 -- 'Event' table
-
 DROP TABLE IF EXISTS `event`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -105,10 +91,7 @@ CREATE TABLE `event` (
                          `start_date` date not null,
                          `end_date` date not null,
                          `description` longtext,
-                         `event_type_id` int(11) not null,
-                         PRIMARY KEY (`event_id`),
-                         KEY `fk_event_type_idx` (`event_type_id`),
-                         CONSTRAINT `fk_event_type` FOREIGN KEY (`event_type_id`) REFERENCES `event_type` (`event_type_id`) ON DELETE NO ACTION ON UPDATE CASCADE
+                         PRIMARY KEY (`event_id`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -124,7 +107,7 @@ CREATE TABLE `discount` (
                             `product_id` int(11) NOT NULL,
                             `event_id` int(11) NOT NULL,
                             `discount_price` float not null,
-                            `limit` int(11) not null,
+                            `discount_limit` int(11) not null,
                             PRIMARY KEY (`discount_id`),
                             KEY `fk_discount_product_idx` (`product_id`),
                             CONSTRAINT `fk_discount_product_idx` FOREIGN KEY (`product_id`) REFERENCES product (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
