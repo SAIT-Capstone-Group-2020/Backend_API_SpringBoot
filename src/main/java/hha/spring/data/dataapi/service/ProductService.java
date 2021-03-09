@@ -32,7 +32,7 @@ public class ProductService {
 		return repo.findByName(name);
 	}
 
-	public List<Product> addProduct(Product prod) {
+	public String addProduct(Product prod) {
 
 		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
 		//need to make feature upload image file to the cloud
@@ -43,10 +43,10 @@ public class ProductService {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 
-		return repo.findAll();
+		return "Successfully added";
 	}
 
-	public List<Product> addProductBulkOw(List<Product> prodList) {
+	public String addProductBulkOw(List<Product> prodList) {
 
 		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
 		//need to make feature upload image file to the cloud
@@ -89,10 +89,10 @@ public class ProductService {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 
-		return repo.findAll();
+		return "Successfully added";
 	}
 
-	public List<Product> addProductBulk(List<Product> prodList) {
+	public String addProductBulk(List<Product> prodList) {
 
 		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
 		//need to make feature upload image file to the cloud
@@ -121,7 +121,7 @@ public class ProductService {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 
-		return repo.findAll();
+		return "Successfully added";
 	}
 
 
@@ -129,7 +129,7 @@ public class ProductService {
 		return repo.findById(id);
 	}
 
-	public List<Product> removeProduct(Product prod) {
+	public String removeProduct(Product prod) {
 
 		try {
 			repo.delete(prod);
@@ -137,10 +137,10 @@ public class ProductService {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 
-		return repo.findAll();
+		return "Sccessfully removed";
 	}
 
-	public List<Product> editProduct(Product prod) {
+	public String editProduct(Product prod) {
 
 		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
 		//need to make feature upload image file to the cloud
@@ -151,7 +151,7 @@ public class ProductService {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 
-		return repo.findAll();
+		return "Successfully edited";
 	}
 
 	public Page<Product> searchProductsAdmin(String page, String prodName, String bran, String cate,String sort) {

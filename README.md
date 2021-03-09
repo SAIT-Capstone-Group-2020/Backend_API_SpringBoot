@@ -1,7 +1,7 @@
 # Backend_API_SpringBoot
 
 #Hosted Server
-- Heroku: https://hha-capstone.herokuapp.com
+- Heroku: https://capstone-hha.herokuapp.com
 - need to check if it is working when it is on sleep mode
 - If it causes a problem, we can change it to AWS ElasticBeanstalk or other cloud service
 

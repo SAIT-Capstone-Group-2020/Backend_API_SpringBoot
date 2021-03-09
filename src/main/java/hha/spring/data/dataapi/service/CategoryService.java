@@ -22,17 +22,11 @@ public class CategoryService {
         return repo.findById(id).get();
     }
 
-    public List<Category> saveCategory(Category category) {
-
+    public void saveCategory(Category category) {
         repo.save(category);
-
-        return repo.findAll();
     }
 
-    public List<Category> deleteCategory(int id) {
-
+    public void deleteCategory(int id) {
         repo.deleteById(id);
-
-        return repo.findAll();
     }
 }

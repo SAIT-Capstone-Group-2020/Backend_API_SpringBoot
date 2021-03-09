@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -25,20 +27,21 @@ import hha.spring.data.dataapi.domain.Category;
 import hha.spring.data.dataapi.domain.Product;
 import hha.spring.data.dataapi.service.BannerService;
 
+@RestController
 public class BannerController {
 
     @Autowired
     private BannerService bannerService;
-    /*
+
     @GetMapping("/api/admin/banner")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<BannerItem> get(){
         return bannerService.getAllBanner();
-    }*/
+    }
 
     @PostMapping("/api/admin/addBanner")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String addProduct(@RequestBody Banner banner,
+    public String addBanner(@RequestBody Banner banner,
                              HttpServletRequest request,MultipartFile upload) throws IllegalStateException, IOException {
 
         String path=request.getSession().getServletContext().getRealPath("/uploads/");
@@ -80,6 +83,19 @@ public class BannerController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
+    }
+    
+
+    @GetMapping("/api/custom/{id}")
+    public Banner getIndexBanner(@PathVariable int id){
+		return bannerService.getBannerById(id);
+    }
+    
+
+    @DeleteMapping("/api/admin/banner/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void delete(@PathVariable int id) {
+    	bannerService.deleteBanner(id);
     }
 
 }

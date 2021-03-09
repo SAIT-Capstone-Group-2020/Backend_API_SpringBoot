@@ -69,7 +69,7 @@ public class ProductController {
 	}
 
 	@PostMapping("/api/admin/product")
-	public List<Product> addProduct(@RequestBody Product prod) {
+	public String addProduct(@RequestBody Product prod) {
 
 		Product check = null;
 		check = service.findByName(prod.getName());
@@ -78,23 +78,29 @@ public class ProductController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product already exists");
 		}
 
-		return service.addProduct(prod);
+		String result = service.addProduct(prod);
+
+		return result;
 	}
 
 	@PutMapping("/api/admin/product/bulk")
-	public List<Product> addProductBulkOw(@RequestBody List<Product> prodList) {
+	public String addProductBulkOw(@RequestBody List<Product> prodList) {
 
-		return service.addProductBulkOw(prodList);
+		String result = service.addProductBulkOw(prodList);
+
+		return result;
 	}
 
 	@PostMapping("/api/admin/product/bulk")
-	public List<Product> addProductBulk(@RequestBody List<Product> prodList) {
+	public String addProductBulk(@RequestBody List<Product> prodList) {
 
-		return service.addProductBulk(prodList);
+		String result = service.addProductBulk(prodList);
+
+		return result;
 	}
 
 	@DeleteMapping("/api/admin/product")
-	public List<Product> removeProduct(@RequestParam("id") int id) {
+	public String removeProduct(@RequestParam("id") int id) {
 
 		Product check = null;
 		check = service.findById(id);
@@ -103,11 +109,13 @@ public class ProductController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product not exists");
 		}
 
-		return service.removeProduct(check);
+		String result = service.removeProduct(check);
+
+		return result;
 	}
 
 	@PutMapping("/api/admin/product")
-	public List<Product> removeProduct(@RequestBody Product prod){
+	public String removeProduct(@RequestBody Product prod){
 
 		Product check = null;
 		check = service.findById(prod.getId());
@@ -115,8 +123,10 @@ public class ProductController {
 		if(check == null) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product not exists");
 		}
-		return service.editProduct(prod);
 
+		String result = service.editProduct(prod);
+
+		return result;
 	}
 
 	//api/admin/product/search?term=something

@@ -2,8 +2,11 @@ package hha.spring.data.dataapi.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -13,6 +16,8 @@ import hha.spring.data.dataapi.domain.Product;
 import hha.spring.data.dataapi.repository.BannerItemRepository;
 import hha.spring.data.dataapi.repository.BannerRepository;
 
+@Service
+@Transactional
 public class BannerService {
 
     @Autowired
@@ -21,10 +26,10 @@ public class BannerService {
 
     @Autowired
     private BannerRepository bannerRepository;
-    /*
+
     public List<BannerItem> getAllBanner() {
         return bannerDao.getAllBannerInfo();
-    }*/
+    }
 
 
     public Banner findByUrl(String url) {
@@ -52,6 +57,12 @@ public class BannerService {
     public void saveBanner(Banner banner) {
         bannerRepository.save(banner);
     }
+
+
+	public void deleteBanner(int id) {
+		bannerRepository.deleteById(id);
+	}
+
 
 
 }

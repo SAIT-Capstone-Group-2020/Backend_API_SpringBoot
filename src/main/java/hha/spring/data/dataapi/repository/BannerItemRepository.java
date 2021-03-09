@@ -9,7 +9,7 @@ import hha.spring.data.dataapi.domain.BannerItem;
 
 public interface BannerItemRepository extends JpaRepository<BannerItem, Integer>{
 
-    /*
+
     @Query(nativeQuery = true, name = "allBannerInfoMapping")
-    public List<BannerItem> getAllBannerInfo();*/
+    public List<BannerItem> getAllBannerInfo();
 }
