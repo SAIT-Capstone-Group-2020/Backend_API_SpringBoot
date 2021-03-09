@@ -1,5 +1,6 @@
 package hha.spring.data.dataapi.controller;
 
+import hha.spring.data.dataapi.domain.Message;
 import hha.spring.data.dataapi.domain.Users;
 import hha.spring.data.dataapi.security.LoginDto;
 import hha.spring.data.dataapi.service.UserService;
@@ -22,12 +23,14 @@ public class UserController {
 	private UserService service;
 
 	@PostMapping("/api/admin/signin")
-	public String login(@RequestBody LoginDto loginDto) {
+	public Message login(@RequestBody LoginDto loginDto) {
 
 		//go to the sign in process and receive the token if there is no problem.
 		String token = service.adminSignIn(loginDto.getEmail(), loginDto.getPassword());
 
-		return token;
+		Message message = new Message("ok", token);
+
+		return message;
 	}
 
 	//request body should be json type({email: '', password: '', name: ''})
@@ -60,14 +63,16 @@ public class UserController {
 	}
 
 	@GetMapping("/api/admin/users/uuid")
-	public String findUuidByEmail(@RequestParam("email") String email) {
+	public Message findUuidByEmail(@RequestParam("email") String email) {
 		String uuid = service.findUuidByEmail(email);
 
 		if(uuid == null) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "UUID is null");
 		}
 
-		return uuid;
+		Message message = new Message("ok", uuid);
+
+		return message;
 	}
 
 	@GetMapping("/api/admin/users/list")

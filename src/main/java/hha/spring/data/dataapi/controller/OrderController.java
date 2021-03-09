@@ -22,9 +22,11 @@ public class OrderController {
     private OrderService service;
 
     @PostMapping("/api/customer/order")
-    public String checkOut(@RequestBody OrderDto order) {
+    public Message checkOut(@RequestBody OrderDto order) {
 
-        return service.checkOut(order);
+        Message message = new Message("ok", service.checkOut(order));
+
+        return message;
     }
 
     @GetMapping("/api/customer/order")
@@ -44,10 +46,11 @@ public class OrderController {
             @RequestParam(name="emai", required = false) String email,
             @RequestParam(name="name", required = false) String name,
             @RequestParam(name="sort", required = false) String sort,
-            @RequestParam(name="page", required = false) String page
+            @RequestParam(name="page", required = false) String page,
+            @RequestParam(name="pageSize", required = false) String pageSize
 
             ) {
-        return service.getOrders(status, orderDate, paidDate, category, product, phone, email, name, sort, page);
+        return service.getOrders(status, orderDate, paidDate, category, product, phone, email, name, sort, page, pageSize);
     }
 
     @GetMapping("/api/admin/order/{id}")
