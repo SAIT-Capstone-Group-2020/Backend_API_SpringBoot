@@ -124,20 +124,22 @@ public class OrderService {
 
     public Page<Order> getOrders(
             String status, String orderDate, String paidDate, String category, String product,
-            String phone, String email, String customerName, String sort, String page) {
+            String phone, String email, String customerName, String sort, String page, String pageSize) {
 
         String sortProp = "orders_id";
         String order = "desc";
         int pageNumber = 1;
+        int pageS=10;
 
         if ( page != null ) pageNumber = Integer.parseInt(page);
+        if( pageSize != null) pageS = Integer.parseInt(pageSize);
 
         if ( sort != null) {
             sortProp= sort.split(":")[0];
             order = sort.split(":")[1];
         }
 
-        Pageable pageable = PageRequest.of(pageNumber - 1, 10, Sort.Direction.fromString(order), sortProp);
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageS, Sort.Direction.fromString(order), sortProp);
 
         String stat = "";
         String cate = "";
