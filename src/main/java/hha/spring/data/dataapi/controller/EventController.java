@@ -48,14 +48,6 @@ public class EventController {
 		
 	  }
 	 
-		@PostMapping("/api/admin/product/bulk")
-		@PreAuthorize("hasRole('ROLE_ADMIN')")
-		public String addProductBulk(@RequestBody List<Event> eventList) {
-
-			String result = eventService.addEventBulk(eventList);
-
-			return result;
-		}
 		
 		  @GetMapping("/api/Event/{id}")
 		    public ResponseEntity<Event> get(@PathVariable int id) {
