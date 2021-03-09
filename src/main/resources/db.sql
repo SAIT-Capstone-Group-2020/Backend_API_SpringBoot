@@ -66,6 +66,9 @@ INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `event_type_id`, `
 ('2021 Feb 3rd week', '2021-02-15', '2021-02-21', 1, '2021 Feb 3rd week');
 INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `event_type_id`, `description`) VALUES
 ('2021 Feb 4th week', '2021-02-22', '2021-02-28', 1, '2021 Feb 4th week');
+INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `event_type_id`, `description`) VALUES
+('2021 Mar 1st week', '2021-03-01', '2021-03-06', 1, '2021 Mar 1st week');
+
 
 -- Discount
 -- apple
@@ -76,6 +79,9 @@ INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VAL
 (10, 2, 0.5, 50);
 INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
 (10, 3, 0.5, 50);
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
+(10, 4, 0.5, 50);
+
 
 -- Admin
 INSERT INTO `role_info` (`role`) VALUES ('ROLE_ADMIN');
@@ -84,13 +90,39 @@ DELETE FROM product WHERE product_id = 23 OR product_id = 24;
 UPDATE product SET category_id = 2 WHERE product_id = 3;
  */
 
-INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `event_type_id`, `description`) VALUES
-('2021 Mar 1st week', '2021-03-01', '2021-03-06', 1, '2021 Mar 1st week');
-INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
-(10, 4, 0.5, 50);
+-- 'Orders' table
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orders` (
+                          `orders_id` int(11) auto_increment NOT NULL,
+                          `order_date` date not null,
+                          `paid_date` date,
+                          `price_sum` double not null,
+                          `status` varchar(10) not null,
+                          `order_email` varchar(55),
+                          `order_phone` varchar(12),
+                          `order_name` varchar(25),
+                          PRIMARY KEY (`orders_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-insert into  `banner_type` (`banner_type_name`) values('holiday banner');
 
-insert into `home_banner` (`banner_image_url`,`banner_type`) values (
-   'c:/images/holiday.png',select banner_type_id from banner_type where `banner_type_name`='holiday banner'
-);
+-- 'Order_items' table
+
+DROP TABLE IF EXISTS `order_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `order_items` (
+                               `order_items_id` int(11) auto_increment NOT NULL,
+                               `total_price` double,
+                               `product_id` int(11) not null,
+                               `qty` int(11),
+                               `orders_id` int(11) not null,
+                               PRIMARY KEY (`order_items_id`),
+                               KEY `fk_order_item_product_idx` (`product_id`),
+                               CONSTRAINT `fk_order_item_product_idx` FOREIGN KEY (`product_id`) REFERENCES product (`product_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+                               KEY `fk_order_item_order_idx` (`orders_id`),
+                               CONSTRAINT `fk_order_item_order_idx` FOREIGN KEY (`orders_id`) REFERENCES orders (`orders_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
