@@ -1,4 +1,4 @@
-package hha.spring.data.dataapi.repository;
+package hha.spring.data.dataapi.repository.order;
 
 import hha.spring.data.dataapi.domain.order.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;

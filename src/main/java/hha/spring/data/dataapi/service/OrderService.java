@@ -3,9 +3,9 @@ import hha.spring.data.dataapi.domain.*;
 import hha.spring.data.dataapi.domain.order.*;
 import hha.spring.data.dataapi.email.EmailService;
 import hha.spring.data.dataapi.repository.ItemRepository;
-import hha.spring.data.dataapi.repository.OrderInfoRepository;
-import hha.spring.data.dataapi.repository.OrderItemRepository;
-import hha.spring.data.dataapi.repository.OrderRepository;
+import hha.spring.data.dataapi.repository.order.OrderInfoRepository;
+import hha.spring.data.dataapi.repository.order.OrderItemRepository;
+import hha.spring.data.dataapi.repository.order.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;

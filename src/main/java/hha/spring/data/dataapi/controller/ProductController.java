@@ -69,7 +69,7 @@ public class ProductController {
 	}
 
 	@PostMapping("/api/admin/product")
-	public String addProduct(@RequestBody Product prod) {
+	public List<Product> addProduct(@RequestBody Product prod) {
 
 		Product check = null;
 		check = service.findByName(prod.getName());
@@ -78,29 +78,17 @@ public class ProductController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product already exists");
 		}
 
-		String result = service.addProduct(prod);
-
-		return result;
-	}
-
-	@PutMapping("/api/admin/product/bulk")
-	public String addProductBulkOw(@RequestBody List<Product> prodList) {
-
-		String result = service.addProductBulkOw(prodList);
-
-		return result;
+		return service.addProduct(prod);
 	}
 
 	@PostMapping("/api/admin/product/bulk")
-	public String addProductBulk(@RequestBody List<Product> prodList) {
+	public List<Product> addProductBulk(@RequestBody List<Product> prodList) {
 
-		String result = service.addProductBulk(prodList);
-
-		return result;
+		return service.addProductBulk(prodList);
 	}
 
 	@DeleteMapping("/api/admin/product")
-	public String removeProduct(@RequestParam("id") int id) {
+	public List<Product> removeProduct(@RequestParam("id") int id) {
 
 		Product check = null;
 		check = service.findById(id);
@@ -109,13 +97,11 @@ public class ProductController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product not exists");
 		}
 
-		String result = service.removeProduct(check);
-
-		return result;
+		return service.removeProduct(check);
 	}
 
 	@PutMapping("/api/admin/product")
-	public String removeProduct(@RequestBody Product prod){
+	public List<Product> removeProduct(@RequestBody Product prod){
 
 		Product check = null;
 		check = service.findById(prod.getId());
@@ -123,10 +109,8 @@ public class ProductController {
 		if(check == null) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product not exists");
 		}
+		return service.editProduct(prod);
 
-		String result = service.editProduct(prod);
-
-		return result;
 	}
 
 	//api/admin/product/search?term=something
