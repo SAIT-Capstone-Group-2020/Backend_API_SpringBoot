@@ -11,13 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -33,36 +27,55 @@ public class BannerController {
     @Autowired
     private BannerService bannerService;
 
+
+    @PostMapping("/api/v2/admin/banner")
+    @PreAuthorize("permitAll()")
+
+    public Banner uploadBanner(@RequestBody Banner banner) {
+        bannerService.addBanner(banner);
+        if (banner.getBannerItems() != null) {
+            for (BannerItem bannerItem : banner.getBannerItems()) {
+                bannerItem.setData(null);
+            }
+        }
+        return banner;
+    }
+
+    @GetMapping("/api/v2/admin/banner/{id}")
+    public Banner findSingleBanner(@PathVariable int id) {
+        return bannerService.getBannerById(id);
+    }
+
     @GetMapping("/api/admin/banner")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<BannerItem> get(){
+    public List<Banner> listAllBanner() {
         return bannerService.getAllBanner();
     }
+
 
     @PostMapping("/api/admin/addBanner")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String addBanner(@RequestBody Banner banner,
-                             HttpServletRequest request,MultipartFile upload) throws IllegalStateException, IOException {
+                            HttpServletRequest request, MultipartFile upload) throws IllegalStateException, IOException {
 
-        String path=request.getSession().getServletContext().getRealPath("/uploads/");
+        String path = request.getSession().getServletContext().getRealPath("/uploads/");
 
-        File file=new File(path);
+        File file = new File(path);
 
-        if(!file.exists()) {
+        if (!file.exists()) {
             file.mkdirs();
         }
 
-        String fileName=upload.getOriginalFilename();
+        String fileName = upload.getOriginalFilename();
 
         Banner check = null;
-        check = bannerService.findByUrl(new StringBuffer(path).append(fileName).toString());
 
-        if(check != null) {
+        if (check != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Banner already exists");
         }
 
-        upload.transferTo(new File(path,fileName));
-        banner.setUrl(new StringBuffer(path).append(fileName).toString());
+        upload.transferTo(new File(path, fileName));
+//        banner.setUrl(new StringBuffer(path).append(fileName).toString());
 
         bannerService.addBanner(banner);
 
@@ -84,18 +97,18 @@ public class BannerController {
         }
 
     }
-    
+
 
     @GetMapping("/api/custom/{id}")
-    public Banner getIndexBanner(@PathVariable int id){
-		return bannerService.getBannerById(id);
+    public Banner getIndexBanner(@PathVariable int id) {
+        return bannerService.getBannerById(id);
     }
-    
+
 
     @DeleteMapping("/api/admin/banner/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void delete(@PathVariable int id) {
-    	bannerService.deleteBanner(id);
+        bannerService.deleteBanner(id);
     }
 
 }
