@@ -4,11 +4,13 @@ import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+<<<<<<< HEAD
 import org.springframework.stereotype.Service;
+=======
+import org.springframework.web.bind.annotation.GetMapping;
+>>>>>>> 01bda963616f4e6a2ae5af778129d61b8a33418e
 import org.springframework.web.server.ResponseStatusException;
 
 import hha.spring.data.dataapi.domain.Banner;
@@ -16,8 +18,6 @@ import hha.spring.data.dataapi.domain.BannerItem;
 import hha.spring.data.dataapi.repository.BannerItemRepository;
 import hha.spring.data.dataapi.repository.BannerRepository;
 
-@Service
-@Transactional
 public class BannerService {
 
     @Autowired
@@ -28,10 +28,17 @@ public class BannerService {
 
     @Autowired
     private BannerRepository bannerRepository;
+<<<<<<< HEAD
 
     public List<Banner> getAllBanner() {
         return bannerRepository.findAll();
     }
+=======
+    /*
+    public List<BannerItem> getAllBanner() {
+        return bannerDao.getAllBannerInfo();
+    }*/
+>>>>>>> 01bda963616f4e6a2ae5af778129d61b8a33418e
 
     @Autowired
     private BannerItemRepository bannerItemRepository;
@@ -76,8 +83,11 @@ public class BannerService {
     }
 
 
+<<<<<<< HEAD
     public void deleteBanner(int id) {
         bannerRepository.deleteById(id);
     }
 
+=======
+>>>>>>> 01bda963616f4e6a2ae5af778129d61b8a33418e
 }

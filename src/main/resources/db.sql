@@ -60,37 +60,40 @@ INSERT INTO `event_type` (`event_type_name`) VALUES ('weekly');
 INSERT INTO `event_type` (`event_type_name`) VALUES ('seasonal');
 
 -- Event
-INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `event_type_id`, `description`) VALUES
-('2021 Feb 2nd week', '2021-02-02', '2021-02-14', 1, '2021 Feb 2nd week');
-INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `event_type_id`, `description`) VALUES
-('2021 Feb 3rd week', '2021-02-15', '2021-02-21', 1, '2021 Feb 3rd week');
-INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `event_type_id`, `description`) VALUES
-('2021 Feb 4th week', '2021-02-22', '2021-02-28', 1, '2021 Feb 4th week');
+INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `description`) VALUES
+('2021 Mar 1st week', '2021-03-01', '2021-03-07 23:59:59', '2021 Mar 1st week');
+INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `description`) VALUES
+('2021 Mar 2nd week', '2021-03-08', '2021-03-14 23:59:59', '2021 Mar 2nd week');
+INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `description`) VALUES
+('2021 Mar 3rd week', '2021-03-15', '2021-02-21 23:59:59', '2021 Mar 3rd week');
+INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `description`) VALUES
+('2021 Mar 4th week', '2021-03-22', '2021-03-28 23:59:59', '2021 Mar 4th week');
+
 
 -- Discount
--- apple
 INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
 (9, 1, 0.3, 50);
--- banana
 INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
 (10, 2, 0.5, 50);
 INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
-(10, 3, 0.5, 50);
+(9, 3, 0.2, 50);
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
+(10, 4, 0.5, 50);
+
 
 -- Admin
 INSERT INTO `role_info` (`role`) VALUES ('ROLE_ADMIN');
 
 DELETE FROM product WHERE product_id = 23 OR product_id = 24;
 UPDATE product SET category_id = 2 WHERE product_id = 3;
+UPDATE event set end_date = '2099-12-31 23:59:59' WHERE event_id = 5;
+
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_limit`) VALUES
+(9, 5, 0.3, 50);
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_limit`) VALUES
+(40, 5, 1.3, 50);
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_limit`) VALUES
+(41, 5, 66.3, 50);
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_limit`) VALUES
+(42, 5, 4.3, 50);
  */
-
-INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `event_type_id`, `description`) VALUES
-('2021 Mar 1st week', '2021-03-01', '2021-03-06', 1, '2021 Mar 1st week');
-INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
-(10, 4, 0.5, 50);
-
-insert into  `banner_type` (`banner_type_name`) values('holiday banner');
-
-insert into `home_banner` (`banner_image_url`,`banner_type`) values (
-   'c:/images/holiday.png',select banner_type_id from banner_type where `banner_type_name`='holiday banner'
-);

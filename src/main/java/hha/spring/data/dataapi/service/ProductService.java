@@ -1,6 +1,5 @@
 package hha.spring.data.dataapi.service;
 
-import hha.spring.data.dataapi.domain.Item;
 import hha.spring.data.dataapi.domain.Product;
 import hha.spring.data.dataapi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.sql.Date;
 import java.util.List;
 
 
@@ -32,7 +30,7 @@ public class ProductService {
 		return repo.findByName(name);
 	}
 
-	public String addProduct(Product prod) {
+	public List<Product> addProduct(Product prod) {
 
 		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
 		//need to make feature upload image file to the cloud
@@ -43,10 +41,10 @@ public class ProductService {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 
-		return "Successfully added";
+		return repo.findAll();
 	}
 
-	public String addProductBulkOw(List<Product> prodList) {
+	public List<Product> addProductBulk(List<Product> prodList) {
 
 		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
 		//need to make feature upload image file to the cloud
@@ -55,20 +53,14 @@ public class ProductService {
 
 			for(int i=0; i <prodList.size(); i++) {
 
-				Product prod = repo.findByNameAndBrand(prodList.get(i).getName(), prodList.get(i).getBrand());
-				Product source = prodList.get(i);
-
-				if(prod != null) {
-
-					prod.setActive(source.isActive());
-					prod.setCategory(source.getCategory());
-					prod.setDescription(source.getDescription());
-					prod.setPrice(source.getPrice());
-					prod.setWeightValue(source.getWeightValue());
-					prod.setWeightType(source.getWeightType());
-					prod.setQuantity(source.getQuantity());
-
-					repo.save(prod);
+				if(prodList.get(i).getId() != 0) {
+					Product prod = repo.findById(prodList.get(i).getId());
+					if(prod != null) {
+						repo.save(prod);
+					}
+					else {
+						throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "wrong product id:"+ prodList.get(i).getId());
+					}
 				}
 
 				else {
@@ -89,47 +81,14 @@ public class ProductService {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 
-		return "Successfully added";
+		return repo.findAll();
 	}
-
-	public String addProductBulk(List<Product> prodList) {
-
-		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
-		//need to make feature upload image file to the cloud
-
-		try {
-
-			for(int i=0; i <prodList.size(); i++) {
-
-				System.out.println(prodList.get(i).getName());
-
-				if(repo.findByNameAndBrand(prodList.get(i).getName(), prodList.get(i).getBrand()) == null) {
-					repo.save(new Product(prodList.get(i).getName(),
-							prodList.get(i).getDescription(),
-							prodList.get(i).getBrand(),
-							prodList.get(i).getPrice(),
-							prodList.get(i).isActive(),
-							url,
-							prodList.get(i).getCategory(),
-							prodList.get(i).getQuantity(),
-							prodList.get(i).getWeightValue(),
-							prodList.get(i).getWeightType()));
-				}
-			}
-
-		} catch (Exception e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-		}
-
-		return "Successfully added";
-	}
-
 
 	public Product findById(int id) {
 		return repo.findById(id);
 	}
 
-	public String removeProduct(Product prod) {
+	public List<Product> removeProduct(Product prod) {
 
 		try {
 			repo.delete(prod);
@@ -137,10 +96,10 @@ public class ProductService {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 
-		return "Sccessfully removed";
+		return repo.findAll();
 	}
 
-	public String editProduct(Product prod) {
+	public List<Product> editProduct(Product prod) {
 
 		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
 		//need to make feature upload image file to the cloud
@@ -151,7 +110,7 @@ public class ProductService {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 
-		return "Successfully edited";
+		return repo.findAll();
 	}
 
 	public Page<Product> searchProductsAdmin(String page, String prodName, String bran, String cate,String sort) {
