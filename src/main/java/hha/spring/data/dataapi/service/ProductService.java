@@ -58,6 +58,9 @@ public class ProductService {
 					if(prod != null) {
 						repo.save(prod);
 					}
+					else {
+						throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "wrong product id:"+ prodList.get(i).getId());
+					}
 				}
 
 				else {

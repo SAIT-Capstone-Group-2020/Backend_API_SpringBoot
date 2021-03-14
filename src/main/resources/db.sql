@@ -61,13 +61,13 @@ INSERT INTO `event_type` (`event_type_name`) VALUES ('seasonal');
 
 -- Event
 INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `description`) VALUES
-('2021 Mar 1st week', '2021-03-01', '2021-03-07', '2021 Mar 1st week');
+('2021 Mar 1st week', '2021-03-01', '2021-03-07 23:59:59', '2021 Mar 1st week');
 INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `description`) VALUES
-('2021 Mar 2nd week', '2021-03-08', '2021-03-14', '2021 Mar 2nd week');
+('2021 Mar 2nd week', '2021-03-08', '2021-03-14 23:59:59', '2021 Mar 2nd week');
 INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `description`) VALUES
-('2021 Mar 3rd week', '2021-03-15', '2021-02-21', '2021 Mar 3rd week');
+('2021 Mar 3rd week', '2021-03-15', '2021-02-21 23:59:59', '2021 Mar 3rd week');
 INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `description`) VALUES
-('2021 Mar 4th week', '2021-03-22', '2021-03-28', '2021 Mar 4th week');
+('2021 Mar 4th week', '2021-03-22', '2021-03-28 23:59:59', '2021 Mar 4th week');
 
 
 -- Discount
@@ -86,4 +86,14 @@ INSERT INTO `role_info` (`role`) VALUES ('ROLE_ADMIN');
 
 DELETE FROM product WHERE product_id = 23 OR product_id = 24;
 UPDATE product SET category_id = 2 WHERE product_id = 3;
+UPDATE event set end_date = '2099-12-31 23:59:59' WHERE event_id = 5;
+
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_limit`) VALUES
+(9, 5, 0.3, 50);
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_limit`) VALUES
+(40, 5, 1.3, 50);
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_limit`) VALUES
+(41, 5, 66.3, 50);
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_limit`) VALUES
+(42, 5, 4.3, 50);
  */
