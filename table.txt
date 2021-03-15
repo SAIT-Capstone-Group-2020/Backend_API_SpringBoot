@@ -1,0 +1,18 @@
+create table home_banner
+(
+    id          int auto_increment
+        primary key,
+    banner_type varchar(255) null
+);
+
+create table banner_item
+(
+    id        int auto_increment
+        primary key,
+    object_id varchar(255) null,
+    url       varchar(255) null,
+    banner_id int          null,
+    constraint FK29suh7vqqd7lgbqjc51v9220d
+        foreign key (banner_id) references home_banner (id)
+);
+
