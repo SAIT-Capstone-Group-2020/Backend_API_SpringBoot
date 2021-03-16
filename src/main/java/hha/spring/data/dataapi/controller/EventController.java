@@ -15,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import hha.spring.data.dataapi.domain.event.Event;
 import hha.spring.data.dataapi.service.EventService;
-
 @CrossOrigin
 @RestController
 public class EventController {
@@ -97,4 +96,8 @@ public class EventController {
 		return eventService.deleteDiscount(eventId, id);
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9d94b5649a5ca5d3c48635bb3175b376517aeca8
