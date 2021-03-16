@@ -1,4 +1,4 @@
-package hha.spring.data.dataapi.domain.event;
+package hha.spring.data.dataapi.domain;
 
 import javax.persistence.*;
 
@@ -15,24 +15,15 @@ public class Discount {
     @Column(name = "event_id")
     private int eventId;
     @Column(name = "discount_price")
-    private double discountPrice;
-    @Column(name = "discount_limit")
+    private double dicountPrice;
+    @Column(name = "limit")
     private int limit;
 
-
-    public Discount(int productId, double discountPrice) {
-        this.productId = productId;
-        this.discountPrice = discountPrice;
-    }
-
-    public Discount(int productId, int eventId, double discountPrice, int limit) {
+    public Discount(int productId, int eventId, double dicountPrice, int limit) {
         this.productId = productId;
         this.eventId = eventId;
-        this.discountPrice = discountPrice;
+        this.dicountPrice = dicountPrice;
         this.limit = limit;
-    }
-
-    public Discount() {
     }
 
     public int getId() {
@@ -59,12 +50,12 @@ public class Discount {
         this.eventId = eventId;
     }
 
-    public double getDiscountPrice() {
-        return discountPrice;
+    public double getDicountPrice() {
+        return dicountPrice;
     }
 
-    public void setDiscountPrice(double dicountPrice) {
-        this.discountPrice = dicountPrice;
+    public void setDicountPrice(double dicountPrice) {
+        this.dicountPrice = dicountPrice;
     }
 
     public int getLimit() {

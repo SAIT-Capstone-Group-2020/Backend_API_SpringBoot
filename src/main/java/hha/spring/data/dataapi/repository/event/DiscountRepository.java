@@ -1,8 +1,10 @@
-package hha.spring.data.dataapi.repository.event;
+package hha.spring.data.dataapi.repository;
 
-import hha.spring.data.dataapi.domain.event.Discount;
-import hha.spring.data.dataapi.domain.event.EventItemDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface DiscountRepository extends JpaRepository<Discount, Integer> {
+import hha.spring.data.dataapi.domain.Event;
+
+
+public interface EventRepository extends JpaRepository<Event, Integer> {
+
 }
