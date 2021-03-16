@@ -96,8 +96,5 @@ public class EventController {
 		return eventService.deleteDiscount(eventId, id);
 	}
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 9d94b5649a5ca5d3c48635bb3175b376517aeca8
+

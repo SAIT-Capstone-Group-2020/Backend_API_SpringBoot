@@ -33,3 +33,8 @@ build/
 .vscode/
 
 *.jar
+
+### Credential ###
+AwsCredential.*
+
+application.properties
