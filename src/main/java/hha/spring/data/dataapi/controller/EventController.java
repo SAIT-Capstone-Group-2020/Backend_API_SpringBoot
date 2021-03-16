@@ -38,34 +38,6 @@ public class EventController {
 		if (check == null) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event not exists");
 		}
-<<<<<<< HEAD
-		 
-		 String result=eventService.editEvent(event);
-		 
-		return result;
-		
-	  }
-	 
-//		@PostMapping("/api/admin/product/bulk")
-//		@PreAuthorize("hasRole('ROLE_ADMIN')")
-//		public String addProductBulk(@RequestBody List<Event> eventList) {
-//
-//			String result = eventService.addEventBulk(eventList);
-//
-//			return result;
-//		}
-		
-		  @GetMapping("/api/Event/{id}")
-		    public ResponseEntity<Event> get(@PathVariable int id) {
-		        try {
-		            Event event = eventService.getEventById(id);
-		            return new ResponseEntity<Event>(event, HttpStatus.OK);
-		        } catch (NoSuchElementException e) {
-		            return new ResponseEntity<Event>(HttpStatus.NOT_FOUND);
-		        }
-		    }
-		
-=======
 
 		return eventService.editEvent(event);
 	}
@@ -125,5 +97,4 @@ public class EventController {
 		return eventService.deleteDiscount(eventId, id);
 	}
 
->>>>>>> 01bda963616f4e6a2ae5af778129d61b8a33418e
 }

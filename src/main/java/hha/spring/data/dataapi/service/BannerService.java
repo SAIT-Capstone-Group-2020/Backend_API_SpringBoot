@@ -6,17 +6,15 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-<<<<<<< HEAD
 import org.springframework.stereotype.Service;
-=======
-import org.springframework.web.bind.annotation.GetMapping;
->>>>>>> 01bda963616f4e6a2ae5af778129d61b8a33418e
 import org.springframework.web.server.ResponseStatusException;
 
 import hha.spring.data.dataapi.domain.Banner;
 import hha.spring.data.dataapi.domain.BannerItem;
 import hha.spring.data.dataapi.repository.BannerItemRepository;
 import hha.spring.data.dataapi.repository.BannerRepository;
+
+import javax.transaction.Transactional;
 
 public class BannerService {
 
@@ -28,21 +26,14 @@ public class BannerService {
 
     @Autowired
     private BannerRepository bannerRepository;
-<<<<<<< HEAD
+
 
     public List<Banner> getAllBanner() {
         return bannerRepository.findAll();
     }
-=======
-    /*
-    public List<BannerItem> getAllBanner() {
-        return bannerDao.getAllBannerInfo();
-    }*/
->>>>>>> 01bda963616f4e6a2ae5af778129d61b8a33418e
 
     @Autowired
     private BannerItemRepository bannerItemRepository;
-
 
     @Transactional
     public String addBanner(Banner banner) {
@@ -83,11 +74,8 @@ public class BannerService {
     }
 
 
-<<<<<<< HEAD
-    public void deleteBanner(int id) {
+   public void deleteBanner(int id) {
         bannerRepository.deleteById(id);
     }
 
-=======
->>>>>>> 01bda963616f4e6a2ae5af778129d61b8a33418e
 }
