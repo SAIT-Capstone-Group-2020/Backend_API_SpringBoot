@@ -35,6 +35,4 @@ build/
 *.jar
 
 ### Credential ###
-AwsCredential.*
-
 application.properties
