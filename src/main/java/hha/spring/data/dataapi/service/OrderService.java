@@ -248,7 +248,7 @@ public class OrderService {
         List<OrderItemDto> list = orderInfoRepo.listAllItem(id);
         Order order = orderRepo.findById(id);
 
-        OrderInfoDto orderInfo = new OrderInfoDto(order.getEmail(), order.getPhone(), order.getOrderName(), order.getId());
+        OrderInfoDto orderInfo = new OrderInfoDto(order.getEmail(), order.getPhone(), order.getOrderName(), order.getId(), order.getOrderDate(), order.getPaidDate(), order.getStatus());
         orderInfo.setItemList(list);
 
         return orderInfo;

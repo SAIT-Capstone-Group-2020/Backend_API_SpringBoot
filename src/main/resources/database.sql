@@ -117,6 +117,7 @@ CREATE TABLE `discount` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
+
 -- 'Orders' table
 DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -126,6 +127,8 @@ CREATE TABLE `orders` (
                           `order_date` date not null,
                           `paid_date` date,
                           `price_sum` double not null,
+                          `gst_sum` double AS (TRUNCATE(price_sum * 0.05, 2)),
+                          `sum` double AS (TRUNCATE(price_sum+gst_sum,2)),
                           `status` varchar(10) not null,
                           `order_email` varchar(55),
                           `order_phone` varchar(12),
@@ -143,6 +146,8 @@ DROP TABLE IF EXISTS `order_items`;
 CREATE TABLE `order_items` (
                                `order_items_id` int(11) auto_increment NOT NULL,
                                `total_price` double,
+                               `gst_sum` double AS (TRUNCATE(total_price * 0.05,2)),
+                               `sum` double AS (TRUNCATE(total_price+gst_sum, 2)),
                                `product_id` int(11) not null,
                                `qty` int(11),
                                `orders_id` int(11) not null,
@@ -153,7 +158,6 @@ CREATE TABLE `order_items` (
                                CONSTRAINT `fk_order_item_order_idx` FOREIGN KEY (`orders_id`) REFERENCES orders (`orders_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- 'users' table
