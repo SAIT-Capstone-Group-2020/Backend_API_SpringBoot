@@ -19,7 +19,9 @@ import java.util.List;
                         @ColumnResult(name = "quantity"),
                         @ColumnResult(name = "weight_value"),
                         @ColumnResult(name = "weight_type_name"),
-                        @ColumnResult(name = "total")
+                        @ColumnResult(name = "total"),
+                        @ColumnResult(name = "gst"),
+                        @ColumnResult(name = "order_sum")
 
                 }
         )
@@ -34,7 +36,9 @@ import java.util.List;
                 "oi.qty AS quantity, " +
                 "(p.weight_value*oi.qty) AS weight_value, " +
                 "wt.weight_type_name AS weight_type_name, " +
-                "oi.total_price AS total " +
+                "oi.total_price AS total, " +
+                "oi.gst_sum AS gst, " +
+                "oi.sum AS order_sum " +
                 "FROM orders AS o JOIN order_items AS oi on(o.orders_id = oi.orders_id) " +
                 "JOIN product AS p on(p.product_id = oi.product_id) " +
                 "JOIN weight_type AS wt on(wt.weight_type_id = p.weight_type_id) " +
@@ -56,6 +60,8 @@ public class OrderItemDto {
     private String weight_type_name;
 
     private double total;
+    private double gst;
+    private double order_sum;
 
     public OrderItemDto() {
 
@@ -141,6 +147,21 @@ public class OrderItemDto {
         this.total = total;
     }
 
+    public double getGst() {
+        return gst;
+    }
+
+    public void setGst(double gst) {
+        this.gst = gst;
+    }
+
+    public double getSum() {
+        return order_sum;
+    }
+
+    public void setSum(double sum) {
+        this.order_sum = sum;
+    }
 }
 
 

@@ -23,7 +23,7 @@ public class OrderController {
 
     @PostMapping("/api/customer/order")
     public Message checkOut(@RequestBody OrderDto order) {
-
+        //need to do other error test
         Message message = new Message("ok", service.checkOut(order));
 
         return message;

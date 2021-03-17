@@ -14,7 +14,10 @@ import java.net.URI;
 
 @Service
 public class AwsS3Service {
-    private String bucketName = "hhamedia";
+
+    //we need to set this as env environment, cause you were not able to share your access key
+    //So I made my own bucket in US_EAST_2 region
+    private String bucketName;
     private Region region = Region.US_EAST_2;
     private String aws_access_key_id;
     private String aws_secret_access_key;
@@ -31,7 +34,9 @@ public class AwsS3Service {
                 '}';
     }
 
-    public AwsS3Service(@Value("${AWS_ACCESS_KEY_ID}") String aws_access_key_id, @Value("${AWS_SECRET_ACCESS_KEY}") String aws_secret_access_key) {
+    public AwsS3Service(@Value("${AWS_ACCESS_KEY_ID}") String aws_access_key_id, @Value("${AWS_SECRET_ACCESS_KEY}") String aws_secret_access_key,
+                        @Value("${AWS_S3_BUCKET") String aws_s3_bucket) {
+        this.bucketName = aws_s3_bucket;
         this.aws_access_key_id = aws_access_key_id;
         this.aws_secret_access_key = aws_secret_access_key;
     }

@@ -7,13 +7,14 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import hha.spring.data.dataapi.domain.Banner;
 import hha.spring.data.dataapi.domain.BannerItem;
 import hha.spring.data.dataapi.repository.BannerItemRepository;
 import hha.spring.data.dataapi.repository.BannerRepository;
+
+import javax.transaction.Transactional;
 
 @Service
 public class BannerService {
@@ -33,7 +34,6 @@ public class BannerService {
 
     @Autowired
     private BannerItemRepository bannerItemRepository;
-
 
     @Transactional
     public String addBanner(Banner banner) {
@@ -74,7 +74,9 @@ public class BannerService {
     }
 
 
-    public void deleteBanner(int id) {
+
+   public void deleteBanner(int id) {
+
         bannerRepository.deleteById(id);
     }
 
