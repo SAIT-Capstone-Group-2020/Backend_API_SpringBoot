@@ -1,39 +1,69 @@
 package hha.spring.data.dataapi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "banner"})
+@Table
 @Entity
-@Table(name = "Home_banner")
 public class Banner {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
+    private String url;
+    private String objectId;
+    private String description;
+    private String title;
+
+    @ManyToOne
+    private Swipper swipper;
+
+    @Transient
+    private String data;
+
+    @Transient
+    private String fileName;
 
 
-    @Column(name = "banner_type")
-    private String type;
-
-
-    @JsonProperty(value = "items")
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "banner",cascade = CascadeType.ALL)
-    private List<BannerItem> bannerItems = new ArrayList<>();
-
-
-    public List<BannerItem> getBannerItems() {
-        return bannerItems;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBannerItems(List<BannerItem> bannerItems) {
-        this.bannerItems = bannerItems;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Swipper getSwipper() {
+        return swipper;
+    }
+
+    public void setSwipper(Swipper swipper) {
+        this.swipper = swipper;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 
     public Integer getId() {
@@ -44,19 +74,29 @@ public class Banner {
         this.id = id;
     }
 
-    /**
-     * @return the type
-     */
-    public String getType() {
-        return type;
+    public String getUrl() {
+        return url;
     }
 
-
-    /**
-     * @param type the type to set
-     */
-    public void setType(String type) {
-        this.type = type;
+    public void setUrl(String url) {
+        this.url = url;
     }
+
+    public Swipper getBanner() {
+        return swipper;
+    }
+
+    public void setBanner(Swipper swipper) {
+        this.swipper = swipper;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
 
 }
