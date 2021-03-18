@@ -17,7 +17,7 @@ public class Swipper {
     @Column(name = "id")
     private Integer id;
 
-    @Column(unique = true)
+    @Column()
     private String type;
 
 

@@ -3,7 +3,8 @@ package hha.spring.data.dataapi.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.auth.credentials.AwsCredentials;
-import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
+
+import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -44,8 +45,24 @@ public class AwsS3Service {
 
     @PostConstruct
     public void init() {
-        s3Client = S3Client.builder().region(region).build();
+        s3Client = S3Client.builder().credentialsProvider(new AwsCredentialsProvider() {
+            @Override
+            public AwsCredentials resolveCredentials() {
+                return new AwsCredentials() {
+                    @Override
+                    public String accessKeyId() {
+                        return aws_access_key_id;
+                    }
+
+                    @Override
+                    public String secretAccessKey() {
+                        return aws_secret_access_key;
+                    }
+                };
+            }
+        }).region(region).build();
     }
+
 
     public void upload(String key, byte[] data) {
         final PutObjectRequest request = PutObjectRequest.builder().bucket(bucketName).key(key).build();
