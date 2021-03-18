@@ -22,8 +22,16 @@ public class SwipperController {
     @GetMapping("/api/v2/ui/allswipper")
     public List<Swipper> getAllSwipper() {
         final ArrayList<Swipper> swippers = new ArrayList<>();
-        swippers.add(getSwipper("home"));
-        swippers.add(getSwipper("holiday"));
+        try {
+            swippers.add(getSwipper("home"));
+        } catch (Throwable throwable) {
+
+        }
+        try {
+            swippers.add(getSwipper("holiday"));
+        } catch (Throwable throwable) {
+
+        }
         //................
         return swippers;
     }
@@ -58,6 +66,7 @@ public class SwipperController {
         try {
             swipperService.saveSwipper(swipper);
         } catch (Exception exception) {
+            exception.printStackTrace();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getLocalizedMessage());
         }
     }
