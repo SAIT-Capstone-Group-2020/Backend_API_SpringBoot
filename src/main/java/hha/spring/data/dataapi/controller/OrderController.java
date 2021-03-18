@@ -47,10 +47,11 @@ public class OrderController {
             @RequestParam(name="name", required = false) String name,
             @RequestParam(name="sort", required = false) String sort,
             @RequestParam(name="page", required = false) String page,
-            @RequestParam(name="pageSize", required = false) String pageSize
+            @RequestParam(name="pageSize", required = false) String pageSize,
+            @RequestParam(name="all", required = false) String all
 
             ) {
-        return service.getOrders(status, orderDate, paidDate, category, product, phone, email, name, sort, page, pageSize);
+        return service.getOrders(status, orderDate, paidDate, category, product, phone, email, name, sort, page, pageSize, all);
     }
 
     @GetMapping("/api/admin/order/{id}")

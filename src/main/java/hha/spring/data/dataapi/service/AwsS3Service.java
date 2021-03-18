@@ -8,6 +8,7 @@ import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import sun.net.www.http.HttpClient;
 
@@ -45,7 +46,8 @@ public class AwsS3Service {
 
     @PostConstruct
     public void init() {
-        s3Client = S3Client.builder().credentialsProvider(new AwsCredentialsProvider() {
+        s3Client = S3Client.builder()
+                .credentialsProvider(new AwsCredentialsProvider() {
             @Override
             public AwsCredentials resolveCredentials() {
                 return new AwsCredentials() {
@@ -60,7 +62,8 @@ public class AwsS3Service {
                     }
                 };
             }
-        }).region(region).build();
+        })
+                .region(region).build();
     }
 
 
@@ -69,10 +72,9 @@ public class AwsS3Service {
         s3Client.putObject(request, RequestBody.fromBytes(data));
     }
 
-    public void uploadFile(String key, File file) {
-        final PutObjectRequest request = PutObjectRequest.builder().bucket(bucketName).key(key).build();
-        s3Client.putObject(request, RequestBody.fromFile(file));
+    public void delete(String key) {
+        final DeleteObjectRequest request = DeleteObjectRequest.builder().bucket(bucketName).key(key).build();
+        s3Client.deleteObject(request);
     }
-
 
 }

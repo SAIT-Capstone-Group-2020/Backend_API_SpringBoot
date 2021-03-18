@@ -107,9 +107,29 @@ public class UserService {
         return user;
     }
 
+    public Users adminDeActivate(Users user) {
+
+        UUID uuid = UUID.randomUUID();
+
+        user.setUuid(uuid.toString());
+        user.setActive(0);
+
+        userRepository.save(user);
+
+        return user;
+    }
+
+    public List<Users> deleteUser(Users user) {
+        userRepository.delete(user);
+
+        return findAllUsers();
+    }
+
     public List<Users> findAllUsers() {
         return userRepository.findAll();
     }
+
+    public Users findById(int id) {return userRepository.findById(id).get();}
 
     public String findUuidByEmail(String email) {return userRepository.findByEmail(email).getUuid();}
 

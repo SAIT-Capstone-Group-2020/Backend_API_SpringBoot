@@ -36,4 +36,3 @@ build/
 
 ### Credential ###
 application.properties
-application-environment.properties

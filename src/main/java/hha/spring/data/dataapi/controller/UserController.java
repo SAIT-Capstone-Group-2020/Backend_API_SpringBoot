@@ -62,6 +62,18 @@ public class UserController {
 		return user;
 	}
 
+	@PutMapping("/api/admin/users/{id}/deactivate")
+	public Users deactivateAdmin(@PathVariable(value="id") int id) {
+
+		Users user = service.findById(id);
+		if(user == null) {
+			new HttpServerErrorException(HttpStatus.BAD_REQUEST, "User not exists");
+		}
+
+		return service.adminDeActivate(user);
+	}
+
+
 	@GetMapping("/api/admin/users/uuid")
 	public Message findUuidByEmail(@RequestParam("email") String email) {
 		String uuid = service.findUuidByEmail(email);
@@ -73,6 +85,17 @@ public class UserController {
 		Message message = new Message("ok", uuid);
 
 		return message;
+	}
+
+	@DeleteMapping("/api/admin/users/{id}")
+	public List<Users> deleteAdmin(@PathVariable(value="id") int id) {
+
+		Users user = service.findById(id);
+		if(user == null) {
+			new HttpServerErrorException(HttpStatus.BAD_REQUEST, "User not exists");
+		}
+
+		return service.deleteUser(user);
 	}
 
 	@GetMapping("/api/admin/users/list")

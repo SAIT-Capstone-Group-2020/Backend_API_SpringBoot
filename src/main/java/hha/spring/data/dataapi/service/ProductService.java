@@ -140,14 +140,48 @@ public class ProductService {
 			int quantity,
 			double weightValue,
 			int weightType,
-			MultipartFile image_file
+			MultipartFile file
 	) {
 
-		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
-		//need to make feature upload image file to the cloud
-
 		try {
-			//repo.save(prod);
+			Product prod = repo.findById(id);
+
+			prod.setName(name);
+			prod.setDescription(description);
+			prod.setBrand(brand);
+			prod.setPrice(price);
+			prod.setActive(active);
+			prod.setCategory(category);
+			prod.setQuantity(quantity);
+			prod.setWeightValue(weightValue);
+			prod.setWeightType(weightType);
+
+			String url = "";
+
+			if(!file.isEmpty()) {
+
+				String key = prod.getImage().split("/")[3];
+				System.out.println(key);
+
+				if(!key.equals("dev_image.png")) s3.delete(key);
+
+				Long time = new Date().getTime();
+
+				String fileName = String.valueOf(time)+file.getOriginalFilename();
+
+				url = "https://" + s3.getBucketName() + ".s3." + s3.getRegionName() + ".amazonaws.com/" + fileName;
+
+				try {
+					s3.upload(fileName, file.getBytes());
+
+				} catch (IOException e) {
+					throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+				}
+
+				prod.setImage(url);
+			}
+
+			repo.save(prod);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
