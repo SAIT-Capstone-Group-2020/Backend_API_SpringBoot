@@ -1,5 +1,7 @@
 package hha.spring.data.dataapi.domain;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -17,7 +19,7 @@ public class Product {
 	@Column(name = "brand_name")
 	private String brand;
 	@Column(name = "retail_price")
-	private float price;
+	private double price;
 	@Column(name = "active")
 	private boolean active;
 	@Column(name = "image_url")
@@ -27,14 +29,26 @@ public class Product {
 	@Column(name = "quantity")
 	private int quantity;
 	@Column(name = "weight_value")
-	private String weightValue;
+	private double weightValue;
 	@Column(name = "weight_type_id")
 	private int weightType;
 
 	public Product() {
 	}
 
-	public Product(String name, String description, String brand, float price, boolean active, String image, int category, int quantity, String weightValue, int weightType) {
+	public Product(String name, String description, String brand, double price, int category, int quantity, double weightValue, int weightType) {
+		this.name = name;
+		this.description = description;
+		this.brand = brand;
+		this.price = price;
+		this.category = category;
+		this.quantity = quantity;
+		this.weightValue = weightValue;
+		this.weightType = weightType;
+	}
+
+
+	public Product(String name, String description, String brand, double price, boolean active, String image, int category, int quantity, double weightValue, int weightType) {
 		this.name = name;
 		this.description = description;
 		this.brand = brand;
@@ -79,7 +93,7 @@ public class Product {
 		this.brand = brand;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
@@ -119,11 +133,11 @@ public class Product {
 		this.quantity = quantity;
 	}
 
-	public String getWeightValue() {
+	public double getWeightValue() {
 		return weightValue;
 	}
 
-	public void setWeightValue(String weightValue) {
+	public void setWeightValue(double weightValue) {
 		this.weightValue = weightValue;
 	}
 

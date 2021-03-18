@@ -9,9 +9,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 
@@ -22,6 +27,9 @@ public class ProductService {
 	@Autowired
     private ProductRepository repo;
 
+	@Autowired
+	private AwsS3Service s3;
+
 	public List<Product> listAllProducts() {
 		return repo.findAll();
 	}
@@ -30,13 +38,34 @@ public class ProductService {
 		return repo.findByName(name);
 	}
 
-	public List<Product> addProduct(Product prod) {
+	public List<Product> addProduct(Product prod, MultipartFile file) {
 
-		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
-		//need to make feature upload image file to the cloud
+		String url = "";
+
+		if(file.isEmpty()) {
+			url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
+		}
+
+		else {
+			Long time = new Date().getTime();
+
+			String fileName = String.valueOf(time)+file.getOriginalFilename();
+
+			url = "https://" + s3.getBucketName() + ".s3." + s3.getRegionName() + ".amazonaws.com/" + fileName;
+
+			try {
+				s3.upload(fileName, file.getBytes());
+
+			} catch (IOException e) {
+				throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			}
+		}
+
+		prod.setActive(true);
+		prod.setImage(url);
 
 		try {
-			repo.save(new Product(prod.getName(), prod.getDescription(), prod.getBrand(), prod.getPrice(), prod.isActive(), url, prod.getCategory(), prod.getQuantity(), prod.getWeightValue(), prod.getWeightType()));
+			repo.save(prod);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
@@ -99,13 +128,26 @@ public class ProductService {
 		return repo.findAll();
 	}
 
-	public List<Product> editProduct(Product prod) {
+
+	public List<Product> editProduct(
+			int id,
+			String name,
+			String description,
+			String brand,
+			double price,
+			Boolean active,
+			int category,
+			int quantity,
+			double weightValue,
+			int weightType,
+			MultipartFile image_file
+	) {
 
 		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
 		//need to make feature upload image file to the cloud
 
 		try {
-			repo.save(prod);
+			//repo.save(prod);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
