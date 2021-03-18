@@ -2,11 +2,9 @@ package hha.spring.data.dataapi.controller;
 
 import hha.spring.data.dataapi.domain.Banner;
 import hha.spring.data.dataapi.domain.Swipper;
-import hha.spring.data.dataapi.repository.SwipperRepository;
 import hha.spring.data.dataapi.service.SwipperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -24,16 +22,19 @@ public class SwipperController {
      *
      * @return
      */
-    @GetMapping("/api/v2/ui/swipper/{type}")
-    public Swipper getSwipper(@PathVariable String type) {
+    @GetMapping("/api/v2/ui/swipper/{swipperName}")
+    public Swipper getSwipper(@PathVariable String swipperName) {
         try {
-            final Swipper homeSwipper = swipperService.getHomeSwipper();
-            if (homeSwipper.getBanners()!=null) {
-                for (Banner banner : homeSwipper.getBanners()) {
+            final Swipper swipper = swipperService.getSwipperByName(swipperName);
+            if (swipper == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            }
+            if (swipper.getBanners()!=null) {
+                for (Banner banner : swipper.getBanners()) {
                     banner.setSwipper(null);
                 }
             }
-            return homeSwipper;
+            return swipper;
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getLocalizedMessage());
         }

@@ -40,8 +40,8 @@ public class SwipperService {
         return home;
     }
 
-    public Swipper getXXXSwiper() {
-        throw new NotImplementedException();
+    public Swipper getSwipperByName(String swipperName) {
+        return swipperRepository.findFirstByTypeEqualsOrderByIdDesc(swipperName);
     }
 
 }
