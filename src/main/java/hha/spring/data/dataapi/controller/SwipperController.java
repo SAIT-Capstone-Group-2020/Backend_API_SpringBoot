@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * controller for get all information for swipper ui control in front-end
  */
@@ -16,6 +19,14 @@ public class SwipperController {
     @Autowired
     private SwipperService swipperService;
 
+    @GetMapping("/api/v2/ui/allswipper")
+    public List<Swipper> getAllSwipper() {
+        final ArrayList<Swipper> swippers = new ArrayList<>();
+        swippers.add(getSwipper("home"));
+        swippers.add(getSwipper("holiday"));
+        //................
+        return swippers;
+    }
     /**
      * if you want get all banner in a swipper at home page.
      * using https://xxx.heroku.com/api/v2/ui/swipper/home
