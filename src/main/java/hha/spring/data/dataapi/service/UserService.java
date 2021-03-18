@@ -99,7 +99,8 @@ public class UserService {
             return null;
         }
 
-        user.setUuid(null);
+        UUID newUuid = UUID.randomUUID();
+        user.setUuid(newUuid.toString());
         user.setActive(1);
 
         userRepository.save(user);
@@ -107,11 +108,16 @@ public class UserService {
         return user;
     }
 
-    public Users adminDeActivate(Users user) {
+    public Users adminDeActivate(String uuid) {
 
-        UUID uuid = UUID.randomUUID();
+        Users user = userRepository.findByUuid(uuid);
 
-        user.setUuid(uuid.toString());
+        if(user == null) {
+            return null;
+        }
+
+        UUID newUuid = UUID.randomUUID();
+        user.setUuid(newUuid.toString());
         user.setActive(0);
 
         userRepository.save(user);
@@ -119,7 +125,14 @@ public class UserService {
         return user;
     }
 
-    public List<Users> deleteUser(Users user) {
+    public List<Users> deleteUser(String uuid) {
+
+        Users user = userRepository.findByUuid(uuid);
+
+        if(user == null) {
+            return null;
+        }
+
         userRepository.delete(user);
 
         return findAllUsers();
@@ -129,7 +142,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Users findById(int id) {return userRepository.findById(id).get();}
+    public Users findByEmail(String email) {return userRepository.findByEmail(email);}
 
     public String findUuidByEmail(String email) {return userRepository.findByEmail(email).getUuid();}
 
