@@ -3,14 +3,17 @@ package hha.spring.data.dataapi.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.auth.credentials.AwsCredentials;
+
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import sun.net.www.http.HttpClient;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
@@ -22,7 +25,6 @@ public class AwsS3Service {
     private String aws_secret_access_key;
     private S3Client s3Client;
     private String regionName;
-
 
     public AwsS3Service(@Value("${AWS_ACCESS_KEY_ID}") String aws_access_key_id, @Value("${AWS_SECRET_ACCESS_KEY}") String aws_secret_access_key,
                         @Value("${AWS_S3_BUCKET}") String aws_s3_bucket,
@@ -44,7 +46,8 @@ public class AwsS3Service {
 
     @PostConstruct
     public void init() {
-        s3Client = S3Client.builder().credentialsProvider(new AwsCredentialsProvider() {
+        s3Client = S3Client.builder()
+                .credentialsProvider(new AwsCredentialsProvider() {
             @Override
             public AwsCredentials resolveCredentials() {
                 return new AwsCredentials() {
@@ -59,7 +62,8 @@ public class AwsS3Service {
                     }
                 };
             }
-        }).region(region).build();
+        })
+                .region(region).build();
     }
 
 
@@ -67,4 +71,10 @@ public class AwsS3Service {
         final PutObjectRequest request = PutObjectRequest.builder().bucket(bucketName).key(key).build();
         s3Client.putObject(request, RequestBody.fromBytes(data));
     }
+
+    public void delete(String key) {
+        final DeleteObjectRequest request = DeleteObjectRequest.builder().bucket(bucketName).key(key).build();
+        s3Client.deleteObject(request);
+    }
+
 }

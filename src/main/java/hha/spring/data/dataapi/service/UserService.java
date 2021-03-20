@@ -99,7 +99,8 @@ public class UserService {
             return null;
         }
 
-        user.setUuid(null);
+        UUID newUuid = UUID.randomUUID();
+        user.setUuid(newUuid.toString());
         user.setActive(1);
 
         userRepository.save(user);
@@ -107,9 +108,41 @@ public class UserService {
         return user;
     }
 
+    public Users adminDeActivate(String uuid) {
+
+        Users user = userRepository.findByUuid(uuid);
+
+        if(user == null) {
+            return null;
+        }
+
+        UUID newUuid = UUID.randomUUID();
+        user.setUuid(newUuid.toString());
+        user.setActive(0);
+
+        userRepository.save(user);
+
+        return user;
+    }
+
+    public List<Users> deleteUser(String uuid) {
+
+        Users user = userRepository.findByUuid(uuid);
+
+        if(user == null) {
+            return null;
+        }
+
+        userRepository.delete(user);
+
+        return findAllUsers();
+    }
+
     public List<Users> findAllUsers() {
         return userRepository.findAll();
     }
+
+    public Users findByEmail(String email) {return userRepository.findByEmail(email);}
 
     public String findUuidByEmail(String email) {return userRepository.findByEmail(email).getUuid();}
 

@@ -124,7 +124,7 @@ public class OrderService {
 
     public Page<Order> getOrders(
             String status, String orderDate, String paidDate, String category, String product,
-            String phone, String email, String customerName, String sort, String page, String pageSize) {
+            String phone, String email, String customerName, String sort, String page, String pageSize,String all) {
 
         String sortProp = "orders_id";
         String order = "desc";
@@ -133,6 +133,7 @@ public class OrderService {
 
         if ( page != null ) pageNumber = Integer.parseInt(page);
         if( pageSize != null) pageS = Integer.parseInt(pageSize);
+        if( all != null) pageS = 9999;
 
         if ( sort != null) {
             sortProp= sort.split(":")[0];
