@@ -158,7 +158,7 @@ public class OrderService {
         Date maxPaidDate = null;
 
              try {
-            minOrderDate = sdf.parse("2021-01-01");
+            minOrderDate = sdf.parse("2020-01-01");
             maxOrderDate = sdf.parse("3021-01-01");
             minPaidDate = sdf.parse("0000-00-00");
             maxPaidDate = sdf.parse("3021-01-01");

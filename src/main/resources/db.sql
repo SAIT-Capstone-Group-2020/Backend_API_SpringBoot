@@ -97,4 +97,3 @@ INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_li
 INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_limit`) VALUES
 (42, 5, 4.3, 50);
  */
-
