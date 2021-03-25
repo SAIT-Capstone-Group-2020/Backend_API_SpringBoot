@@ -222,22 +222,3 @@ CREATE TABLE `user_roles` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-
-create table banner_type
-(
-    banner_type_id int auto_increment
-        primary key,
-    banner_type varchar(20) null
-);
-
-create table home_banner
-(
-    home_banner_id int auto_increment
-        primary key,
-    event_id int null,
-    banner_image_url varchar(255) not null,
-    banner_type int not null,
-    constraint fk_home_banner_banner_idx
-        foreign key (banner_type) references banner_type (banner_type_id)
-);
-

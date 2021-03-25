@@ -1,54 +1,148 @@
 package hha.spring.data.dataapi.domain.ui;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import hha.spring.data.dataapi.domain.Product;
 
 import javax.persistence.*;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer"})
+@NamedNativeQueries(
+        {
+                @NamedNativeQuery(
+                        name = "HomeBanner.queryCurrentHomeBanner",
+                        query = "select product_id, product_name, description, banner_image_url from current_home_banner"
+                        , resultClass = CurrentPromotion.class,
+                        resultSetMapping = "map_to_current_home_banner"
+                ),
+                @NamedNativeQuery(
+                        name = "HomeBanner.queryCurrentHolidayBanner",
+                        query = "select product_id, banner_image_url from current_holiday_banner"
+                        , resultClass = CurrentHolidayBanner.class,
+                        resultSetMapping = "map_to_current_holiday_banner"
+                ),
+                @NamedNativeQuery(
+                        name = "HomeBanner.queryCurrentPromotion",
+                        query = "select product_id, product_name, retail_price, discount_price, banner_image_url from current_promotion"
+                        , resultClass = CurrentHolidayBanner.class,
+                        resultSetMapping = "map_to_current_promotion"
+                )
+        }
+)
+
+@SqlResultSetMappings({
+
+        @SqlResultSetMapping(
+                name = "map_to_current_promotion",
+                classes = @ConstructorResult(targetClass = CurrentPromotion.class,
+                        columns = {
+                                @ColumnResult(name = "product_id", type = Integer.class),
+                                @ColumnResult(name = "product_name", type = String.class),
+                                @ColumnResult(name = "retail_price", type = Double.class),
+                                @ColumnResult(name = "discount_price", type = Double.class),
+                                @ColumnResult(name = "banner_image_url", type = String.class)
+
+                        })
+        ),
+        @SqlResultSetMapping(
+                name = "map_to_current_holiday_banner",
+                classes = @ConstructorResult(
+                        targetClass = CurrentHolidayBanner.class,
+                        columns = {
+                                @ColumnResult(name = "product_id", type = Integer.class),
+                                @ColumnResult(name = "banner_image_url", type = String.class)
+                        }
+                )
+        ),
+        @SqlResultSetMapping(
+                name = "map_to_current_home_banner",
+                classes = @ConstructorResult(
+                        targetClass = CurrentHomeBanner.class,
+                        columns = {
+                                @ColumnResult(name = "product_id", type = Integer.class),
+                                @ColumnResult(name = "product_name", type = String.class),
+                                @ColumnResult(name = "description", type = String.class),
+                                @ColumnResult(name = "banner_image_url", type = String.class)
+                        }
+                )
+        )
+})
+
 @Entity
 @Table(name = "home_banner")
 public class HomeBanner {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "home_banner_id")
-    public Integer id;
-    @Basic
-    public Integer event_id;
-    @Basic
-    public String banner_image_url;
-    @Basic
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    public Integer banner_type;
+    private Integer homeBannerId;
 
-    public Integer getId() {
-        return id;
+    @Column(name = "banner_image_url")
+    private String bannerImageUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "banner_type", nullable = false)
+    private BannerType bannerType;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @Column(name = "start_data")
+    private java.sql.Date startData;
+
+    @Column(name = "end_data")
+    private java.sql.Date endData;
+
+
+    public Integer getHomeBannerId() {
+        return homeBannerId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setHomeBannerId(Integer homeBannerId) {
+        this.homeBannerId = homeBannerId;
     }
 
-    public Integer getEvent_id() {
-        return event_id;
+
+    public String getBannerImageUrl() {
+        return bannerImageUrl;
     }
 
-    public void setEvent_id(Integer event_id) {
-        this.event_id = event_id;
+    public void setBannerImageUrl(String bannerImageUrl) {
+        this.bannerImageUrl = bannerImageUrl;
     }
 
-    public String getBanner_image_url() {
-        return banner_image_url;
+
+    public BannerType getBannerType() {
+        return bannerType;
     }
 
-    public void setBanner_image_url(String banner_image_url) {
-        this.banner_image_url = banner_image_url;
+    public void setBannerType(BannerType bannerType) {
+        this.bannerType = bannerType;
     }
 
-    public Integer getBanner_type() {
-        return banner_type;
+
+    public Product getProduct() {
+        return product;
     }
 
-    public void setBanner_type(Integer banner_type) {
-        this.banner_type = banner_type;
+    public void setProduct(Product productId) {
+        this.product = productId;
     }
+
+
+    public java.sql.Date getStartData() {
+        return startData;
+    }
+
+    public void setStartData(java.sql.Date startData) {
+        this.startData = startData;
+    }
+
+
+    public java.sql.Date getEndData() {
+        return endData;
+    }
+
+    public void setEndData(java.sql.Date endData) {
+        this.endData = endData;
+    }
+
 }
