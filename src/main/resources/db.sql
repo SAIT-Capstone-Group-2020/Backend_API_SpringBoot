@@ -19,7 +19,7 @@
 
 USE `hha` ;
 
-/*
+
 -- Category
 INSERT INTO `category` (`category_name`) VALUES ('meat');
 INSERT INTO `category` (`category_name`) VALUES ('produce');
@@ -56,8 +56,8 @@ INSERT INTO `product` (`product_name`, `description`, `retail_price`, `active`, 
 
 
 -- Event_type
-INSERT INTO `event_type` (`event_type_name`) VALUES ('weekly');
-INSERT INTO `event_type` (`event_type_name`) VALUES ('seasonal');
+# INSERT INTO `event_type` (`event_type_name`) VALUES ('weekly');
+# INSERT INTO `event_type` (`event_type_name`) VALUES ('seasonal');
 
 -- Event
 INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `description`) VALUES
@@ -71,13 +71,13 @@ INSERT INTO `event` (`event_title`, `start_date`, `end_date`, `description`) VAL
 
 
 -- Discount
-INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_limit`) VALUES
 (9, 1, 0.3, 50);
-INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_limit`) VALUES
 (10, 2, 0.5, 50);
-INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_limit`) VALUES
 (9, 3, 0.2, 50);
-INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `limit`) VALUES
+INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_limit`) VALUES
 (10, 4, 0.5, 50);
 
 
@@ -96,4 +96,3 @@ INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_li
 (41, 5, 66.3, 50);
 INSERT INTO `discount` (`product_id`, `event_id`, `discount_price`, `discount_limit`) VALUES
 (42, 5, 4.3, 50);
- */
