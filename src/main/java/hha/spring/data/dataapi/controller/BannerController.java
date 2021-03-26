@@ -3,6 +3,7 @@ package hha.spring.data.dataapi.controller;
 import hha.spring.data.dataapi.domain.ui.CurrentHolidayBanner;
 import hha.spring.data.dataapi.domain.ui.CurrentHomeBanner;
 import hha.spring.data.dataapi.domain.ui.CurrentPromotion;
+import hha.spring.data.dataapi.repository.HomeBannerRepository;
 import hha.spring.data.dataapi.service.BannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,5 +30,14 @@ public class BannerController {
         result.put("holiday", currentHolidayBanner);
         result.put("promotion", currentPromotion);
         return result;
+    }
+
+    @GetMapping("/api/v2/ui/allbanner_tf")
+    public HashMap<String, Object> getAllBannerTest() {
+        final HashMap<String, Object> map = new HashMap<>();
+        map.put("home", bannerService.findTFCurrentHomeBanner());
+        map.put("holiday", bannerService.findTFCurrentHolidayBanner());
+        map.put("promotion", bannerService.findCurrentPromotion());
+        return map;
     }
 }
