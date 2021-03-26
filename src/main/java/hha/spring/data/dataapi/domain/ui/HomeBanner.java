@@ -1,6 +1,8 @@
 package hha.spring.data.dataapi.domain.ui;
 
 import hha.spring.data.dataapi.domain.Product;
+import hha.spring.data.dataapi.domain.ui.tf.TfCurrHoliday;
+import hha.spring.data.dataapi.domain.ui.tf.TfCurrHomeBanner;
 
 import javax.persistence.*;
 
@@ -23,7 +25,20 @@ import javax.persistence.*;
                         query = "select product_id, product_name, retail_price, discount_price, banner_image_url from current_promotion"
                         , resultClass = CurrentHolidayBanner.class,
                         resultSetMapping = "map_to_current_promotion"
+                ),
+                @NamedNativeQuery(
+                        name = "HomeBanner.queryTFCurrentHomeBanner",
+                        query = "select title, description, banner_image_url from tf_curr_home_banner"
+                        , resultClass = TfCurrHomeBanner.class,
+                        resultSetMapping = "map_to_tf_current_home_banner"
+                ),
+                @NamedNativeQuery(
+                        name = "HomeBanner.queryTFCurrentHolidayBanner",
+                        query = "select banner_image_url from tf_curr_holiday"
+                        , resultClass = TfCurrHoliday.class,
+                        resultSetMapping = "map_to_tf_current_holiday_banner"
                 )
+
         }
 )
 
@@ -59,6 +74,26 @@ import javax.persistence.*;
                                 @ColumnResult(name = "product_id", type = Integer.class),
                                 @ColumnResult(name = "product_name", type = String.class),
                                 @ColumnResult(name = "description", type = String.class),
+                                @ColumnResult(name = "banner_image_url", type = String.class)
+                        }
+                )
+        ),
+        @SqlResultSetMapping(
+                name = "map_to_tf_current_home_banner",
+                classes = @ConstructorResult(
+                        targetClass = TfCurrHomeBanner.class,
+                        columns = {
+                                @ColumnResult(name = "title", type = String.class),
+                                @ColumnResult(name = "description", type = String.class),
+                                @ColumnResult(name = "banner_image_url", type = String.class)
+                        }
+                )
+        ),
+        @SqlResultSetMapping(
+                name = "map_to_tf_current_holiday_banner",
+                classes = @ConstructorResult(
+                        targetClass = TfCurrHoliday.class,
+                        columns = {
                                 @ColumnResult(name = "banner_image_url", type = String.class)
                         }
                 )
