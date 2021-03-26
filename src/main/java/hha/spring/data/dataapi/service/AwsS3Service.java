@@ -25,7 +25,7 @@ public class AwsS3Service {
     private String aws_secret_access_key;
     private S3Client s3Client;
     private String regionName;
-/*
+
     public AwsS3Service(@Value("${AWS_ACCESS_KEY_ID}") String aws_access_key_id, @Value("${AWS_SECRET_ACCESS_KEY}") String aws_secret_access_key,
                         @Value("${AWS_S3_BUCKET}") String aws_s3_bucket,
                         @Value("${AWS_S3_REGION}") String aws_s3_region) {
@@ -34,16 +34,7 @@ public class AwsS3Service {
         this.aws_secret_access_key = aws_secret_access_key;
         this.region = Region.of(aws_s3_region);
         this.regionName = aws_s3_region;
-    }*/
-
-    public AwsS3Service(
-                        @Value("${AWS_S3_BUCKET}") String aws_s3_bucket,
-                        @Value("${AWS_S3_REGION}") String aws_s3_region) {
-        this.bucketName = aws_s3_bucket;
-        this.aws_access_key_id = aws_access_key_id;
-        this.aws_secret_access_key = aws_secret_access_key;
-        this.region = Region.of(aws_s3_region);
-        this.regionName = aws_s3_region; }
+    }
 
     public String getBucketName() {
         return bucketName;
@@ -56,7 +47,7 @@ public class AwsS3Service {
     @PostConstruct
     public void init() {
         s3Client = S3Client.builder()
-                /*      .credentialsProvider(new AwsCredentialsProvider() {
+                      .credentialsProvider(new AwsCredentialsProvider() {
                   @Override
                   public AwsCredentials resolveCredentials() {
                       return new AwsCredentials() {
@@ -71,7 +62,7 @@ public class AwsS3Service {
                           }
                       };
                   }
-              }) */
+              })
                 .region(region).build();
     }
 
