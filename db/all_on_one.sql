@@ -184,7 +184,7 @@ CREATE TABLE `home_banner` (
   KEY `home_banner` (`product_id`),
   CONSTRAINT `fk_home_banner_banner_idx` FOREIGN KEY (`banner_type`) REFERENCES `banner_type` (`banner_type_id`),
   CONSTRAINT `home_banner_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,7 +193,7 @@ CREATE TABLE `home_banner` (
 
 LOCK TABLES `home_banner` WRITE;
 /*!40000 ALTER TABLE `home_banner` DISABLE KEYS */;
-INSERT INTO `home_banner` VALUES (2,'https://hhamedia.s3.us-east-2.amazonaws.com/455f25cd-d623-4d7d-8b8e-e81056776100.jfif',1,10,'2021-03-23','2021-03-30'),(3,'https://hhamedia.s3.us-east-2.amazonaws.com/455f25cd-d623-4d7d-8b8e-e81056776100.jfif',1,9,'2021-03-23','2021-03-30'),(4,'https://hhamedia.s3.us-east-2.amazonaws.com/455f25cd-d623-4d7d-8b8e-e81056776100.jfif',2,1,'2021-03-23','2021-03-30');
+INSERT INTO `home_banner` VALUES (2,'https://hhamedia.s3.us-east-2.amazonaws.com/455f25cd-d623-4d7d-8b8e-e81056776100.jfif',1,10,'2021-03-23','2021-03-30'),(3,'https://hhamedia.s3.us-east-2.amazonaws.com/455f25cd-d623-4d7d-8b8e-e81056776100.jfif',1,9,'2021-03-23','2021-03-30'),(4,'https://hhamedia.s3.us-east-2.amazonaws.com/455f25cd-d623-4d7d-8b8e-e81056776100.jfif',2,1,'2021-03-23','2021-03-30'),(5,'https://hhamedia.s3.us-east-2.amazonaws.com/455f25cd-d623-4d7d-8b8e-e81056776100.jfif',3,1,NULL,NULL);
 /*!40000 ALTER TABLE `home_banner` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,6 +322,130 @@ INSERT INTO `role_info` VALUES (1,'ROLE_ADMIN');
 UNLOCK TABLES;
 
 --
+-- Temporary view structure for view `tf_curr_holiday`
+--
+
+DROP TABLE IF EXISTS `tf_curr_holiday`;
+/*!50001 DROP VIEW IF EXISTS `tf_curr_holiday`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `tf_curr_holiday` AS SELECT 
+ 1 AS `banner_image_url`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `tf_curr_home_banner`
+--
+
+DROP TABLE IF EXISTS `tf_curr_home_banner`;
+/*!50001 DROP VIEW IF EXISTS `tf_curr_home_banner`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `tf_curr_home_banner` AS SELECT 
+ 1 AS `title`,
+ 1 AS `description`,
+ 1 AS `banner_image_url`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `tf_curr_promotion`
+--
+
+DROP TABLE IF EXISTS `tf_curr_promotion`;
+/*!50001 DROP VIEW IF EXISTS `tf_curr_promotion`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `tf_curr_promotion` AS SELECT 
+ 1 AS `product_id`,
+ 1 AS `product_name`,
+ 1 AS `retail_price`,
+ 1 AS `discount_price`,
+ 1 AS `banner_image_url`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `tf_holiday_banner`
+--
+
+DROP TABLE IF EXISTS `tf_holiday_banner`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tf_holiday_banner` (
+  `holiday_banner_id` int NOT NULL AUTO_INCREMENT,
+  `banner_image_url` varchar(255) NOT NULL,
+  `begin_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `comment` varchar(255) DEFAULT NULL COMMENT 'Comment for management',
+  PRIMARY KEY (`holiday_banner_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='test feature for holiday banner';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tf_holiday_banner`
+--
+
+LOCK TABLES `tf_holiday_banner` WRITE;
+/*!40000 ALTER TABLE `tf_holiday_banner` DISABLE KEYS */;
+INSERT INTO `tf_holiday_banner` VALUES (1,'yyy.jpg','2021-03-23','2021-03-31','for test');
+/*!40000 ALTER TABLE `tf_holiday_banner` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tf_home_banner`
+--
+
+DROP TABLE IF EXISTS `tf_home_banner`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tf_home_banner` (
+  `home_banner_id` int NOT NULL AUTO_INCREMENT,
+  `begin_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `comment` varchar(255) DEFAULT NULL COMMENT 'Comment for management',
+  PRIMARY KEY (`home_banner_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='test feature for home banner';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tf_home_banner`
+--
+
+LOCK TABLES `tf_home_banner` WRITE;
+/*!40000 ALTER TABLE `tf_home_banner` DISABLE KEYS */;
+INSERT INTO `tf_home_banner` VALUES (1,'2021-03-25','2021-03-31','Test');
+/*!40000 ALTER TABLE `tf_home_banner` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tf_home_banner_item`
+--
+
+DROP TABLE IF EXISTS `tf_home_banner_item`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tf_home_banner_item` (
+  `home_banner_item_id` int NOT NULL AUTO_INCREMENT,
+  `home_banner_id` int NOT NULL,
+  `banner_image_url` varchar(255) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`home_banner_item_id`),
+  KEY `home_banner_id` (`home_banner_id`),
+  CONSTRAINT `tf_home_banner_item_ibfk_1` FOREIGN KEY (`home_banner_id`) REFERENCES `tf_home_banner` (`home_banner_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='test feature for home banner item';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tf_home_banner_item`
+--
+
+LOCK TABLES `tf_home_banner_item` WRITE;
+/*!40000 ALTER TABLE `tf_home_banner_item` DISABLE KEYS */;
+INSERT INTO `tf_home_banner_item` VALUES (1,1,'xxxxxxxx.jpg','test title','test descr'),(2,1,'2222222222.jpg','test title2','test descr2');
+/*!40000 ALTER TABLE `tf_home_banner_item` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -441,12 +565,66 @@ UNLOCK TABLES;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`dev`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `current_promotion` AS select `p`.`product_id` AS `product_id`,`p`.`product_name` AS `product_name`,`p`.`retail_price` AS `retail_price`,`d`.`discount_price` AS `discount_price`,`hb`.`banner_image_url` AS `banner_image_url` from (((`event` `e` join `discount` `d` on((`e`.`event_id` = `d`.`event_id`))) join `product` `p` on((`d`.`product_id` = `p`.`product_id`))) join `home_banner` `hb` on((`p`.`product_id` = `hb`.`product_id`))) where ((`e`.`start_date` <= curdate()) and (curdate() <= `e`.`end_date`)) */;
+/*!50001 VIEW `current_promotion` AS select `p`.`product_id` AS `product_id`,`p`.`product_name` AS `product_name`,`p`.`retail_price` AS `retail_price`,`d`.`discount_price` AS `discount_price`,`p`.`image_url` AS `banner_image_url` from ((`event` `e` join `discount` `d` on((`e`.`event_id` = `d`.`event_id`))) join `product` `p` on((`d`.`product_id` = `p`.`product_id`))) where ((`e`.`start_date` <= curdate()) and (curdate() <= `e`.`end_date`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `tf_curr_holiday`
+--
+
+/*!50001 DROP VIEW IF EXISTS `tf_curr_holiday`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`dev`@`%` SQL SECURITY DEFINER */
+/*!50001 VIEW `tf_curr_holiday` AS select `tf_holiday_banner`.`banner_image_url` AS `banner_image_url` from `tf_holiday_banner` where ((`tf_holiday_banner`.`begin_date` <= curdate()) and (`tf_holiday_banner`.`end_date` >= curdate())) order by `tf_holiday_banner`.`begin_date` desc limit 1 */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `tf_curr_home_banner`
+--
+
+/*!50001 DROP VIEW IF EXISTS `tf_curr_home_banner`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`dev`@`%` SQL SECURITY DEFINER */
+/*!50001 VIEW `tf_curr_home_banner` AS select `hbi`.`title` AS `title`,`hbi`.`description` AS `description`,`hbi`.`banner_image_url` AS `banner_image_url` from (`tf_home_banner_item` `hbi` join `tf_home_banner` `thb` on((`hbi`.`home_banner_id` = `thb`.`home_banner_id`))) where ((`thb`.`begin_date` <= curdate()) and (`thb`.`end_date` >= curdate())) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `tf_curr_promotion`
+--
+
+/*!50001 DROP VIEW IF EXISTS `tf_curr_promotion`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`dev`@`%` SQL SECURITY DEFINER */
+/*!50001 VIEW `tf_curr_promotion` AS select `p`.`product_id` AS `product_id`,`p`.`product_name` AS `product_name`,`p`.`retail_price` AS `retail_price`,`d`.`discount_price` AS `discount_price`,`p`.`image_url` AS `banner_image_url` from ((`event` `e` join `discount` `d` on((`e`.`event_id` = `d`.`event_id`))) join `product` `p` on((`d`.`product_id` = `p`.`product_id`))) where ((`e`.`start_date` <= curdate()) and (curdate() <= `e`.`end_date`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -460,4 +638,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-25 21:16:44
+-- Dump completed on 2021-03-26 11:42:14
