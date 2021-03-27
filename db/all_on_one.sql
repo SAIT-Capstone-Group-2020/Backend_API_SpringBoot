@@ -100,11 +100,14 @@ DROP TABLE IF EXISTS `current_promotion`;
 SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `current_promotion` AS SELECT 
+ 1 AS `event_id`,
+ 1 AS `description`,
+ 1 AS `banner_image_url`,
  1 AS `product_id`,
  1 AS `product_name`,
  1 AS `retail_price`,
  1 AS `discount_price`,
- 1 AS `banner_image_url`*/;
+ 1 AS `product_image_url`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -364,6 +367,31 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Table structure for table `tf_event_banner`
+--
+
+DROP TABLE IF EXISTS `tf_event_banner`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tf_event_banner` (
+  `event_id` int NOT NULL,
+  `image_url` varchar(255) NOT NULL,
+  PRIMARY KEY (`event_id`),
+  CONSTRAINT `tf_event_banner_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tf_event_banner`
+--
+
+LOCK TABLES `tf_event_banner` WRITE;
+/*!40000 ALTER TABLE `tf_event_banner` DISABLE KEYS */;
+INSERT INTO `tf_event_banner` VALUES (4,'image_for_promotion.png');
+/*!40000 ALTER TABLE `tf_event_banner` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tf_holiday_banner`
 --
 
@@ -570,7 +598,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`dev`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `current_promotion` AS select `p`.`product_id` AS `product_id`,`p`.`product_name` AS `product_name`,`p`.`retail_price` AS `retail_price`,`d`.`discount_price` AS `discount_price`,`p`.`image_url` AS `banner_image_url` from ((`event` `e` join `discount` `d` on((`e`.`event_id` = `d`.`event_id`))) join `product` `p` on((`d`.`product_id` = `p`.`product_id`))) where ((`e`.`start_date` <= curdate()) and (curdate() <= `e`.`end_date`)) */;
+/*!50001 VIEW `current_promotion` AS select `e`.`event_id` AS `event_id`,`e`.`description` AS `description`,`teb`.`image_url` AS `banner_image_url`,`p`.`product_id` AS `product_id`,`p`.`product_name` AS `product_name`,`p`.`retail_price` AS `retail_price`,`d`.`discount_price` AS `discount_price`,`p`.`image_url` AS `product_image_url` from (((`event` `e` join `discount` `d` on((`e`.`event_id` = `d`.`event_id`))) join `product` `p` on((`d`.`product_id` = `p`.`product_id`))) left join `tf_event_banner` `teb` on((`teb`.`event_id` = `e`.`event_id`))) where ((`e`.`start_date` <= curdate()) and (curdate() <= `e`.`end_date`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -638,4 +666,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-26 11:42:14
+-- Dump completed on 2021-03-27 13:22:46
