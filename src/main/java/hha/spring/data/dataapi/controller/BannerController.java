@@ -40,4 +40,13 @@ public class BannerController {
         map.put("promotion", bannerService.findCurrentPromotion());
         return map;
     }
+
+    @GetMapping("/api/v2/ui/allbanner_tf2")
+    public HashMap<String, Object> getAllBannerTest2() {
+        final HashMap<String, Object> map = new HashMap<>();
+        map.put("home", bannerService.findTFCurrentHomeBanner());
+        map.put("holiday", bannerService.findTFCurrentHolidayBanner());
+        map.put("promotion", bannerService.findCurrentPromotionTf2());
+        return map;
+    }
 }

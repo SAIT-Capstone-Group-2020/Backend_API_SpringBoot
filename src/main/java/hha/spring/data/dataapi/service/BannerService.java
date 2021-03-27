@@ -4,8 +4,10 @@ package hha.spring.data.dataapi.service;
 import hha.spring.data.dataapi.domain.ui.CurrentHolidayBanner;
 import hha.spring.data.dataapi.domain.ui.CurrentHomeBanner;
 import hha.spring.data.dataapi.domain.ui.CurrentPromotion;
+import hha.spring.data.dataapi.domain.ui.tf.Promotion;
 import hha.spring.data.dataapi.domain.ui.tf.TfCurrHoliday;
 import hha.spring.data.dataapi.domain.ui.tf.TfCurrHomeBanner;
+import hha.spring.data.dataapi.mapper.PromotionMapper;
 import hha.spring.data.dataapi.repository.HomeBannerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -16,9 +18,10 @@ import java.util.List;
 @Service
 public class BannerService {
     private HomeBannerRepository homeBannerRepository;
-
-    public BannerService(HomeBannerRepository homeBannerRepository) {
+    private PromotionMapper promotionMapper;
+    public BannerService(HomeBannerRepository homeBannerRepository, PromotionMapper promotionMapper) {
         this.homeBannerRepository = homeBannerRepository;
+        this.promotionMapper = promotionMapper;
     }
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
@@ -44,6 +47,11 @@ public class BannerService {
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public List<TfCurrHomeBanner> findTFCurrentHomeBanner() {
         return homeBannerRepository.queryTFCurrentHomeBanner();
+    }
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public Promotion findCurrentPromotionTf2(){
+        return promotionMapper.currentWeeklyPromotion();
     }
 
 

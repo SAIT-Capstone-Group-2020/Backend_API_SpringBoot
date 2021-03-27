@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hha.spring.data.dataapi.mapper.PromotionMapper">
+    <select id="currentWeeklyPromotion" resultMap="weekly_promotion_map">
+<![CDATA[
+        select event_id,
+               description,
+               banner_image_url,
+               product_id,
+               product_name,
+               retail_price,
+               discount_price,
+               product_image_url
+        from current_promotion
+        ]]>
+    </select>
+    <resultMap id="weekly_promotion_map" autoMapping="true" type="hha.spring.data.dataapi.domain.ui.tf.Promotion">
+        <result property="eventId" column="event_id"/>
+        <result property="description" column="description"/>
+        <result property="bannerImageUrl" column="banner_image_url"/>
+        <collection property="products" resultMap="product"/>
+    </resultMap>
+
+    <resultMap id="product" type="hha.spring.data.dataapi.domain.ui.tf.PromotionProduct">
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="retailPrice" column="retail_price"/>
+        <result property="discountPrice" column="discount_price"/>
+        <result property="productImageUrl" column="product_image_url"/>
+    </resultMap>
+</mapper>
