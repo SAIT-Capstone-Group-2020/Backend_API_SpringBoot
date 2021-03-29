@@ -85,7 +85,7 @@ public class ProductService {
 				if(prodList.get(i).getId() != 0) {
 					Product prod = repo.findById(prodList.get(i).getId());
 					if(prod != null) {
-						repo.save(prod);
+						repo.save(prodList.get(i)); //fix to update data
 					}
 					else {
 						throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "wrong product id:"+ prodList.get(i).getId());
