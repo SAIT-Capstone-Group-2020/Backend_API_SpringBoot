@@ -78,7 +78,7 @@ public class ProductController {
 			@RequestParam(name="quantity") int quantity,
 			@RequestParam(name="weightValue") double weightValue,
 			@RequestParam(name="weightType") int weightType,
-			@RequestParam(name="image_file", required = false) MultipartFile image_file
+			@RequestParam(name="image_file") MultipartFile image_file
 	) {
 
 		Product check = null;
@@ -124,7 +124,7 @@ public class ProductController {
 			@RequestParam(name="quantity") int quantity,
 			@RequestParam(name="weightValue") double weightValue,
 			@RequestParam(name="weightType") int weightType,
-			@RequestParam(name="image_file", required = false) MultipartFile image_file
+			@RequestParam(name="image_file") MultipartFile image_file
 		)
 	{
 		Product check = null;
