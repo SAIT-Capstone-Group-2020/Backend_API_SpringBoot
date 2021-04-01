@@ -17,7 +17,7 @@ public class ReportController {
     @Autowired
     private ReportService reportService;
 
-    @GetMapping("/api/customer/report")
+    @GetMapping("/api/admin/report")
     public List<List<?>> reportProd(
             @RequestParam(name="key", required = true) String key,
             @RequestParam(name="type", required = true) String type,
