@@ -1,16 +1,16 @@
-package hha.spring.data.dataapi.domain.ui.tf;
+package hha.spring.data.dataapi.domain.ui.data;
 
 
-public class TfCurrHomeBanner {
+public class CurrHomeBanner {
 
   private String title;
   private String description;
   private String bannerImageUrl;
 
-  public TfCurrHomeBanner() {
+  public CurrHomeBanner() {
   }
 
-  public TfCurrHomeBanner(String title, String description, String bannerImageUrl) {
+  public CurrHomeBanner(String title, String description, String bannerImageUrl) {
     this.title = title;
     this.description = description;
     this.bannerImageUrl = bannerImageUrl;
