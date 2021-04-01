@@ -16,7 +16,7 @@ import javax.persistence.*;
                 ),
                 @NamedNativeQuery(
                         name = "HomeBanner.queryCurrentHolidayBanner",
-                        query = "select product_id, banner_image_url from current_holiday_banner"
+                        query = "select product_id, banner_image_url from current_holiday"
                         , resultClass = CurrentHolidayBanner.class,
                         resultSetMapping = "map_to_current_holiday_banner"
                 ),
@@ -28,13 +28,13 @@ import javax.persistence.*;
                 ),
                 @NamedNativeQuery(
                         name = "HomeBanner.queryTFCurrentHomeBanner",
-                        query = "select title, description, banner_image_url from tf_curr_home_banner"
+                        query = "select title, description, banner_image_url from curr_home_banner"
                         , resultClass = TfCurrHomeBanner.class,
                         resultSetMapping = "map_to_tf_current_home_banner"
                 ),
                 @NamedNativeQuery(
                         name = "HomeBanner.queryTFCurrentHolidayBanner",
-                        query = "select banner_image_url from tf_curr_holiday"
+                        query = "select banner_image_url from curr_holiday"
                         , resultClass = TfCurrHoliday.class,
                         resultSetMapping = "map_to_tf_current_holiday_banner"
                 )

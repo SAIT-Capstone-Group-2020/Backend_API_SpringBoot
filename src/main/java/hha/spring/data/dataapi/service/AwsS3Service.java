@@ -1,3 +1,4 @@
+/**
 package hha.spring.data.dataapi.service;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -63,6 +64,83 @@ public class AwsS3Service {
                       };
                   }
               })
+                .region(region).build();
+    }
+
+
+    public void upload(String key, byte[] data) {
+        final PutObjectRequest request = PutObjectRequest.builder().bucket(bucketName).key(key).build();
+        s3Client.putObject(request, RequestBody.fromBytes(data));
+    }
+
+    public void delete(String key) {
+        final DeleteObjectRequest request = DeleteObjectRequest.builder().bucket(bucketName).key(key).build();
+        s3Client.deleteObject(request);
+    }
+
+}
+*/
+
+package hha.spring.data.dataapi.service;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import software.amazon.awssdk.auth.credentials.AwsCredentials;
+
+import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import sun.net.www.http.HttpClient;
+
+import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+
+@Service
+public class AwsS3Service {
+    private String bucketName;
+    private Region region;
+    private S3Client s3Client;
+    private String regionName;
+
+    public AwsS3Service(@Value("${AWS_S3_BUCKET}") String aws_s3_bucket,
+                        @Value("${AWS_S3_REGION}") String aws_s3_region) {
+        this.bucketName = aws_s3_bucket;
+        this.region = Region.of(aws_s3_region);
+        this.regionName = aws_s3_region;
+    }
+
+    public String getBucketName() {
+        return bucketName;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    @PostConstruct
+    public void init() {
+        s3Client = S3Client.builder()
+                /*.credentialsProvider(new AwsCredentialsProvider() {
+            @Override
+            public AwsCredentials resolveCredentials() {
+                return new AwsCredentials() {
+                    @Override
+                    public String accessKeyId() {
+                        return aws_access_key_id;
+                    }
+
+                    @Override
+                    public String secretAccessKey() {
+                        return aws_secret_access_key;
+                    }
+                };
+            }
+        })*/
                 .region(region).build();
     }
 
