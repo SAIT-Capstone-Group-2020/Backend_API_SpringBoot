@@ -16,14 +16,14 @@
         from current_promotion
         ]]>
     </select>
-    <resultMap id="weekly_promotion_map" autoMapping="true" type="hha.spring.data.dataapi.domain.ui.tf.Promotion">
+    <resultMap id="weekly_promotion_map" autoMapping="true" type="hha.spring.data.dataapi.domain.ui.data.CurrPromotion">
         <result property="eventId" column="event_id"/>
         <result property="description" column="description"/>
         <result property="bannerImageUrl" column="banner_image_url"/>
         <collection property="products" resultMap="product"/>
     </resultMap>
 
-    <resultMap id="product" type="hha.spring.data.dataapi.domain.ui.tf.PromotionProduct">
+    <resultMap id="product" type="hha.spring.data.dataapi.domain.ui.data.CurrPromotionProduct">
         <result property="productId" column="product_id"/>
         <result property="productName" column="product_name"/>
         <result property="retailPrice" column="retail_price"/>

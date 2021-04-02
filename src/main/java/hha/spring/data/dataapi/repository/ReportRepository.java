@@ -31,7 +31,7 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
     @Query(value = "SELECT p.category_id AS id, c.category_name AS name, "
             +"TRUNCATE(SUM(oi.total_price),2) AS sales, SUM(oi.qty) AS qty, YEARWEEK(o.paid_date) AS paid_date "
             +"FROM orders AS o JOIN order_items AS oi on(o.orders_id = oi.orders_id) JOIN product AS p on(p.product_id = oi.product_id) JOIN category AS c ON(p.category_id = c.category_id) "
-            +"WHERE (YEARWEEK(o.paid_date) >= YEARWEEK(?1) AND YEARWEEK(o.paid_date) <= YEARWEEK(?2)) AND oi.product_id = ?3 "
+            +"WHERE (YEARWEEK(o.paid_date) >= YEARWEEK(?1) AND YEARWEEK(o.paid_date) <= YEARWEEK(?2)) AND p.category_id = ?3 "
             +"GROUP BY YEARWEEK(o.paid_date) "
             +"ORDER BY 5 ",
             nativeQuery = true)

@@ -1,15 +1,15 @@
-package hha.spring.data.dataapi.domain.ui.tf;
+package hha.spring.data.dataapi.domain.ui.data;
 
 
 import java.util.List;
 
-public class Promotion {
+public class CurrPromotion {
 
   private Integer eventId;
   private String description;
   private String bannerImageUrl;
 
-  private List<PromotionProduct> products;
+  private List<CurrPromotionProduct> products;
 
   public Integer getEventId() {
     return eventId;
@@ -35,18 +35,18 @@ public class Promotion {
     this.bannerImageUrl = bannerImageUrl;
   }
 
-  public List<PromotionProduct> getProducts() {
+  public List<CurrPromotionProduct> getProducts() {
     return products;
   }
 
-  public void setProducts(List<PromotionProduct> products) {
+  public void setProducts(List<CurrPromotionProduct> products) {
     this.products = products;
   }
 
-  public Promotion() {
+  public CurrPromotion() {
   }
 
-  public Promotion(Integer eventId, String description, String bannerImageUrl, List<PromotionProduct> products) {
+  public CurrPromotion(Integer eventId, String description, String bannerImageUrl, List<CurrPromotionProduct> products) {
     this.eventId = eventId;
     this.description = description;
     this.bannerImageUrl = bannerImageUrl;

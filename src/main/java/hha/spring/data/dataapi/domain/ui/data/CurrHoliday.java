@@ -1,11 +1,11 @@
-package hha.spring.data.dataapi.domain.ui.tf;
+package hha.spring.data.dataapi.domain.ui.data;
 
 
-public class TfCurrHoliday {
-  public TfCurrHoliday() {
+public class CurrHoliday {
+  public CurrHoliday() {
   }
 
-  public TfCurrHoliday(String bannerImageUrl) {
+  public CurrHoliday(String bannerImageUrl) {
     this.bannerImageUrl = bannerImageUrl;
   }
 

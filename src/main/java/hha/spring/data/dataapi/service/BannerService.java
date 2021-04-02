@@ -1,12 +1,9 @@
 package hha.spring.data.dataapi.service;
 
 
-import hha.spring.data.dataapi.domain.ui.CurrentHolidayBanner;
-import hha.spring.data.dataapi.domain.ui.CurrentHomeBanner;
-import hha.spring.data.dataapi.domain.ui.CurrentPromotion;
-import hha.spring.data.dataapi.domain.ui.tf.Promotion;
-import hha.spring.data.dataapi.domain.ui.tf.TfCurrHoliday;
-import hha.spring.data.dataapi.domain.ui.tf.TfCurrHomeBanner;
+import hha.spring.data.dataapi.domain.ui.data.CurrPromotion;
+import hha.spring.data.dataapi.domain.ui.data.CurrHoliday;
+import hha.spring.data.dataapi.domain.ui.data.CurrHomeBanner;
 import hha.spring.data.dataapi.mapper.PromotionMapper;
 import hha.spring.data.dataapi.repository.HomeBannerRepository;
 import org.springframework.stereotype.Service;
@@ -24,33 +21,21 @@ public class BannerService {
         this.promotionMapper = promotionMapper;
     }
 
-    @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    public List<CurrentHomeBanner> findCurrentHomeBanner() {
-        return homeBannerRepository.queryCurrentHomeBanner();
-    }
+
+
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    public List<CurrentPromotion> findCurrentPromotion() {
-        return homeBannerRepository.queryCurrentPromotion();
-    }
-
-    @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    public CurrentHolidayBanner findCurrentHolidayBanner() {
+    public CurrHoliday findCurrentHolidayBanner() {
         return homeBannerRepository.queryCurrentHolidayBanner();
     }
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    public TfCurrHoliday findTFCurrentHolidayBanner() {
-        return homeBannerRepository.queryTFCurrentHolidayBanner();
+    public List<CurrHomeBanner> findCurrentHomeBanner() {
+        return homeBannerRepository.queryCurrentHomeBanner();
     }
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    public List<TfCurrHomeBanner> findTFCurrentHomeBanner() {
-        return homeBannerRepository.queryTFCurrentHomeBanner();
-    }
-
-    @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    public Promotion findCurrentPromotionTf2(){
+    public CurrPromotion findCurrentPromotion(){
         return promotionMapper.currentWeeklyPromotion();
     }
 

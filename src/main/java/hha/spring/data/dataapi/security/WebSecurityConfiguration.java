@@ -1,4 +1,5 @@
 package hha.spring.data.dataapi.security;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +42,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         //Entry points
         http.authorizeRequests()
+                .antMatchers("/error").permitAll()
                 .antMatchers("/api/customer/**").permitAll()
                 .antMatchers("/api/admin/signin/**").permitAll()
                 .antMatchers("/api/admin/signup/**").permitAll()
@@ -49,8 +51,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/weighttype/**").permitAll()
                 .antMatchers("/api/admin/users/**").access("hasRole('ADMIN')")
                 .antMatchers("/api/admin/product/**").access("hasRole('ADMIN')")
-                .antMatchers("/api/admin/order/**").access("hasRole('ADMIN')")
                 .antMatchers("/api/admin/report/**").access("hasRole('ADMIN')")
+                .antMatchers("/api/admin/order/**").access("hasRole('ADMIN')")
                 //Disallow everthing else..
                 .anyRequest().authenticated();
 
@@ -63,8 +65,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(new JwtFilter(userDetailsService), UsernamePasswordAuthenticationFilter.class);
 
     }
-
-
 
 
 }

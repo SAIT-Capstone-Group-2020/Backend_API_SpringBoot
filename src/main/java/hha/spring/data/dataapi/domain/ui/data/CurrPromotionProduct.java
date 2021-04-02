@@ -1,7 +1,7 @@
-package hha.spring.data.dataapi.domain.ui.tf;
+package hha.spring.data.dataapi.domain.ui.data;
 
 
-public class PromotionProduct {
+public class CurrPromotionProduct {
     private Long productId;
     private String productName;
     private Double retailPrice;
@@ -59,10 +59,10 @@ public class PromotionProduct {
         this.productImageUrl = productImageUrl;
     }
 
-    public PromotionProduct() {
+    public CurrPromotionProduct() {
     }
 
-    public PromotionProduct(Long productId, String productName, Double retailPrice, Double discountPrice, String productImageUrl) {
+    public CurrPromotionProduct(Long productId, String productName, Double retailPrice, Double discountPrice, String productImageUrl) {
         this.productId = productId;
         this.productName = productName;
         this.retailPrice = retailPrice;

@@ -1,11 +1,13 @@
-# REST API using Spring Boot
+REST API using Spring Boot
 
 #Hosted Server(Testing)
-- Heroku: https://capstone-hha.herokuapp.com
+
+    Heroku: https://hha-merge.herokuapp.com
 
 #AWS RDS
-- MYSQL (Engine version: 5.7.26)
+
+    MYSQL (Engine version: 5.7.26)
 
 #AWS S3
-- managing the image source
 
+    managing the image source
