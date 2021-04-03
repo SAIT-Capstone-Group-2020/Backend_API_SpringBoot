@@ -9,8 +9,6 @@ import java.util.List;
 
 @NamedNativeQueries(
         {
-
-
                 @NamedNativeQuery(
                         name = "HomeBanner.queryCurrentHomeBanner",
                         query = "select title, description, banner_image_url from curr_home_banner"

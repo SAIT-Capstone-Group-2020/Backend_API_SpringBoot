@@ -48,21 +48,21 @@ public class AwsS3Service {
     public void init() {
         s3Client = S3Client.builder()
                 .credentialsProvider(new AwsCredentialsProvider() {
-            @Override
-            public AwsCredentials resolveCredentials() {
-                return new AwsCredentials() {
                     @Override
-                    public String accessKeyId() {
-                        return aws_access_key_id;
-                    }
+                    public AwsCredentials resolveCredentials() {
+                        return new AwsCredentials() {
+                            @Override
+                            public String accessKeyId() {
+                                return aws_access_key_id;
+                            }
 
-                    @Override
-                    public String secretAccessKey() {
-                        return aws_secret_access_key;
+                            @Override
+                            public String secretAccessKey() {
+                                return aws_secret_access_key;
+                            }
+                        };
                     }
-                };
-            }
-        })
+                })
                 .region(region).build();
     }
 
