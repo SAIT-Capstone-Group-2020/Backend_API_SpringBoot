@@ -2,7 +2,7 @@ REST API using Spring Boot
 
 #Hosted Server(Testing)
 
-    Heroku: https://hha-merge.herokuapp.com
+    Heroku: https://hha-capstone.herokuapp.com
 
 #AWS RDS
 
