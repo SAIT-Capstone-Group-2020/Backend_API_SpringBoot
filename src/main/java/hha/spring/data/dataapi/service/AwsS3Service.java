@@ -66,6 +66,9 @@ public class AwsS3Service {
                 .region(region).build();
     }
 
+    public String getObjectURL(String key) {
+        return "https://" + bucketName + ".s3." + regionName + ".amazonaws.com/" + key;
+    }
 
     public void upload(String key, byte[] data) {
         final PutObjectRequest request = PutObjectRequest.builder().bucket(bucketName).key(key).build();

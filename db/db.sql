@@ -138,7 +138,7 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` VALUES (1,'2021 Mar 1st week','2021-03-01','2021-03-07','2021 Mar 1st week'),(2,'2021 Mar 2nd week','2021-03-08','2021-03-14','2021 Mar 2nd week'),(3,'2021 Mar 3rd week','2021-03-15','2021-02-21','2021 Mar 3rd week'),(4,'2021 Mar 4th week','2021-03-22','2021-03-31','2021 Mar 4th week');
+INSERT INTO `event` VALUES (1,'2021 Mar 1st week','2021-03-01','2021-03-07','2021 Mar 1st week'),(2,'2021 Mar 2nd week','2021-03-08','2021-03-14','2021 Mar 2nd week'),(3,'2021 Mar 3rd week','2021-03-15','2021-02-21','2021 Mar 3rd week'),(4,'2021 Mar 4th week','2021-03-22','2021-05-01','2021 Mar 4th week');
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,7 +164,6 @@ CREATE TABLE `event_banner` (
 
 LOCK TABLES `event_banner` WRITE;
 /*!40000 ALTER TABLE `event_banner` DISABLE KEYS */;
-INSERT INTO `event_banner` VALUES (4,'image_for_promotion.png',NULL);
 /*!40000 ALTER TABLE `event_banner` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,7 +181,7 @@ CREATE TABLE `holiday_banner` (
   `end_date` date NOT NULL,
   `comment` varchar(255) DEFAULT NULL COMMENT 'Comment for management',
   PRIMARY KEY (`holiday_banner_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='test feature for holiday banner';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='test feature for holiday banner';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,6 +193,56 @@ LOCK TABLES `holiday_banner` WRITE;
 INSERT INTO `holiday_banner` VALUES (1,'yyy.jpg','2021-03-23','2021-03-31','for test');
 /*!40000 ALTER TABLE `holiday_banner` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`dev`@`%`*/ /*!50003 TRIGGER `holiday_banner_insert_trigger` BEFORE INSERT ON `holiday_banner` FOR EACH ROW begin
+    declare count integer default 0;
+    if NEW.begin_date is null or NEW.end_date is null or NEW.begin_date > NEW.end_date then
+        signal sqlstate '45000' set message_text = 'begin date should <= end date and should not null';
+    else
+        select count(*) into count from holiday_banner where end_date >= NEW.begin_date;
+        if count != 0 then
+            signal sqlstate '45000' set message_text = 'date overlap with exist home banner';
+        end if;
+    end if;
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`dev`@`%`*/ /*!50003 TRIGGER `holiday_banner_update_trigger` BEFORE UPDATE ON `holiday_banner` FOR EACH ROW begin
+    declare count integer default 0;
+    if NEW.begin_date is null or NEW.end_date is null or NEW.begin_date > NEW.end_date then
+        signal sqlstate '45000' set message_text = 'begin date should <= end date and should not null';
+    else
+        select count(*) into count from holiday_banner where end_date >= NEW.begin_date and holiday_banner_id!=NEW.holiday_banner_id;
+        if count != 0 then
+            signal sqlstate '45000' set message_text = 'date overlap with exist home banner';
+        end if;
+    end if;
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `home_banner`
@@ -208,7 +257,7 @@ CREATE TABLE `home_banner` (
   `end_date` date NOT NULL,
   `comment` varchar(255) DEFAULT NULL COMMENT 'Comment for management',
   PRIMARY KEY (`home_banner_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='test feature for home banner';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COMMENT='test feature for home banner';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -217,9 +266,62 @@ CREATE TABLE `home_banner` (
 
 LOCK TABLES `home_banner` WRITE;
 /*!40000 ALTER TABLE `home_banner` DISABLE KEYS */;
-INSERT INTO `home_banner` VALUES (1,'2021-03-25','2021-03-31','Test'),(2,'2020-12-01','2021-10-01',NULL);
+INSERT INTO `home_banner` VALUES (1,'2021-03-25','2021-03-31','Test'),(2,'2020-12-01','2021-04-05',NULL),(9,'2021-04-07','2021-05-09','comment for manage');
 /*!40000 ALTER TABLE `home_banner` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`dev`@`%`*/ /*!50003 TRIGGER `home_banner_insert_trigger` BEFORE INSERT ON `home_banner` FOR EACH ROW begin
+    declare count integer default 0;
+    if NEW.begin_date is null or NEW.end_date is null or NEW.begin_date > NEW.end_date then
+        signal sqlstate '45000' set message_text = 'begin date should <= end date and should not null';
+    else
+        select count(*) into count from home_banner where end_date >= NEW.begin_date;
+        if count != 0 then
+            signal sqlstate '45000' set message_text = 'date overlap with exist home banner';
+        end if;
+    end if;
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`dev`@`%`*/ /*!50003 TRIGGER `home_banner_update_trigger` BEFORE UPDATE ON `home_banner` FOR EACH ROW begin
+    declare count integer default 0;
+    if NEW.begin_date is null or NEW.end_date is null or NEW.begin_date > NEW.end_date then
+        signal sqlstate '45000' set message_text = 'begin date should <= end date and should not null';
+    else
+        select count(*)
+        into count
+        from home_banner
+        where end_date >= NEW.begin_date and home_banner_id != NEW.home_banner_id;
+        if count != 0 then
+            signal sqlstate '45000' set message_text = 'date overlap with exist home banner';
+        end if;
+    end if;
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `home_banner_item`
@@ -237,7 +339,7 @@ CREATE TABLE `home_banner_item` (
   PRIMARY KEY (`home_banner_item_id`),
   KEY `home_banner_id` (`home_banner_id`),
   CONSTRAINT `home_banner_item_ibfk_1` FOREIGN KEY (`home_banner_id`) REFERENCES `home_banner` (`home_banner_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='test feature for home banner item';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='test feature for home banner item';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -246,7 +348,7 @@ CREATE TABLE `home_banner_item` (
 
 LOCK TABLES `home_banner_item` WRITE;
 /*!40000 ALTER TABLE `home_banner_item` DISABLE KEYS */;
-INSERT INTO `home_banner_item` VALUES (1,1,'xxxxxxxx.jpg','test title','test descr'),(2,1,'2222222222.jpg','test title2','test descr2');
+INSERT INTO `home_banner_item` VALUES (1,2,'xxxxxxxx.jpg','test title','test descr'),(2,2,'2222222222.jpg','test title2','test descr2');
 /*!40000 ALTER TABLE `home_banner_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -513,4 +615,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-31 17:35:23
+-- Dump completed on 2021-04-07 21:42:12
