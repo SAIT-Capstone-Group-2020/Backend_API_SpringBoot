@@ -12,6 +12,15 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * This class is a Spring controller which serializes
+ * every 'category' table related request handling methods.
+ * This controller uses CategoryService.
+ * This allows the cross origin request from all host
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @CrossOrigin
 @RestController
 public class CategoryController {
@@ -19,11 +28,22 @@ public class CategoryController {
     @Autowired
     private CategoryService service;
 
+    /**
+     * list all categories(id, name)
+     *
+     * @return list of category
+     */
     @GetMapping("/api/categories")
     public List<Category> list() {
         return service.listAllCategories();
     }
 
+    /**
+     * get a data of the specified category
+     *
+     * @param id of category - integer value
+     * @return Category object
+     */
     @GetMapping("/api/categories/{id}")
     public ResponseEntity<Category> get(@PathVariable int id) {
         try {
@@ -34,6 +54,13 @@ public class CategoryController {
         }
     }
 
+    /**
+     * add new category
+     * Authorization header needed(JWT token)
+     *
+     * @param category - object(JSON) of Category class
+     * @return Updated category list
+     */
     @PostMapping("/api/categories")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Category> add(@RequestBody Category category) {
@@ -41,6 +68,14 @@ public class CategoryController {
         return service.saveCategory(category);
     }
 
+    /**
+     * edit category information
+     * Authorization header needed(JWT token)
+     *
+     * @param category - object(JSON) of Category class
+     * @param id - integer value(id of the category)
+     * @return Updated category list
+     */
     @PutMapping("/api/categories/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Category> update(@RequestBody Category category, @PathVariable int id) {
@@ -55,6 +90,13 @@ public class CategoryController {
 
     }
 
+    /**
+     * delete category
+     * Authorization header needed(JWT token)
+     *
+     * @param id - integer value(id of the category)
+     * @return Updated category list
+     */
     @DeleteMapping("/api/categories/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Category> delete(@PathVariable int id) {
