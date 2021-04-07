@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -44,6 +45,7 @@ public class OrderService {
     public String checkOut(OrderDto order) {
 
         double sum = 0;
+        double gst = 0;
 
             if(!order.getEmail().equals(order.getConfirmEmail())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email is not matched");
@@ -58,6 +60,11 @@ public class OrderService {
             e.printStackTrace();
         }
 
+        String body = "<h3>Hiep Hoa Asian Food Market</h3>";
+        String da = sdf.format(new Date());
+        body += "<p>"+da+"</p><br>";
+        body += "<table style='border:none; width:350px;'><tr><th>item</th><th>qty</th><th>price</th></tr>";
+
         try {
 
             List<OrderItem> itemList = order.getOrderItem();
@@ -71,7 +78,7 @@ public class OrderService {
                 Item item = itemRepo.findByProductId(itemId);
                 double total = ((item.getDiscount_price())*100*itemList.get(i).getQuantity())/100;
                 orderItemRepo.save(new OrderItem(total, itemId, itemList.get(i).getQuantity(), newOrder.getId()));
-
+                body += "<tr><td>"+item.getProduct_name()+"</td><td>"+ itemList.get(i).getQuantity()+"</td><td>"+total+"</td></tr>";
                 sum += (total*100);
             }
 
@@ -88,9 +95,14 @@ public class OrderService {
         }
 
         try {
-
-            String body = "<h1>This is an invoice</h1><br><p>total payment due $"+sum/100+" :)</p>";
-            body += "<p>enjoy the test</p>";
+            double subT = sum/100;
+            gst = Math.floor(subT*100)/100;
+            double total = gst + subT;
+            body += "</table style='border:none; width:300px;'><br><table><tr><td>SUBTOTAL</td><td>"+subT+"</td></tr>";
+            body += "<tr><td>TAX</td><td>"+gst+"</td></tr>";
+            body += "<tr><td>TOTAL</td><td>"+total+"</td></tr></table><br>";
+            body += "<p>HHA will contact you to confirm this order</p>";
+            body += "<p>Thank you!</p>";
 
             email.sendHtmlMessage(order.getEmail(), "Invoice HHA", body);
 
