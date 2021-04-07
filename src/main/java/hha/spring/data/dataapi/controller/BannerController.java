@@ -40,7 +40,7 @@ public class BannerController {
         return result;
     }
 
-    @PutMapping(path = "/api/v2/admin/home_banner")
+    @PostMapping(path = "/api/v2/admin/home_banner")
     public Map<String, Object> newHomeBanner(@RequestBody HomeBanner homeBanner) {
         try {
             bannerService.createHomeBanner(homeBanner);
@@ -52,7 +52,7 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
-    @PostMapping(path = "/api/v2/admin/home_banner")
+    @PutMapping(path = "/api/v2/admin/home_banner")
     public Map<String, Object> updateHomeBanner(@RequestBody HomeBanner homeBanner) {
         try {
             final HomeBanner banner = bannerService.updateHomeBanner(homeBanner);
@@ -74,7 +74,7 @@ public class BannerController {
         }
     }
 
-    @PutMapping(path = "/api/v2/admin/home_banner_item")
+    @PostMapping(path = "/api/v2/admin/home_banner_item")
     public Map<String, Object> newHomeBannerItem(@RequestBody HomeBannerItemRequest request) {
         try {
             final HomeBannerItem item = bannerService.createHomeBannerItem(request);
@@ -86,7 +86,7 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
-    @PostMapping(path = "/api/v2/admin/home_banner_item")
+    @PutMapping(path = "/api/v2/admin/home_banner_item")
     public Map<String, Object> updateHomeBannerItem(@RequestBody HomeBannerItemRequest request) {
         try {
             final HomeBannerItem item = bannerService.updateHomeBannerItem(request);
@@ -109,7 +109,7 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
-    @PutMapping(path = "/api/v2/admin/holiday_banner")
+    @PostMapping(path = "/api/v2/admin/holiday_banner")
     public Map<String, Object> createHolidayBanner(@RequestBody HolidayBannerRequest request) {
         try {
             final HolidayBanner holidayBanner = bannerService.createHolidayBanner(request);
@@ -120,7 +120,7 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
-    @PostMapping(path = "/api/v2/admin/holiday_banner")
+    @PutMapping(path = "/api/v2/admin/holiday_banner")
     public Map<String, Object> updateHolidayBanner(@RequestBody HolidayBannerRequest request) {
         try {
             final HolidayBanner holidayBanner = bannerService.updateHolidayBanner(request);
@@ -142,7 +142,7 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
-    @PutMapping(path = "/api/v2/admin/event_banner")
+    @PostMapping(path = "/api/v2/admin/event_banner")
     public Map<String, Object> newEventBanner(@RequestBody EventBannerRequest request) {
         try {
             final EventBanner eventBanner = bannerService.createEventBanner(request);
@@ -153,7 +153,7 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
-    @PostMapping(path = "/api/v2/admin/event_banner")
+    @PutMapping(path = "/api/v2/admin/event_banner")
     public Map<String, Object> updateEventBanner(@RequestBody EventBannerRequest request) {
         try {
             final EventBanner banner = bannerService.updateEventBanner(request);
