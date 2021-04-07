@@ -1,5 +1,6 @@
 package hha.spring.data.dataapi.domain.ui;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import hha.spring.data.dataapi.domain.ui.data.CurrHoliday;
 import hha.spring.data.dataapi.domain.ui.data.CurrHomeBanner;
 
@@ -61,13 +62,26 @@ public class HomeBanner {
     private String comment;
 
     @Column(name = "begin_date")
-    private java.sql.Date startData;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private java.sql.Date startDate;
 
     @Column(name = "end_date")
-    private java.sql.Date endData;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private java.sql.Date endDate;
 
-    @OneToMany(targetEntity = HomeBannerItem.class, mappedBy = "homeBanner")
+    @OneToMany(targetEntity = HomeBannerItem.class, mappedBy = "homeBanner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HomeBannerItem> homeBannerItems;
+
+
+    public void addHomeBannerItem(HomeBannerItem item) {
+        homeBannerItems.add(item);
+        item.setHomeBanner(this);
+    }
+
+    public void removeHomeBannerItem(HomeBannerItem item) {
+        homeBannerItems.remove(item);
+        item.setHomeBanner(null);
+    }
 
     public List<HomeBannerItem> getHomeBannerItems() {
         return homeBannerItems;
@@ -93,19 +107,19 @@ public class HomeBanner {
         this.comment = comment;
     }
 
-    public Date getStartData() {
-        return startData;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStartData(Date startData) {
-        this.startData = startData;
+    public void setStartDate(Date startData) {
+        this.startDate = startData;
     }
 
-    public Date getEndData() {
-        return endData;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEndData(Date endData) {
-        this.endData = endData;
+    public void setEndDate(Date endData) {
+        this.endDate = endData;
     }
 }
