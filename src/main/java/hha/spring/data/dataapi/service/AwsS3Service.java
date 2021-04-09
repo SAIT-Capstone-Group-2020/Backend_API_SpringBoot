@@ -17,6 +17,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
+/**
+ * Aws S3 Service
+ */
 @Service
 public class AwsS3Service {
     private String bucketName;
@@ -26,6 +29,13 @@ public class AwsS3Service {
     private S3Client s3Client;
     private String regionName;
 
+    /**
+     * construct aws service
+     * @param aws_access_key_id AWS_ACCESS_KEY_ID
+     * @param aws_secret_access_key AWS_SECRET_ACCESS_KEY
+     * @param aws_s3_bucket AWS_S3_BUCKET
+     * @param aws_s3_region AWS_S3_REGION
+     */
     public AwsS3Service(@Value("${AWS_ACCESS_KEY_ID}") String aws_access_key_id, @Value("${AWS_SECRET_ACCESS_KEY}") String aws_secret_access_key,
                         @Value("${AWS_S3_BUCKET}") String aws_s3_bucket,
                         @Value("${AWS_S3_REGION}") String aws_s3_region) {
@@ -66,15 +76,29 @@ public class AwsS3Service {
                 .region(region).build();
     }
 
+    /**
+     * get object url address
+     * @param key the object key
+     * @return the url
+     */
     public String getObjectURL(String key) {
         return "https://" + bucketName + ".s3." + regionName + ".amazonaws.com/" + key;
     }
 
+    /**
+     * update object
+     * @param key the key
+     * @param data the data
+     */
     public void upload(String key, byte[] data) {
         final PutObjectRequest request = PutObjectRequest.builder().bucket(bucketName).key(key).build();
         s3Client.putObject(request, RequestBody.fromBytes(data));
     }
 
+    /**
+     * delete object by key
+     * @param key the object key
+     */
     public void delete(String key) {
         final DeleteObjectRequest request = DeleteObjectRequest.builder().bucket(bucketName).key(key).build();
         s3Client.deleteObject(request);

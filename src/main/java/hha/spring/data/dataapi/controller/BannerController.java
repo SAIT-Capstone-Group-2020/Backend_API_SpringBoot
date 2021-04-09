@@ -16,6 +16,7 @@ import java.util.Optional;
 
 /**
  * controller for get all information for swipper ui control in front-end
+ * detail request parameter see endpoints.xlsx pls.
  */
 @CrossOrigin
 @RestController
