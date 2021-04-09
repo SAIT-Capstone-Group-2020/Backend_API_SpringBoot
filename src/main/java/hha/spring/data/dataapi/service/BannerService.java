@@ -2,10 +2,7 @@ package hha.spring.data.dataapi.service;
 
 
 import hha.spring.data.dataapi.domain.event.Event;
-import hha.spring.data.dataapi.domain.ui.EventBanner;
-import hha.spring.data.dataapi.domain.ui.HolidayBanner;
-import hha.spring.data.dataapi.domain.ui.HomeBanner;
-import hha.spring.data.dataapi.domain.ui.HomeBannerItem;
+import hha.spring.data.dataapi.domain.ui.*;
 import hha.spring.data.dataapi.domain.ui.data.CurrPromotion;
 import hha.spring.data.dataapi.domain.ui.data.CurrHoliday;
 import hha.spring.data.dataapi.domain.ui.data.CurrHomeBanner;
@@ -13,19 +10,13 @@ import hha.spring.data.dataapi.domain.ui.request.EventBannerRequest;
 import hha.spring.data.dataapi.domain.ui.request.HolidayBannerRequest;
 import hha.spring.data.dataapi.domain.ui.request.HomeBannerItemRequest;
 import hha.spring.data.dataapi.mapper.PromotionMapper;
-import hha.spring.data.dataapi.repository.EventBannerRepository;
-import hha.spring.data.dataapi.repository.HolidayBannerRepository;
-import hha.spring.data.dataapi.repository.HomeBannerItemRepository;
-import hha.spring.data.dataapi.repository.HomeBannerRepository;
+import hha.spring.data.dataapi.repository.*;
 import hha.spring.data.dataapi.repository.event.EventRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class BannerService {
@@ -36,8 +27,9 @@ public class BannerService {
     private HolidayBannerRepository holidayBannerRepository;
     private EventBannerRepository eventBannerRepository;
     private EventRepository eventRepository;
+    private HomeBannerItemDtoRepostiroy homeBannerItemDtoRepostiroy;
 
-    public BannerService(HomeBannerRepository homeBannerRepository, PromotionMapper promotionMapper, AwsS3Service awsS3Service, HomeBannerItemRepository homeBannerItemRepository, HolidayBannerRepository holidayBannerRepository, EventBannerRepository eventBannerRepository, EventRepository eventRepository) {
+    public BannerService(HomeBannerRepository homeBannerRepository, PromotionMapper promotionMapper, AwsS3Service awsS3Service, HomeBannerItemRepository homeBannerItemRepository, HolidayBannerRepository holidayBannerRepository, EventBannerRepository eventBannerRepository, EventRepository eventRepository, HomeBannerItemDtoRepostiroy homeBannerItemDtoRepostiroy) {
         this.homeBannerRepository = homeBannerRepository;
         this.promotionMapper = promotionMapper;
         this.awsS3Service = awsS3Service;
@@ -45,6 +37,7 @@ public class BannerService {
         this.holidayBannerRepository = holidayBannerRepository;
         this.eventBannerRepository = eventBannerRepository;
         this.eventRepository = eventRepository;
+        this.homeBannerItemDtoRepostiroy = homeBannerItemDtoRepostiroy;
     }
 
 
@@ -292,6 +285,19 @@ public class BannerService {
         return promotionMapper.currentWeeklyPromotion();
     }
 
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public List<EventBanner> getAllEventBanner() {
+        return (List<EventBanner>) eventBannerRepository.findAll();
+    }
 
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public List<HolidayBanner> getAllHolidayBanner() {
+        return (List<HolidayBanner>) holidayBannerRepository.findAll();
+    }
+
+    @Transactional
+    public List<HomeBannerItemDto> getAllHomeBannerItem() {
+        return (List<HomeBannerItemDto>) homeBannerItemDtoRepostiroy.findAll();
+    }
 }
 
