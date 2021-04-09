@@ -18,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+/**
+ * Banner Service for Home banner, holiday banner and promotion banner.
+ */
 @Service
 public class BannerService {
     private HomeBannerRepository homeBannerRepository;
@@ -40,7 +43,12 @@ public class BannerService {
         this.homeBannerItemDtoRepostiroy = homeBannerItemDtoRepostiroy;
     }
 
-
+    /**
+     * update event banner
+     *
+     * @param request the request DTO from request
+     * @return the saved event banner if success, null otherwise.
+     */
     @Transactional
     public EventBanner updateEventBanner(EventBannerRequest request) {
         if (request != null && request.getId() != null) {
@@ -63,7 +71,12 @@ public class BannerService {
         return null;
     }
 
-
+    /**
+     * delete event banner
+     *
+     * @param id the id the event banner will be deleted.
+     * @return the deleted event banner, null otherwise.
+     */
     @Transactional
     public EventBanner deleteEventBanner(Integer id) {
         final Optional<EventBanner> byId = eventBannerRepository.findById(id);
@@ -74,6 +87,12 @@ public class BannerService {
         return null;
     }
 
+    /**
+     * create event banner
+     *
+     * @param request the DTO event banner request
+     * @return the saved event banner or null otherwise.
+     */
     @Transactional
     public EventBanner createEventBanner(EventBannerRequest request) {
         if (request.getId() != null && request.getImage() != null && request.getImageExtension() != null) {
@@ -92,7 +111,12 @@ public class BannerService {
         return null;
     }
 
-
+    /**
+     * update holiday banner
+     *
+     * @param request the DTO of holiday banner request (must have id)
+     * @return the update banner. null if update fail.
+     */
     @Transactional
     public HolidayBanner updateHolidayBanner(HolidayBannerRequest request) {
         if (request != null && request.getHolidayBannerId() != null) {
@@ -121,6 +145,12 @@ public class BannerService {
         return null;
     }
 
+    /**
+     * delete holiday banner
+     *
+     * @param id the id of holiday banner will be delete
+     * @return the HolidayBanner, null otherwise.
+     */
     @Transactional
     public HolidayBanner deleteHolidayBanner(Integer id) {
         final Optional<HolidayBanner> holidayBanner = holidayBannerRepository.findById(id);
@@ -132,6 +162,12 @@ public class BannerService {
         return null;
     }
 
+    /**
+     * create a holiday banner
+     *
+     * @param request the DTO of the holiday banner request.
+     * @return the newly holiday banner, null otherwise.
+     */
     @Transactional
     public HolidayBanner createHolidayBanner(HolidayBannerRequest request) {
         if (request == null
@@ -153,10 +189,21 @@ public class BannerService {
         }
     }
 
+    /**
+     * generate random access key with give extension.
+     *
+     * @param extension the extension
+     * @return the generated uuid name with extension.
+     */
     private static final String randomAwsKey(String extension) {
         return UUID.randomUUID().toString() + extension;
     }
 
+    /**
+     * update home banner item
+     * @param request the home banner item reuqst dto.
+     * @return the home banner item created.
+     */
     @Transactional
     public HomeBannerItem updateHomeBannerItem(HomeBannerItemRequest request) {
         final Optional<HomeBannerItem> homeBannerItem = homeBannerItemRepository.findById(request.getId());
@@ -190,7 +237,11 @@ public class BannerService {
         return null;
     }
 
-
+    /**
+     * delete the home banner item with id of it
+     * @param homeBannerItemId the hom banner item id
+     * @return null if fail, the delete home banner item if delete success.
+     */
     @Transactional
     public HomeBannerItem deleteHomeBannerItem(Integer homeBannerItemId) {
         final Optional<HomeBannerItem> homeBannerItem = homeBannerItemRepository.findById(homeBannerItemId);
@@ -237,11 +288,20 @@ public class BannerService {
         }
     }
 
+    /**
+     * create home banner
+     * @param homeBanner the home banner to save
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public void createHomeBanner(HomeBanner homeBanner) {
         homeBannerRepository.save(homeBanner);
     }
 
+    /**
+     * update the home banner
+     * @param homeBanner the updated home banner
+     * @return the updated home banner, null if update fail.
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public HomeBanner updateHomeBanner(HomeBanner homeBanner) {
         final Optional<HomeBanner> old = homeBannerRepository.findById(homeBanner.getHomeBannerId());
@@ -257,7 +317,11 @@ public class BannerService {
         }
     }
 
-
+    /**
+     * delete home banner with gaven id.
+     * @param id the home banner id
+     * @return the delete home banner, null if delete fail.
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public HomeBanner deleteHomeBanner(Integer id) {
         final Optional<HomeBanner> homeBanner = homeBannerRepository.findById(id);
@@ -270,31 +334,55 @@ public class BannerService {
         }
     }
 
+    /**
+     * find current holiday banner to show
+     * @return the current holiday banner, null if no banner in database.
+     */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public CurrHoliday findCurrentHolidayBanner() {
         return homeBannerRepository.queryCurrentHolidayBanner();
     }
 
+    /**
+     * find current home banner
+     * @return the current home banner if exist. null otherwise.
+     */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public List<CurrHomeBanner> findCurrentHomeBanner() {
         return homeBannerRepository.queryCurrentHomeBanner();
     }
 
+    /**
+     * find current promotion
+     * @return the current promotion if has in db, null otherise.
+     */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public CurrPromotion findCurrentPromotion() {
         return promotionMapper.currentWeeklyPromotion();
     }
 
+    /**
+     * get all event banner
+     * @return all event banner
+     */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public List<EventBanner> getAllEventBanner() {
         return (List<EventBanner>) eventBannerRepository.findAll();
     }
 
+    /**
+     * get all holiday banner
+     * @return all holiday banner
+     */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public List<HolidayBanner> getAllHolidayBanner() {
         return (List<HolidayBanner>) holidayBannerRepository.findAll();
     }
 
+    /**
+     * get all home banner item
+     * @return return all home banner item.
+     */
     @Transactional
     public List<HomeBannerItemDto> getAllHomeBannerItem() {
         return (List<HomeBannerItemDto>) homeBannerItemDtoRepostiroy.findAll();
