@@ -1,9 +1,6 @@
 package hha.spring.data.dataapi.controller;
 
-import hha.spring.data.dataapi.domain.ui.EventBanner;
-import hha.spring.data.dataapi.domain.ui.HolidayBanner;
-import hha.spring.data.dataapi.domain.ui.HomeBanner;
-import hha.spring.data.dataapi.domain.ui.HomeBannerItem;
+import hha.spring.data.dataapi.domain.ui.*;
 import hha.spring.data.dataapi.domain.ui.request.EventBannerRequest;
 import hha.spring.data.dataapi.domain.ui.request.HolidayBannerRequest;
 import hha.spring.data.dataapi.domain.ui.request.HomeBannerItemRequest;
@@ -13,11 +10,14 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * controller for get all information for swipper ui control in front-end
  */
+@CrossOrigin
 @RestController
 public class BannerController {
     @Autowired
@@ -175,5 +175,19 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
+    @GetMapping("/api/v2/admin/event_banner")
+    public List<EventBanner> getAllEventBanner() {
+        return bannerService.getAllEventBanner();
+    }
+
+    @GetMapping("/api/v2/admin/holiday_banner")
+    public List<HolidayBanner> getAllHolidayBanner() {
+        return bannerService.getAllHolidayBanner();
+    }
+
+    @GetMapping("/api/v2/admin/home_banner")
+    public List<HomeBannerItemDto> getAllHomeBanner() {
+        return bannerService.getAllHomeBannerItem();
+    }
 
 }
