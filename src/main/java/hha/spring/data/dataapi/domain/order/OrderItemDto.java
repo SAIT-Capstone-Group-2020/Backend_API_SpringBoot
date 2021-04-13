@@ -1,9 +1,18 @@
 package hha.spring.data.dataapi.domain.order;
 
-import hha.spring.data.dataapi.domain.Item;
-
 import javax.persistence.*;
-import java.util.List;
+
+
+/**
+ * This class is a Data Entity that bridges between
+ * relational database and Java object
+ * by using Java Persistence API
+ *
+ * retrieve order item information with the product detail
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @Entity
 @SqlResultSetMapping(
         name = "orderDataMapping",

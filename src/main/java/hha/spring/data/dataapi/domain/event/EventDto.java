@@ -3,6 +3,12 @@ package hha.spring.data.dataapi.domain.event;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This class is a data object that works as response entity
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 public class EventDto {
 
     private int event_id;

@@ -2,6 +2,16 @@ package hha.spring.data.dataapi.domain.event;
 
 import javax.persistence.*;
 
+/**
+ * This class is a Data Entity that bridges between
+ * relational database and Java object
+ * by using Java Persistence API
+ *
+ *  discount table
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @Entity
 @Table(name = "discount")
 public class Discount {
@@ -47,31 +57,16 @@ public class Discount {
         return productId;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
     public int getEventId() {
         return eventId;
-    }
-
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
     }
 
     public double getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(double dicountPrice) {
-        this.discountPrice = dicountPrice;
-    }
-
     public int getLimit() {
         return limit;
     }
 
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
 }

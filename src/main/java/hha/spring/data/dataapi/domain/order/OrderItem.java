@@ -1,8 +1,17 @@
 package hha.spring.data.dataapi.domain.order;
 
 import javax.persistence.*;
-import java.util.Date;
 
+/**
+ * This class is a Data Entity that bridges between
+ * relational database and Java object
+ * by using Java Persistence API
+ *
+ * order_items table
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @Entity
 @Table(name = "order_items")
 public class OrderItem {
@@ -48,10 +57,6 @@ public class OrderItem {
         return total;
     }
 
-    public void setTotal(double total) {
-        this.total = total;
-    }
-
     public int getProductId() {
         return productId;
     }
@@ -70,9 +75,5 @@ public class OrderItem {
 
     public int getOrdersId() {
         return ordersId;
-    }
-
-    public void setOrdersId(int ordersId) {
-        this.ordersId = ordersId;
     }
 }
