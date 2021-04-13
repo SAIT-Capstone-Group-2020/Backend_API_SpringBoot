@@ -18,8 +18,8 @@ import static org.springframework.security.core.userdetails.User.withUsername;
 
 /**
  * Token Utilities for UserDetailsService
- * UserDetailsService: Spring Security interface which is used to retrieve the user's authentication and authorization
- *
+ * UserDetailsService: Spring Security interface which is used to
+ * retrieve the user's authentication and authorization *
  */
 
 @Component

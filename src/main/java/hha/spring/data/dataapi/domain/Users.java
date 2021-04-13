@@ -6,10 +6,16 @@ import javax.persistence.*;
 import java.util.Arrays;
 import java.util.List;
 
-
-//need to be updated when make the products endpoints for admin side
-
-
+/**
+ * This class is a Data Entity that bridges between
+ * relational database and Java object
+ * by using Java Persistence API
+ *
+ * retrieve product list with the detail of discount
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @Entity
 @Table(name="user")
 public class Users {

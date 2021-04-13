@@ -8,6 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
 
+/**
+ * Interface for JPA Repository - Order table
+ * Default JPA implementation(framework) is hibernate
+ */
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query(value= "SELECT o.orders_id AS orders_id, o.order_date AS order_date, o.paid_date AS paid_date, " +

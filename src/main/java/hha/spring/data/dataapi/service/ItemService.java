@@ -1,9 +1,7 @@
 package hha.spring.data.dataapi.service;
 
 import hha.spring.data.dataapi.domain.Item;
-import hha.spring.data.dataapi.domain.Product;
 import hha.spring.data.dataapi.repository.ItemRepository;
-import hha.spring.data.dataapi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,12 +10,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
+/**
+ * This class is a business logic to manage Item data object
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @Service
 @Transactional
 public class ItemService {

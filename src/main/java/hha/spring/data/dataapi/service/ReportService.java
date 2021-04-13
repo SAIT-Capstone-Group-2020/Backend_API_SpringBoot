@@ -1,5 +1,5 @@
 package hha.spring.data.dataapi.service;
-import hha.spring.data.dataapi.domain.Report;
+
 import hha.spring.data.dataapi.repository.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,8 +9,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * This class is a business logic to manage report data object
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @Service
-
 @Transactional
 public class ReportService {
 
@@ -159,134 +164,6 @@ public class ReportService {
                 }
             }
         }
-
-
-
-
-
         return returnData;
     }
 }
-    /*
-    public List<List<ReportDto>> reportProd(String type, String year, String term, Integer[] idList) throws ParseException {
-
-        List<List<ReportDto>> returnData = new ArrayList<>();
-
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-
-        int nextYear = Integer.parseInt(year) + 1;
-
-        Calendar c = Calendar.getInstance();
-
-        Date startDate = sdf.parse(year +"-01-01");
-        Date dateParam = startDate;
-        Date endDate = sdf.parse(String.valueOf(nextYear)+"-01-01");
-
-        if(type.equals("prod")) {
-
-            if (term.equals("week")) {
-
-                for (int i = 0; i < idList.length; i++) {
-
-                    double sum = 0;
-
-                    List<ReportDto> content = new ArrayList<>();
-                    int no = 0;
-
-                    while (dateParam.getTime() < endDate.getTime()) {
-
-                        ReportProd con =  prodRepo.prodReportWeekly(endDate, dateParam, idList[i]);
-                        content.add(new ReportDto(no, con));
-
-                        c.setTime(dateParam);
-                        c.add(Calendar.DATE, 7);
-                        Date d = c.getTime();
-                        String dd = sdf.format(d);
-                        dateParam = sdf.parse(dd);
-                        no++;
-                    }
-
-                    dateParam = startDate;
-                    returnData.add(content);
-                }
-            }
-
-            else if(term.equals("month")) {
-
-                for (int i = 0; i < idList.length; i++) {
-
-                    List<ReportDto> content = new ArrayList<>();
-                    int no = 0;
-
-                    while (dateParam.getTime() < endDate.getTime()) {
-
-                        content.add(new ReportDto(no, prodRepo.prodReportMonthly(endDate, dateParam, idList[i])));
-
-                        c.setTime(dateParam);
-                        c.add(Calendar.MONTH, 1);
-                        dateParam = c.getTime();
-
-                        no++;
-                    }
-
-                    dateParam = startDate;
-                    returnData.add(content);
-                }
-            }
-        }
-
-        else if(type.equals("cate")) {
-
-            if (term.equals("week")) {
-
-                for (int i = 0; i < idList.length; i++) {
-
-                    List<ReportDto> content = new ArrayList<>();
-                    int no = 0;
-
-                    while (dateParam.getTime() < endDate.getTime()) {
-
-                        content.add(new ReportDto(no, cateRepo.cateReportWeekly(endDate, dateParam, idList[i])));
-
-                        c.setTime(dateParam);
-                        c.add(Calendar.DATE, 7);
-                        dateParam = c.getTime();
-
-                        no++;
-                    }
-
-                    dateParam = startDate;
-                    returnData.add(content);
-                }
-            }
-
-            else if(term.equals("month")) {
-
-                for (int i = 0; i < idList.length; i++) {
-
-                    List<ReportDto> content = new ArrayList<>();
-                    int no = 0;
-
-                    while (dateParam.getTime() < endDate.getTime()) {
-
-                        content.add(new ReportDto(no, cateRepo.cateReportMonthly(endDate, dateParam, idList[i])));
-
-                        c.setTime(dateParam);
-                        c.add(Calendar.MONTH, 1);
-                        dateParam = c.getTime();
-
-                        no++;
-                    }
-
-                    dateParam = startDate;
-                    returnData.add(content);
-                }
-            }
-        }
-
-        return returnData;
-    }
-}
-*/
-

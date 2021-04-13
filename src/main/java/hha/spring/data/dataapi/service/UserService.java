@@ -5,8 +5,6 @@ import hha.spring.data.dataapi.domain.Users;
 import hha.spring.data.dataapi.repository.RoleRepository;
 import hha.spring.data.dataapi.repository.UserRepository;
 import hha.spring.data.dataapi.security.JwtUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -21,10 +19,14 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * This class is a business logic to manage user data
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @Service
 public class UserService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     private UserRepository userRepository;
 
@@ -47,7 +49,6 @@ public class UserService {
 
     public String adminSignIn(String email, String password) {
 
-        LOGGER.info("New Admin attempting to sign in "+email);
         String token = "";
         Users user = userRepository.findByEmail(email);
 
@@ -77,7 +78,6 @@ public class UserService {
     }
 
     public Users adminSignUP(String email, String password, String name) {
-        LOGGER.info("New user attempting to sign up");
         Users user = userRepository.findByEmail(email);
 
         if( user == null) {

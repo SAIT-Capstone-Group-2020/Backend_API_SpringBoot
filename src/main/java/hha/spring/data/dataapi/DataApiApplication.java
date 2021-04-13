@@ -2,20 +2,19 @@ package hha.spring.data.dataapi;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.annotation.MapperScans;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import org.thymeleaf.templateresolver.ITemplateResolver;
 
-import java.util.Properties;
-
+/**
+ * This class is a main driver of this application
+ * Added java bean to make cross origin request can be available from everywhere.
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @SpringBootApplication
 @MapperScans({
         @MapperScan()

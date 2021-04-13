@@ -23,6 +23,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * This class is a business logic to manage order data
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @Service
 @Transactional
 public class OrderService {
