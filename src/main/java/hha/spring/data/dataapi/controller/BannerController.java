@@ -24,6 +24,10 @@ public class BannerController {
     @Autowired
     private BannerService bannerService;
 
+    /**
+     * get all the banner info
+     * @return banner info
+     */
     @GetMapping("/api/v2/ui/allbanner")
     public HashMap<String, Object> getAllBanner() {
         final HashMap<String, Object> map = new HashMap<>();
@@ -33,6 +37,13 @@ public class BannerController {
         return map;
     }
 
+    /**
+     * process server response
+     * @param code response code
+     * @param msg response message
+     * @param data response data
+     * @return
+     */
     private Map<String, Object> makeResponse(int code, String msg, Object data) {
         final HashMap<String, Object> result = new HashMap<>();
         result.put("code", code);
@@ -41,6 +52,11 @@ public class BannerController {
         return result;
     }
 
+    /**
+     *
+     * @param homeBanner
+     * @return
+     */
     @PostMapping(path = "/api/v2/admin/home_banner")
     public Map<String, Object> newHomeBanner(@RequestBody HomeBanner homeBanner) {
         try {
@@ -64,6 +80,11 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
+    /**
+     * delete the banner with the specified ID
+     * @param id banner id
+     * @return
+     */
     @DeleteMapping(path = "/api/v2/admin/home_banner/{id}")
     public Map<String, Object> deleteHomeBanner(@PathVariable(name = "id") Integer id) {
         try {
@@ -75,6 +96,11 @@ public class BannerController {
         }
     }
 
+    /**
+     * create a new banner
+     * @param request delivering banner messages
+     * @return
+     */
     @PostMapping(path = "/api/v2/admin/home_banner_item")
     public Map<String, Object> newHomeBannerItem(@RequestBody HomeBannerItemRequest request) {
         try {
@@ -87,6 +113,11 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
+    /**
+     * update the specified banner info
+     * @param request
+     * @return
+     */
     @PutMapping(path = "/api/v2/admin/home_banner_item")
     public Map<String, Object> updateHomeBannerItem(@RequestBody HomeBannerItemRequest request) {
         try {
@@ -99,6 +130,11 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
+    /**
+     * delete the banner item with the specified ID
+     * @param id banner id
+     * @return
+     */
     @DeleteMapping(path = "/api/v2/admin/home_banner_item/{id}")
     public Map<String, Object> deleteHomeBannerItem(@PathVariable(name = "id") Integer id) {
         try {
@@ -110,6 +146,11 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
+    /**
+     * create a holiday banner
+     * @param request holiday banner info
+     * @return
+     */
     @PostMapping(path = "/api/v2/admin/holiday_banner")
     public Map<String, Object> createHolidayBanner(@RequestBody HolidayBannerRequest request) {
         try {
@@ -121,6 +162,11 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
+    /**
+     * update holiday banner info
+     * @param request hoiliday banner info
+     * @return
+     */
     @PutMapping(path = "/api/v2/admin/holiday_banner")
     public Map<String, Object> updateHolidayBanner(@RequestBody HolidayBannerRequest request) {
         try {
@@ -132,6 +178,11 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
+    /**
+     * delete the holiday banner with the specified ID
+     * @param id
+     * @return
+     */
     @DeleteMapping(path = "/api/v2/admin/holiday_banner/{id}")
     public Map<String, Object> deleteHolidayBanner(@PathVariable(name = "id") Integer id) {
         try {
@@ -143,6 +194,11 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
+    /**
+     * create a new event holiday banner
+     * @param request event banner info
+     * @return
+     */
     @PostMapping(path = "/api/v2/admin/event_banner")
     public Map<String, Object> newEventBanner(@RequestBody EventBannerRequest request) {
         try {
@@ -154,6 +210,11 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
+    /**
+     * update evnet banner
+     * @param request event banner info
+     * @return
+     */
     @PutMapping(path = "/api/v2/admin/event_banner")
     public Map<String, Object> updateEventBanner(@RequestBody EventBannerRequest request) {
         try {
@@ -176,16 +237,29 @@ public class BannerController {
         return makeResponse(1, "error", null);
     }
 
+    /**
+     * get all the event banner info
+     * @return
+     */
     @GetMapping("/api/v2/admin/event_banner")
     public List<EventBanner> getAllEventBanner() {
         return bannerService.getAllEventBanner();
     }
 
+    /**
+     * get all the holiday banner info
+     * @return
+     */
     @GetMapping("/api/v2/admin/holiday_banner")
     public List<HolidayBanner> getAllHolidayBanner() {
         return bannerService.getAllHolidayBanner();
     }
 
+
+    /**
+     * get all the home banner info
+     * @return
+     */
     @GetMapping("/api/v2/admin/home_banner")
     public List<HomeBannerItemDto> getAllHomeBanner() {
         return bannerService.getAllHomeBannerItem();
