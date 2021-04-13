@@ -14,10 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * This class is to manage chain of filter and add the token checking before specified controllers
+ * This class is to manage chain of filter.
+ * Initialize web security configuration.
+ *
  */
-
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)

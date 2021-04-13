@@ -111,9 +111,9 @@ public class EventController {
 	public ResponseEntity<EventDto> getEventDetail(@PathVariable int id) {
 		try {
 			EventDto eventDetail = eventService.getEventById(id);
-			return new ResponseEntity<EventDto>(eventDetail, HttpStatus.OK);
+			return new ResponseEntity<>(eventDetail, HttpStatus.OK);
 		} catch (NoSuchElementException e) {
-			return new ResponseEntity<EventDto>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 

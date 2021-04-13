@@ -1,18 +1,12 @@
 package hha.spring.data.dataapi.service;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
 import hha.spring.data.dataapi.domain.event.Discount;
 import hha.spring.data.dataapi.domain.event.EventDto;
-import hha.spring.data.dataapi.domain.event.EventItemDto;
-import hha.spring.data.dataapi.domain.order.OrderDto;
 import hha.spring.data.dataapi.repository.event.DiscountRepository;
 import hha.spring.data.dataapi.repository.event.EventItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +21,12 @@ import org.springframework.web.server.ResponseStatusException;
 import hha.spring.data.dataapi.domain.event.Event;
 import hha.spring.data.dataapi.repository.event.EventRepository;
 
+/**
+ * This class is a business logic to manage event data
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @Service
 @Transactional
 public class EventService {

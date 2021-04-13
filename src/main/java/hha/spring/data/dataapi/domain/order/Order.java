@@ -2,8 +2,17 @@ package hha.spring.data.dataapi.domain.order;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
+/**
+ * This class is a Data Entity that bridges between
+ * relational database and Java object
+ * by using Java Persistence API
+ *
+ * orders table
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -52,24 +61,12 @@ public class Order {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
-    }
-
     public Date getPaidDate() {
         return paidDate;
     }
 
-    public void setPaidDate(Date paidDate) {
-        this.paidDate = paidDate;
-    }
-
     public String getStatus() {
         return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getEmail() {
@@ -82,10 +79,6 @@ public class Order {
 
     public String getPhone() {
         return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public void setId(int id) {
@@ -102,10 +95,6 @@ public class Order {
 
     public String getOrderName() {
         return orderName;
-    }
-
-    public void setOrderName(String orderName) {
-        this.orderName = orderName;
     }
 }
 

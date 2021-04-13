@@ -1,12 +1,16 @@
 package hha.spring.data.dataapi.domain;
 
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
-import java.io.Serializable;
 
-/*
-*THIS CLASS IS TO DISPLAY ITEM INFORMATION ON CUSTOMER SIDE
+/**
+ * This class is a Data Entity that bridges between
+ * relational database and Java object
+ * by using Java Persistence API
+ *
+ * retrieve product list with the detail of discount
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
  */
 @Entity
 @SqlResultSetMapping(
@@ -65,27 +69,6 @@ import java.io.Serializable;
                 +"WHERE (CURRENT_DATE >= ee.start_date AND CURRENT_DATE < ee.end_date + INTERVAL 1 DAY)) "
                 +"AND pp.active = 1) AS s1"
 )
-
-/*
-@NamedNativeQuery(name = "findItemDataMapping", resultClass = Item.class,
-        query = "SELECT * FROM "
-                +"(SELECT p.product_id AS product_id, p.product_name AS product_name, p.description AS description, p.retail_price as original_price, TRUE AS is_discount, d.discount_price AS discount_price, p.image_url AS image_url, c.category_name AS category_name, p.quantity AS quantity, p.weight_value AS weight_value, wt.weight_type_name AS weight_type_name, p.brand_name AS brand_name "
-                +"FROM product AS p JOIN weight_type AS wt on(wt.weight_type_id = p.weight_type_id) JOIN category AS c on(c.category_id = p.category_id) "
-                +"JOIN discount AS d on(d.product_id = p.product_id) JOIN event AS e on(e.event_id = d.event_id) "
-                +"WHERE "
-                +"(p.product_name LIKE LOWER(CONCAT('%', ?1, '%')) OR c.category_name LIKE LOWER(CONCAT('%', ?1, '%')) OR p.brand_name LIKE LOWER(CONCAT('%', ?1, '%'))) "
-                +"AND CURRENT_DATE >= e.start_date and CURRENT_DATE < e.end_date + INTERVAL 1 DAY "
-                +"AND p.active = 1 "
-
-                +"UNION ALL "
-                +"SELECT pp.product_id AS product_id, pp.product_name AS product_name, pp.description AS description, pp.retail_price AS original_price, FALSE AS is_discount, pp.retail_price AS discount_price, pp.image_url AS image_url, cc.category_name AS category_name, pp.quantity AS quantity, pp.weight_value AS weight_value, wtt.weight_type_name AS weight_type_name, pp.brand_name AS brand_name "
-                    +"FROM product AS pp JOIN weight_type AS wtt on(wtt.weight_type_id = pp.weight_type_id) JOIN category AS cc on(cc.category_id = pp.category_id) "
-                   +"WHERE pp.product_id NOT IN (SELECT dd.product_id FROM discount AS dd JOIN event AS ee on(ee.event_id = dd.event_id) "
-                   +"WHERE (CURRENT_DATE >= ee.start_date AND CURRENT_DATE < ee.end_date + INTERVAL 1 DAY)) "
-                   +"AND (pp.product_name LIKE LOWER(CONCAT('%', ?1, '%')) OR cc.category_name LIKE LOWER(CONCAT('%', ?1, '%')) OR pp.brand_name LIKE LOWER(CONCAT('%', ?1, '%'))) "
-                   +"AND pp.active = 1) AS s1"
-)*/
-
 public class Item {
     @Id
     private int product_id;

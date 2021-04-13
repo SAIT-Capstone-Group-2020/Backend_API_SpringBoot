@@ -3,9 +3,8 @@ package hha.spring.data.dataapi.security;
 import com.sun.istack.NotNull;
 
 /**
-*dummy class to retrieve the request body data.
+*Dummy class to retrieve the request body data.
  */
-
 public class LoginDto {
     @NotNull
     private String email;

@@ -8,9 +8,11 @@ import hha.spring.data.dataapi.domain.event.Event;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
-import java.util.List;
 
-
+/**
+ * Interface for JPA Repository - event table
+ * Default JPA implementation(framework) is hibernate
+ */
 public interface EventRepository extends JpaRepository<Event, Integer> {
 
     @Query(value= "SELECT * "

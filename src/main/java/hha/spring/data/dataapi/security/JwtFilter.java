@@ -20,11 +20,9 @@ import java.io.IOException;
 
 import java.util.Optional;
 
-
-
 /**
  * Chain of Filter to set Token
- * This filter is caused from the WebSecurityConfiguration
+ * This filter is triggered from the WebSecurityConfiguration
  */
 
 @Component

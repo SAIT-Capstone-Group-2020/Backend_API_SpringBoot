@@ -8,6 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+/**
+ * Interface for JPA Repository - Item data object
+ * Default JPA implementation(framework) is hibernate
+ */
 public interface ItemRepository extends JpaRepository<Item, Integer> {
     @Query(value =
             "SELECT * FROM "

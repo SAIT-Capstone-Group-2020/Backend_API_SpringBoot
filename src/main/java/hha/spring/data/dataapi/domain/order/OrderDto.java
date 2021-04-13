@@ -2,6 +2,12 @@ package hha.spring.data.dataapi.domain.order;
 
 import java.util.List;
 
+/**
+ * This class is a data object that works as response entity
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 public class OrderDto {
 
     private List<OrderItem> orderItem;

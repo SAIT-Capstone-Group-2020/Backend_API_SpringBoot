@@ -3,6 +3,12 @@ package hha.spring.data.dataapi.domain.order;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This class is a data object that works as response entity
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 public class OrderInfoDto {
 
     private String email;
@@ -39,10 +45,6 @@ public class OrderInfoDto {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getName() {
         return name;
     }
@@ -53,10 +55,6 @@ public class OrderInfoDto {
 
     public int getOrder_id() {
         return order_id;
-    }
-
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
     }
 
     public List<OrderItemDto> getItemList() {

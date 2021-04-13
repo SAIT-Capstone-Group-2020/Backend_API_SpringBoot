@@ -1,7 +1,4 @@
-//medium.com/swlh/spring-boot-security-jwt-hello-world-example-b479e457664c
-
 package hha.spring.data.dataapi.security;
-
 
 import hha.spring.data.dataapi.domain.Role;
 import io.jsonwebtoken.*;
@@ -19,9 +16,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * Utilties to mange Token
+ * Utilities to mange Token
  */
-
 @Component
 public class JwtUtil implements Serializable {
 
@@ -33,6 +29,13 @@ public class JwtUtil implements Serializable {
 
     private long tokenValidity;
 
+
+    /**
+     * Basic configuration for the JWTtoken
+     *
+     * @param secretKey encryption key
+     * @param tokenValidity validity expiration(milliseconds)
+     */
     @Autowired
     public JwtUtil(@Value("secret-key-for-encryption") String secretKey,
                    //5 hours -> milliseconds (1000*60*60*5)

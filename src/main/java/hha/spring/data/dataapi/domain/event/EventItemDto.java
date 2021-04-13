@@ -1,9 +1,17 @@
 package hha.spring.data.dataapi.domain.event;
 
-import hha.spring.data.dataapi.domain.order.OrderItemDto;
-
 import javax.persistence.*;
 
+/**
+ * This class is a Data Entity that bridges between
+ * relational database and Java object
+ * by using Java Persistence API
+ *
+ * retrieve product list related to the event
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @Entity
 @SqlResultSetMapping(
         name = "eventDataMapping",

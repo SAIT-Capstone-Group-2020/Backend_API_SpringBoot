@@ -3,7 +3,16 @@ package hha.spring.data.dataapi.domain;
 import javax.persistence.*;
 import java.util.Date;
 
-
+/**
+ * This class is a Data Entity that bridges between
+ * relational database and Java object
+ * by using Java Persistence API
+ *
+ * retrieve report data
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @Entity
 @SqlResultSetMapping(
         name = "ReportProdDataMapping",

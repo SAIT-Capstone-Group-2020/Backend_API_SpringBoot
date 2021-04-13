@@ -1,10 +1,19 @@
 package hha.spring.data.dataapi.domain;
 
-
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
+/**
+ * This class is a Data Entity that bridges between
+ * relational database and Java object
+ * by using Java Persistence API
+ *
+ * role_info table
+ *
+ * @author HHA E-Commerce
+ * @version 1.0, April 20, 2021
+ */
 @Entity
 @Table(name="role_info")
 public class Role implements GrantedAuthority{
@@ -32,10 +41,6 @@ public class Role implements GrantedAuthority{
 
     public String getRoleName() {
         return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
     }
 
 

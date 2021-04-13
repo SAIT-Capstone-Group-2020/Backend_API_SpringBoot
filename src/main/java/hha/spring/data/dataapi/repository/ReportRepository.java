@@ -8,6 +8,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Interface for JPA Repository - Report data object
+ * Default JPA implementation(framework) is hibernate
+ */
 public interface ReportRepository extends JpaRepository<Report, Integer> {
 
     @Query(value = "SELECT oi.product_id AS id, p.product_name AS name, "
