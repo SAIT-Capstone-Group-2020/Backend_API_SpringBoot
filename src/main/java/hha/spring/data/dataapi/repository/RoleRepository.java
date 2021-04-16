@@ -8,5 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Default JPA implementation(framework) is hibernate
  */
 public interface RoleRepository extends JpaRepository<Role, Integer> {
+    /**
+     * Find by role name role.
+     *
+     * @param name the name
+     * @return the role
+     */
     Role findByRoleName(String name);
 }

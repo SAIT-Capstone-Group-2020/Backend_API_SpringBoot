@@ -33,7 +33,7 @@ public class OrderController {
      * checkout request from the customer side
      *
      * @param order - object(JSON) of OrderDto class
-     * @return Message(success or error occurred)
+     * @return Message(success or error occurred) message
      */
     @PostMapping("/api/customer/order")
     public Message checkOut(@RequestBody OrderDto order) {
@@ -59,19 +59,18 @@ public class OrderController {
      * Authorization header needed(JWT token)
      * All parameters are optional
      *
-     * @param status - the status of the order
+     * @param status    - the status of the order
      * @param orderDate - ordered date
-     * @param paidDate - paid date
-     * @param category - the id of category
-     * @param product - the id of product
-     * @param phone - phone number of the customer
-     * @param email - email address of the customer
-     * @param name - name of the customer
-     * @param sort - sorting option(attribute_name:asc/desc)
-     * @param page - the number of page
-     * @param pageSize - the size of the one page
-     * @param all - option when admin wants to get all information without pagination
-     *
+     * @param paidDate  - paid date
+     * @param category  - the id of category
+     * @param product   - the id of product
+     * @param phone     - phone number of the customer
+     * @param email     - email address of the customer
+     * @param name      - name of the customer
+     * @param sort      - sorting option(attribute_name:asc/desc)
+     * @param page      - the number of page
+     * @param pageSize  - the size of the one page
+     * @param all       - option when admin wants to get all information without pagination
      * @return List of the Order class object
      */
     @GetMapping("/api/admin/order")

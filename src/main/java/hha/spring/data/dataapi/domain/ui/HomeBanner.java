@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
+/**
+ * The type Home banner.
+ */
 @NamedNativeQueries(
         {
                 @NamedNativeQuery(
@@ -73,52 +76,112 @@ public class HomeBanner {
     private List<HomeBannerItem> homeBannerItems;
 
 
+    /**
+     * Add home banner item.
+     *
+     * @param item the item
+     */
     public void addHomeBannerItem(HomeBannerItem item) {
         homeBannerItems.add(item);
         item.setHomeBanner(this);
     }
 
+    /**
+     * Remove home banner item.
+     *
+     * @param item the item
+     */
     public void removeHomeBannerItem(HomeBannerItem item) {
         homeBannerItems.remove(item);
         item.setHomeBanner(null);
     }
 
+    /**
+     * Gets home banner items.
+     *
+     * @return the home banner items
+     */
     public List<HomeBannerItem> getHomeBannerItems() {
         return homeBannerItems;
     }
 
+    /**
+     * Sets home banner items.
+     *
+     * @param homeBannerItems the home banner items
+     */
     public void setHomeBannerItems(List<HomeBannerItem> homeBannerItems) {
         this.homeBannerItems = homeBannerItems;
     }
 
+    /**
+     * Gets home banner id.
+     *
+     * @return the home banner id
+     */
     public Integer getHomeBannerId() {
         return homeBannerId;
     }
 
+    /**
+     * Sets home banner id.
+     *
+     * @param homeBannerId the home banner id
+     */
     public void setHomeBannerId(Integer homeBannerId) {
         this.homeBannerId = homeBannerId;
     }
 
+    /**
+     * Gets comment.
+     *
+     * @return the comment
+     */
     public String getComment() {
         return comment;
     }
 
+    /**
+     * Sets comment.
+     *
+     * @param comment the comment
+     */
     public void setComment(String comment) {
         this.comment = comment;
     }
 
+    /**
+     * Gets start date.
+     *
+     * @return the start date
+     */
     public Date getStartDate() {
         return startDate;
     }
 
+    /**
+     * Sets start date.
+     *
+     * @param startData the start data
+     */
     public void setStartDate(Date startData) {
         this.startDate = startData;
     }
 
+    /**
+     * Gets end date.
+     *
+     * @return the end date
+     */
     public Date getEndDate() {
         return endDate;
     }
 
+    /**
+     * Sets end date.
+     *
+     * @param endData the end data
+     */
     public void setEndDate(Date endData) {
         this.endDate = endData;
     }

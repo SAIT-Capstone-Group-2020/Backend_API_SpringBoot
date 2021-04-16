@@ -12,6 +12,12 @@ import java.util.List;
  */
 public interface EventItemRepository extends JpaRepository<EventItemDto, Integer> {
 
+    /**
+     * List all item list.
+     *
+     * @param id the id
+     * @return the list
+     */
     @Query(nativeQuery = true, name = "eventItemDataMapping")
     List<EventItemDto> listAllItem(int id);
 

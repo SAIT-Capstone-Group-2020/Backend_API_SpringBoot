@@ -16,6 +16,15 @@ public class OrderDto {
     private String phone;
     private String name;
 
+    /**
+     * Instantiates a new Order dto.
+     *
+     * @param orderItem    the order item
+     * @param email        the email
+     * @param confirmEmail the confirm email
+     * @param phone        the phone
+     * @param name         the name
+     */
     public OrderDto(List<OrderItem> orderItem, String email, String confirmEmail, String phone, String name) {
         this.orderItem = orderItem;
         this.email = email;
@@ -25,22 +34,47 @@ public class OrderDto {
     }
 
 
+    /**
+     * Gets order item.
+     *
+     * @return the order item
+     */
     public List<OrderItem> getOrderItem() {
         return orderItem;
     }
 
+    /**
+     * Gets email.
+     *
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Gets confirm email.
+     *
+     * @return the confirm email
+     */
     public String getConfirmEmail() {
         return confirmEmail;
     }
 
+    /**
+     * Gets phone.
+     *
+     * @return the phone
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }

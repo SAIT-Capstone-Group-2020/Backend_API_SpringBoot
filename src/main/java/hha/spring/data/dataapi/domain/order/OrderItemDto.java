@@ -7,7 +7,7 @@ import javax.persistence.*;
  * This class is a Data Entity that bridges between
  * relational database and Java object
  * by using Java Persistence API
- *
+ * <p>
  * retrieve order item information with the product detail
  *
  * @author HHA E-Commerce
@@ -72,102 +72,225 @@ public class OrderItemDto {
     private double gst;
     private double order_sum;
 
+    /**
+     * Instantiates a new Order item dto.
+     */
     public OrderItemDto() {
 
     }
 
+    /**
+     * Gets order items id.
+     *
+     * @return the order items id
+     */
     public int getOrder_items_id() {
         return order_items_id;
     }
 
+    /**
+     * Sets order items id.
+     *
+     * @param order_items_id the order items id
+     */
     public void setOrder_items_id(int order_items_id) {
         this.order_items_id = order_items_id;
     }
 
+    /**
+     * Gets product id.
+     *
+     * @return the product id
+     */
     public int getProduct_id() {
         return product_id;
     }
 
+    /**
+     * Sets product id.
+     *
+     * @param product_id the product id
+     */
     public void setProduct_id(int product_id) {
         this.product_id = product_id;
     }
 
+    /**
+     * Gets product name.
+     *
+     * @return the product name
+     */
     public String getProduct_name() {
         return product_name;
     }
 
+    /**
+     * Sets product name.
+     *
+     * @param product_name the product name
+     */
     public void setProduct_name(String product_name) {
         this.product_name = product_name;
     }
 
+    /**
+     * Gets image url.
+     *
+     * @return the image url
+     */
     public String getImage_url() {
         return image_url;
     }
 
+    /**
+     * Sets image url.
+     *
+     * @param image_url the image url
+     */
     public void setImage_url(String image_url) {
         this.image_url = image_url;
     }
 
+    /**
+     * Gets brand name.
+     *
+     * @return the brand name
+     */
     public String getBrand_name() {
         return brand_name;
     }
 
+    /**
+     * Sets brand name.
+     *
+     * @param brand_name the brand name
+     */
     public void setBrand_name(String brand_name) {
         this.brand_name = brand_name;
     }
 
+    /**
+     * Gets category name.
+     *
+     * @return the category name
+     */
     public String getCategory_name() {
         return category_name;
     }
 
+    /**
+     * Sets category name.
+     *
+     * @param category_name the category name
+     */
     public void setCategory_name(String category_name) {
         this.category_name = category_name;
     }
 
+    /**
+     * Gets quantity.
+     *
+     * @return the quantity
+     */
     public int getQuantity() {
         return quantity;
     }
 
+    /**
+     * Sets quantity.
+     *
+     * @param quantity the quantity
+     */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
+    /**
+     * Gets weight value.
+     *
+     * @return the weight value
+     */
     public double getWeight_value() {
         return weight_value;
     }
 
+    /**
+     * Sets weight value.
+     *
+     * @param weight_value the weight value
+     */
     public void setWeight_value(double weight_value) {
         this.weight_value = weight_value;
     }
 
+    /**
+     * Gets weight type name.
+     *
+     * @return the weight type name
+     */
     public String getWeight_type_name() {
         return weight_type_name;
     }
 
+    /**
+     * Sets weight type name.
+     *
+     * @param weight_type_name the weight type name
+     */
     public void setWeight_type_name(String weight_type_name) {
         this.weight_type_name = weight_type_name;
     }
 
+    /**
+     * Gets total.
+     *
+     * @return the total
+     */
     public double getTotal() {
         return total;
     }
 
+    /**
+     * Sets total.
+     *
+     * @param total the total
+     */
     public void setTotal(double total) {
         this.total = total;
     }
 
+    /**
+     * Gets gst.
+     *
+     * @return the gst
+     */
     public double getGst() {
         return gst;
     }
 
+    /**
+     * Sets gst.
+     *
+     * @param gst the gst
+     */
     public void setGst(double gst) {
         this.gst = gst;
     }
 
+    /**
+     * Gets sum.
+     *
+     * @return the sum
+     */
     public double getSum() {
         return order_sum;
     }
 
+    /**
+     * Sets sum.
+     *
+     * @param sum the sum
+     */
     public void setSum(double sum) {
         this.order_sum = sum;
     }

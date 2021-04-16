@@ -10,8 +10,20 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface UserRepository extends JpaRepository<Users, Integer> {
 
+    /**
+     * Find by email users.
+     *
+     * @param username the username
+     * @return the users
+     */
     Users findByEmail(String username);
 
+    /**
+     * Find by uuid users.
+     *
+     * @param uuid the uuid
+     * @return the users
+     */
     @Query(value= "SELECT * FROM user WHERE uuid = ?1", nativeQuery = true)
     Users findByUuid(String uuid);
 }

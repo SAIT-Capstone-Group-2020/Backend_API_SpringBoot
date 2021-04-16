@@ -40,6 +40,12 @@ public class EventService {
 	@Autowired
 	private DiscountRepository discountRepository;
 
+	/**
+	 * Delete event page.
+	 *
+	 * @param id the id
+	 * @return the page
+	 */
 	public Page<Event> deleteEvent(int id) {
 
 		eventRepository.deleteById(id);
@@ -47,11 +53,23 @@ public class EventService {
 		return getAllEvent(null, null,null, null, null);
 	}
 
+	/**
+	 * Find by id event.
+	 *
+	 * @param id the id
+	 * @return the event
+	 */
 	public Event findById(int id) {
 
 		return eventRepository.findById(id).get();
 	}
 
+	/**
+	 * Edit event page.
+	 *
+	 * @param event the event
+	 * @return the page
+	 */
 	public Page<Event> editEvent(Event event) {
 		try {
 			eventRepository.save(event);
@@ -62,6 +80,12 @@ public class EventService {
 		return getAllEvent(null, null,null, null, null);
 	}
 
+	/**
+	 * Add event page.
+	 *
+	 * @param event the event
+	 * @return the page
+	 */
 	public Page<Event> addEvent(Event event) {
 		try {
 			eventRepository.save(new Event(event.getTitle(),event.getStartDate(),event.getEndDate(),event.getDescription()));
@@ -71,6 +95,16 @@ public class EventService {
 		return getAllEvent(null, null,null, null, null);
 	}
 
+	/**
+	 * Get all event page.
+	 *
+	 * @param date     the date
+	 * @param nm       the nm
+	 * @param sort     the sort
+	 * @param page     the page
+	 * @param pageSize the page size
+	 * @return the page
+	 */
 	public Page<Event> getAllEvent(String date, String nm, String sort, String page, String pageSize){
 
 		String sortProp = "event_id";
@@ -125,6 +159,12 @@ public class EventService {
 
 	}
 
+	/**
+	 * Gets event by id.
+	 *
+	 * @param id the id
+	 * @return the event by id
+	 */
 	public EventDto getEventById(int id) {
 
 		Event ev = eventRepository.findById(id).get();
@@ -132,6 +172,13 @@ public class EventService {
 		return new EventDto(id, ev.getTitle(), ev.getStartDate(), ev.getEndDate(), ev.getDescription(), eventItemRepository.listAllItem(id));
 	}
 
+	/**
+	 * Add discount event dto.
+	 *
+	 * @param id       the id
+	 * @param discount the discount
+	 * @return the event dto
+	 */
 	public EventDto addDiscount(int id, Discount discount) {
 
 		Discount newDiscount = new Discount(discount.getProductId(), id, discount.getDiscountPrice(), 99);
@@ -143,6 +190,13 @@ public class EventService {
 		return new EventDto(id, ev.getTitle(), ev.getStartDate(), ev.getEndDate(), ev.getDescription(), eventItemRepository.listAllItem(id));
 	}
 
+	/**
+	 * Edit discount event dto.
+	 *
+	 * @param id       the id
+	 * @param discount the discount
+	 * @return the event dto
+	 */
 	public EventDto editDiscount(int id, Discount discount) {
 
 		discountRepository.findById(discount.getId());
@@ -153,6 +207,13 @@ public class EventService {
 		return new EventDto(id, ev.getTitle(), ev.getStartDate(), ev.getEndDate(), ev.getDescription(), eventItemRepository.listAllItem(id));
 	}
 
+	/**
+	 * Delete discount event dto.
+	 *
+	 * @param eventId    the event id
+	 * @param discountId the discount id
+	 * @return the event dto
+	 */
 	public EventDto deleteDiscount(String eventId, String discountId) {
 
 		discountRepository.deleteById(Integer.parseInt(discountId));

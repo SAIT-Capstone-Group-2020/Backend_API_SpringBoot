@@ -34,30 +34,30 @@ public class ProductController {
 	@Autowired
 	private ItemService itemService;
 
-	/**
-	 * get all item list
-	 *
-	 * @return List of the Item object(Data entity which has all product related information)
-	 */
-	@GetMapping("/api/customer/product")
+    /**
+     * get all item list
+     *
+     * @return List of the Item object(Data entity which has all product related information)
+     */
+    @GetMapping("/api/customer/product")
 	public List<Item> list() {
 		return itemService.listAllItem();
 	}
 
-	/**
-	 * get product list
-	 * Return data can be sorted with the parameter value
-	 * All parameters are optional
-	 *
-	 * @param keyword - any keyword of product_title/brand/category
-	 * @param price - price filter
-	 * @param category - category name
-	 * @param sort - sorting option(attribute_name:asc/desc)
-	 * @param page - the number of page
-	 * @param prom - parameter(y) to get the promotion items only
-	 * @return List of the Item object(Data entity which has all product related information)
-	 */
-	@GetMapping("/api/customer/search")
+    /**
+     * get product list
+     * Return data can be sorted with the parameter value
+     * All parameters are optional
+     *
+     * @param keyword  - any keyword of product_title/brand/category
+     * @param price    - price filter
+     * @param category - category name
+     * @param sort     - sorting option(attribute_name:asc/desc)
+     * @param page     - the number of page
+     * @param prom     - parameter(y) to get the promotion items only
+     * @return List of the Item object(Data entity which has all product related information)
+     */
+    @GetMapping("/api/customer/search")
 	public Page<Item> searchResult(
 					@RequestParam(name="term", required = false) String keyword,
 					@RequestParam(name="pric", required = false) String price,
@@ -76,13 +76,13 @@ public class ProductController {
 		return result;
 	}
 
-	/**
-	 * get a product description
-	 *
-	 * @param id - the id of product
-	 * @return Object of Item
-	 */
-	@GetMapping("/api/customer/product/{id}")
+    /**
+     * get a product description
+     *
+     * @param id - the id of product
+     * @return Object of Item
+     */
+    @GetMapping("/api/customer/product/{id}")
 	public ResponseEntity<Item> get(@PathVariable int id) {
 		try {
 			Item item = itemService.listSingleItem(id);
@@ -92,34 +92,34 @@ public class ProductController {
 		}
 	}
 
-	/**
-	 * get all item list
-	 * Authorization header needed(JWT token)
-	 * @return List of the Item object(Data entity which has all product related information)
-	 */
-	@GetMapping("/api/admin/product")
+    /**
+     * get all item list
+     * Authorization header needed(JWT token)
+     *
+     * @return List of the Item object(Data entity which has all product related information)
+     */
+    @GetMapping("/api/admin/product")
 	public List<Product> listAdminSide() {
 		return service.listAllProducts();
 	}
 
-	/**
-	 * add new product
-	 * Authorization header needed(JWT token)
-	 * All parameters are optional
-	 *
-	 * @param name - any keyword of product_title/brand/category
-	 * @param price - price filter
-	 * @param category - the id of category
-	 * @param brand - brand name
-	 * @param price - price(double)
-	 * @param description - product description
-	 * @param quantity - the quantity(integer)
-	 * @param weightValue - weight(double)
-	 * @param weightType - the id of weight type
-	 * @param image_file - image file(multipart file)
-	 * @return Updated list of all product
-	 */
-	@PostMapping(value = "/api/admin/product", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    /**
+     * add new product
+     * Authorization header needed(JWT token)
+     * All parameters are optional
+     *
+     * @param name        - any keyword of product_title/brand/category
+     * @param description - product description
+     * @param brand       - brand name
+     * @param price       - price filter
+     * @param category    - the id of category
+     * @param quantity    - the quantity(integer)
+     * @param weightValue - weight(double)
+     * @param weightType  - the id of weight type
+     * @param image_file  - image file(multipart file)
+     * @return Updated list of all product
+     */
+    @PostMapping(value = "/api/admin/product", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public List<Product> addProduct(
 			@RequestParam(name="name") String name,
 			@RequestParam(name="description") String description,
@@ -144,28 +144,28 @@ public class ProductController {
 		return service.addProduct(prod, image_file);
 	}
 
-	/**
-	 * add new product with bulk data
-	 * if the id of product is 0, then it will be recognized as new product.
-	 * Otherwise, it will replace the product data which has same id.
-	 * Authorization header needed(JWT token)
-	 *
-	 * @param prodList - List of Product object
-	 * @return Updated list of all product
-	 */
-	@PostMapping("/api/admin/product/bulk")
+    /**
+     * add new product with bulk data
+     * if the id of product is 0, then it will be recognized as new product.
+     * Otherwise, it will replace the product data which has same id.
+     * Authorization header needed(JWT token)
+     *
+     * @param prodList - List of Product object
+     * @return Updated list of all product
+     */
+    @PostMapping("/api/admin/product/bulk")
 	public List<Product> addProductBulk(@RequestBody List<Product> prodList) {
 
 		return service.addProductBulk(prodList);
 	}
 
-	/**
-	 * delete a product(it is a cascading delete)
-	 *
-	 * @param id - List of integer value(id of product)
-	 * @return Updated list of order
-	 */
-	@DeleteMapping("/api/admin/product")
+    /**
+     * delete a product(it is a cascading delete)
+     *
+     * @param id - List of integer value(id of product)
+     * @return Updated list of order
+     */
+    @DeleteMapping("/api/admin/product")
 	public List<Product> removeProduct(@RequestParam("id") int id) {
 
 		Product check = null;
@@ -178,26 +178,25 @@ public class ProductController {
 		return service.removeProduct(check);
 	}
 
-	/**
-	 * edit new product
-	 * Authorization header needed(JWT token)
-	 * All parameters are optional
-	 *
-	 * @param id - the id of the product
-	 * @param name - any keyword of product_title/brand/category
-	 * @param active - true/false
-	 * @param price - price filter
-	 * @param category - the id of category
-	 * @param brand - brand name
-	 * @param price - price(double)
-	 * @param description - product description
-	 * @param quantity - the quantity(integer)
-	 * @param weightValue - weight(double)
-	 * @param weightType - the id of weight type
-	 * @param image_file - image file(multipart file)
-	 * @return Updated list of all product
-	 */
-	@PutMapping(value="/api/admin/product", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    /**
+     * edit new product
+     * Authorization header needed(JWT token)
+     * All parameters are optional
+     *
+     * @param id          - the id of the product
+     * @param name        - any keyword of product_title/brand/category
+     * @param description - product description
+     * @param brand       - brand name
+     * @param price       - price filter
+     * @param active      - true/false
+     * @param category    - the id of category
+     * @param quantity    - the quantity(integer)
+     * @param weightValue - weight(double)
+     * @param weightType  - the id of weight type
+     * @param image_file  - image file(multipart file)
+     * @return Updated list of all product
+     */
+    @PutMapping(value="/api/admin/product", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public List<Product> editProduct(
 			@RequestParam(name="id") int id,
 			@RequestParam(name="name") String name,
@@ -223,19 +222,19 @@ public class ProductController {
 
 	}
 
-	/**
-	 * get each row(data) of product table
-	 * Authorization header needed(JWT token)
-	 * All parameters are optional
-	 *
-	 * @param name - any keyword of product_title
-	 * @param bran - any keyword of product_brand
-	 * @param cate - the id of category
-	 * @param sort - sorting option(attribute_name:asc/desc)
-	 * @param page - the number of page
-	 * @return List of the Item object(Data entity which has all product related information)
-	 */
-	@GetMapping("/api/admin/product/search")
+    /**
+     * get each row(data) of product table
+     * Authorization header needed(JWT token)
+     * All parameters are optional
+     *
+     * @param page - the number of page
+     * @param name - any keyword of product_title
+     * @param bran - any keyword of product_brand
+     * @param cate - the id of category
+     * @param sort - sorting option(attribute_name:asc/desc)
+     * @return List of the Item object(Data entity which has all product related information)
+     */
+    @GetMapping("/api/admin/product/search")
 	public Page<Product> searchResultAdminSide(
 			@RequestParam(name="page", required = false) String page,
 			@RequestParam(name="name", required = false) String name,

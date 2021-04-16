@@ -33,7 +33,7 @@ public class JwtUtil implements Serializable {
     /**
      * Basic configuration for the JWTtoken
      *
-     * @param secretKey encryption key
+     * @param secretKey     encryption key
      * @param tokenValidity validity expiration(milliseconds)
      */
     @Autowired
@@ -44,6 +44,13 @@ public class JwtUtil implements Serializable {
         this.tokenValidity = tokenValidity;
     }
 
+    /**
+     * Create token string.
+     *
+     * @param username the username
+     * @param roles    the roles
+     * @return the string
+     */
     public String createToken(String username, List<Role> roles) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put(ROLE_KEY, roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))
@@ -61,6 +68,12 @@ public class JwtUtil implements Serializable {
                 .compact();
     }
 
+    /**
+     * Is valid token boolean.
+     *
+     * @param token the token
+     * @return the boolean
+     */
     public boolean isValidToken(String token) {
         try {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
@@ -70,11 +83,23 @@ public class JwtUtil implements Serializable {
         }
     }
 
+    /**
+     * Gets username.
+     *
+     * @param token the token
+     * @return the username
+     */
     public String getUsername(String token) {
         return Jwts.parser().setSigningKey(secretKey)
                 .parseClaimsJws(token).getBody().getSubject();
     }
 
+    /**
+     * Gets roles.
+     *
+     * @param token the token
+     * @return the roles
+     */
     public List<GrantedAuthority> getRoles(String token) {
         List<Map<String, String>> roleClaims = Jwts.parser().setSigningKey(secretKey)
                 .parseClaimsJws(token).getBody().get(ROLE_KEY, List.class);

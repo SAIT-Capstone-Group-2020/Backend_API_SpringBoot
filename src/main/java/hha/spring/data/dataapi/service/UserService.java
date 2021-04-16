@@ -38,6 +38,15 @@ public class UserService {
 
     private JwtUtil jwtUtil;
 
+    /**
+     * Instantiates a new User service.
+     *
+     * @param userRepo              the user repo
+     * @param roleRepo              the role repo
+     * @param authenticationManager the authentication manager
+     * @param passwordEncoder       the password encoder
+     * @param jwtUtil               the jwt util
+     */
     @Autowired
     public UserService(UserRepository userRepo, RoleRepository roleRepo, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
         this.userRepository = userRepo;
@@ -47,6 +56,13 @@ public class UserService {
         this.jwtUtil = jwtUtil;
     }
 
+    /**
+     * Admin sign in string.
+     *
+     * @param email    the email
+     * @param password the password
+     * @return the string
+     */
     public String adminSignIn(String email, String password) {
 
         String token = "";
@@ -77,6 +93,14 @@ public class UserService {
         return token;
     }
 
+    /**
+     * Admin sign up users.
+     *
+     * @param email    the email
+     * @param password the password
+     * @param name     the name
+     * @return the users
+     */
     public Users adminSignUP(String email, String password, String name) {
         Users user = userRepository.findByEmail(email);
 
@@ -92,6 +116,12 @@ public class UserService {
         return null;
     }
 
+    /**
+     * Admin activate users.
+     *
+     * @param uuid the uuid
+     * @return the users
+     */
     public Users adminActivate(String uuid) {
         Users user = userRepository.findByUuid(uuid);
 
@@ -108,6 +138,12 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Admin de activate users.
+     *
+     * @param uuid the uuid
+     * @return the users
+     */
     public Users adminDeActivate(String uuid) {
 
         Users user = userRepository.findByUuid(uuid);
@@ -125,6 +161,12 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Delete user list.
+     *
+     * @param uuid the uuid
+     * @return the list
+     */
     public List<Users> deleteUser(String uuid) {
 
         Users user = userRepository.findByUuid(uuid);
@@ -138,12 +180,29 @@ public class UserService {
         return findAllUsers();
     }
 
+    /**
+     * Find all users list.
+     *
+     * @return the list
+     */
     public List<Users> findAllUsers() {
         return userRepository.findAll();
     }
 
+    /**
+     * Find by email users.
+     *
+     * @param email the email
+     * @return the users
+     */
     public Users findByEmail(String email) {return userRepository.findByEmail(email);}
 
+    /**
+     * Find uuid by email string.
+     *
+     * @param email the email
+     * @return the string
+     */
     public String findUuidByEmail(String email) {return userRepository.findByEmail(email).getUuid();}
 
 }

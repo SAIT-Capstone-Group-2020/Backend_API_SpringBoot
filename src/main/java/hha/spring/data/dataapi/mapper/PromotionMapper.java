@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface PromotionMapper {
     /**
      * get current weekly promotion
+     *
      * @return Current Promotion if have, null otherwise.
      */
     CurrPromotion currentWeeklyPromotion();

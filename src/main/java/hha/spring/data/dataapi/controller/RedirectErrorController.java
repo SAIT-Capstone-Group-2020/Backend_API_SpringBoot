@@ -9,8 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * The type Redirect error controller.
+ */
 @RestController
 public class RedirectErrorController implements ErrorController {
+    /**
+     * Error.
+     *
+     * @param request  the request
+     * @param response the response
+     * @throws IOException the io exception
+     */
     @GetMapping("/error")
     public void error(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (response.getStatus() == HttpServletResponse.SC_NOT_FOUND) {

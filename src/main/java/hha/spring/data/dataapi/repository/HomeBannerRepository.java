@@ -9,12 +9,25 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * The interface Home banner repository.
+ */
 @Repository
 public interface HomeBannerRepository extends CrudRepository<HomeBanner, Integer> {
 
+    /**
+     * Query current home banner list.
+     *
+     * @return the list
+     */
     @Query(nativeQuery = true)
     List<CurrHomeBanner> queryCurrentHomeBanner();
 
+    /**
+     * Query current holiday banner curr holiday.
+     *
+     * @return the curr holiday
+     */
     @Query(nativeQuery = true)
     CurrHoliday queryCurrentHolidayBanner();
 

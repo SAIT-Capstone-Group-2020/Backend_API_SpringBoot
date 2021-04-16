@@ -32,6 +32,18 @@ public class BannerService {
     private EventRepository eventRepository;
     private HomeBannerItemDtoRepostiroy homeBannerItemDtoRepostiroy;
 
+    /**
+     * Instantiates a new Banner service.
+     *
+     * @param homeBannerRepository        the home banner repository
+     * @param promotionMapper             the promotion mapper
+     * @param awsS3Service                the aws s 3 service
+     * @param homeBannerItemRepository    the home banner item repository
+     * @param holidayBannerRepository     the holiday banner repository
+     * @param eventBannerRepository       the event banner repository
+     * @param eventRepository             the event repository
+     * @param homeBannerItemDtoRepostiroy the home banner item dto repostiroy
+     */
     public BannerService(HomeBannerRepository homeBannerRepository, PromotionMapper promotionMapper, AwsS3Service awsS3Service, HomeBannerItemRepository homeBannerItemRepository, HolidayBannerRepository holidayBannerRepository, EventBannerRepository eventBannerRepository, EventRepository eventRepository, HomeBannerItemDtoRepostiroy homeBannerItemDtoRepostiroy) {
         this.homeBannerRepository = homeBannerRepository;
         this.promotionMapper = promotionMapper;
@@ -201,6 +213,7 @@ public class BannerService {
 
     /**
      * update home banner item
+     *
      * @param request the home banner item reuqst dto.
      * @return the home banner item created.
      */
@@ -239,6 +252,7 @@ public class BannerService {
 
     /**
      * delete the home banner item with id of it
+     *
      * @param homeBannerItemId the hom banner item id
      * @return null if fail, the delete home banner item if delete success.
      */
@@ -275,6 +289,13 @@ public class BannerService {
         return createHomeBannerItemAux(request.getHomeBannerId(), item);
     }
 
+    /**
+     * Create home banner item aux home banner item.
+     *
+     * @param homeBannerId the home banner id
+     * @param item         the item
+     * @return the home banner item
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public HomeBannerItem createHomeBannerItemAux(Integer homeBannerId, HomeBannerItem item) {
         final Optional<HomeBanner> homeBanner = homeBannerRepository.findById(homeBannerId);
@@ -290,6 +311,7 @@ public class BannerService {
 
     /**
      * create home banner
+     *
      * @param homeBanner the home banner to save
      */
     @Transactional(propagation = Propagation.REQUIRED)
@@ -299,6 +321,7 @@ public class BannerService {
 
     /**
      * update the home banner
+     *
      * @param homeBanner the updated home banner
      * @return the updated home banner, null if update fail.
      */
@@ -319,6 +342,7 @@ public class BannerService {
 
     /**
      * delete home banner with gaven id.
+     *
      * @param id the home banner id
      * @return the delete home banner, null if delete fail.
      */
@@ -336,6 +360,7 @@ public class BannerService {
 
     /**
      * find current holiday banner to show
+     *
      * @return the current holiday banner, null if no banner in database.
      */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
@@ -345,6 +370,7 @@ public class BannerService {
 
     /**
      * find current home banner
+     *
      * @return the current home banner if exist. null otherwise.
      */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
@@ -354,6 +380,7 @@ public class BannerService {
 
     /**
      * find current promotion
+     *
      * @return the current promotion if has in db, null otherise.
      */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
@@ -363,6 +390,7 @@ public class BannerService {
 
     /**
      * get all event banner
+     *
      * @return all event banner
      */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
@@ -372,6 +400,7 @@ public class BannerService {
 
     /**
      * get all holiday banner
+     *
      * @return all holiday banner
      */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
@@ -381,6 +410,7 @@ public class BannerService {
 
     /**
      * get all home banner item
+     *
      * @return return all home banner item.
      */
     @Transactional

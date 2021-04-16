@@ -6,7 +6,7 @@ import javax.persistence.*;
  * This class is a Data Entity that bridges between
  * relational database and Java object
  * by using Java Persistence API
- *
+ * <p>
  * weight_type table
  *
  * @author HHA E-Commerce
@@ -23,25 +23,53 @@ public class WeightType {
     @Column(name = "weight_type_name")
     private String name;
 
+    /**
+     * Instantiates a new Weight type.
+     */
     public WeightType() {
     }
 
+    /**
+     * Instantiates a new Weight type.
+     *
+     * @param name the name
+     */
     public WeightType(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }

@@ -31,10 +31,11 @@ public class AwsS3Service {
 
     /**
      * construct aws service
-     * @param aws_access_key_id AWS_ACCESS_KEY_ID
+     *
+     * @param aws_access_key_id     AWS_ACCESS_KEY_ID
      * @param aws_secret_access_key AWS_SECRET_ACCESS_KEY
-     * @param aws_s3_bucket AWS_S3_BUCKET
-     * @param aws_s3_region AWS_S3_REGION
+     * @param aws_s3_bucket         AWS_S3_BUCKET
+     * @param aws_s3_region         AWS_S3_REGION
      */
     public AwsS3Service(@Value("${AWS_ACCESS_KEY_ID}") String aws_access_key_id, @Value("${AWS_SECRET_ACCESS_KEY}") String aws_secret_access_key,
                         @Value("${AWS_S3_BUCKET}") String aws_s3_bucket,
@@ -46,14 +47,27 @@ public class AwsS3Service {
         this.regionName = aws_s3_region;
     }
 
+    /**
+     * Gets bucket name.
+     *
+     * @return the bucket name
+     */
     public String getBucketName() {
         return bucketName;
     }
 
+    /**
+     * Gets region name.
+     *
+     * @return the region name
+     */
     public String getRegionName() {
         return regionName;
     }
 
+    /**
+     * Init.
+     */
     @PostConstruct
     public void init() {
         s3Client = S3Client.builder()
@@ -78,6 +92,7 @@ public class AwsS3Service {
 
     /**
      * get object url address
+     *
      * @param key the object key
      * @return the url
      */
@@ -87,7 +102,8 @@ public class AwsS3Service {
 
     /**
      * update object
-     * @param key the key
+     *
+     * @param key  the key
      * @param data the data
      */
     public void upload(String key, byte[] data) {
@@ -97,6 +113,7 @@ public class AwsS3Service {
 
     /**
      * delete object by key
+     *
      * @param key the object key
      */
     public void delete(String key) {

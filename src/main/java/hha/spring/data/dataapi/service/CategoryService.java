@@ -20,20 +20,43 @@ public class CategoryService {
     @Autowired
     private CategoryRepository repo;
 
+    /**
+     * List all categories list.
+     *
+     * @return the list
+     */
     public List<Category> listAllCategories() {
         return repo.findAll();
     }
 
+    /**
+     * Gets category by id.
+     *
+     * @param id the id
+     * @return the category by id
+     */
     public Category getCategoryById(int id) {
         return repo.findById(id).get();
     }
 
+    /**
+     * Save category list.
+     *
+     * @param category the category
+     * @return the list
+     */
     public List<Category> saveCategory(Category category) {
 
         repo.save(category);
         return repo.findAll();
     }
 
+    /**
+     * Delete category list.
+     *
+     * @param id the id
+     * @return the list
+     */
     public List<Category> deleteCategory(int id) {
 
         repo.deleteById(id);

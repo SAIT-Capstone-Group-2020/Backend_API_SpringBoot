@@ -14,6 +14,14 @@ import java.util.Map;
  */
 public interface ReportRepository extends JpaRepository<Report, Integer> {
 
+    /**
+     * Prod report list.
+     *
+     * @param startYear the start year
+     * @param endYear   the end year
+     * @param id        the id
+     * @return the list
+     */
     @Query(value = "SELECT oi.product_id AS id, p.product_name AS name, "
             +"TRUNCATE(SUM(oi.total_price),2) AS sales, SUM(oi.qty) AS qty, YEARWEEK(o.paid_date) AS paid_date "
             +"FROM orders AS o JOIN order_items AS oi on(o.orders_id = oi.orders_id) JOIN product AS p on(p.product_id = oi.product_id) "
@@ -23,6 +31,14 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
             nativeQuery = true)
     List<Map<String, Object>> prodReport(Date startYear, Date endYear, int id);
 
+    /**
+     * Prod report month list.
+     *
+     * @param startYear the start year
+     * @param endYear   the end year
+     * @param id        the id
+     * @return the list
+     */
     @Query(value = "SELECT oi.product_id AS id, p.product_name AS name, "
             +"TRUNCATE(SUM(oi.total_price),2) AS sales, SUM(oi.qty) AS qty, MONTH(o.paid_date) AS paid_date "
             +"FROM orders AS o JOIN order_items AS oi on(o.orders_id = oi.orders_id) JOIN product AS p on(p.product_id = oi.product_id) "
@@ -32,6 +48,14 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
             nativeQuery = true)
     List<Map<String, Object>> prodReportMonth(Date startYear, Date endYear, int id);
 
+    /**
+     * Cate report list.
+     *
+     * @param startYear the start year
+     * @param endYear   the end year
+     * @param id        the id
+     * @return the list
+     */
     @Query(value = "SELECT p.category_id AS id, c.category_name AS name, "
             +"TRUNCATE(SUM(oi.total_price),2) AS sales, SUM(oi.qty) AS qty, YEARWEEK(o.paid_date) AS paid_date "
             +"FROM orders AS o JOIN order_items AS oi on(o.orders_id = oi.orders_id) JOIN product AS p on(p.product_id = oi.product_id) JOIN category AS c ON(p.category_id = c.category_id) "
@@ -41,6 +65,14 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
             nativeQuery = true)
     List<Map<String, Object>> cateReport(Date startYear, Date endYear, int id);
 
+    /**
+     * Cate report month list.
+     *
+     * @param startYear the start year
+     * @param endYear   the end year
+     * @param id        the id
+     * @return the list
+     */
     @Query(value = "SELECT p.category_id AS id, c.category_name AS name, "
             +"TRUNCATE(SUM(oi.total_price),2) AS sales, SUM(oi.qty) AS qty, MONTH(o.paid_date) AS paid_date "
             +"FROM orders AS o JOIN order_items AS oi on(o.orders_id = oi.orders_id) JOIN product AS p on(p.product_id = oi.product_id) JOIN category AS c ON(p.category_id = c.category_id) "
@@ -50,6 +82,13 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
             nativeQuery = true)
     List<Map<String, Object>> cateReportMonth(Date startYear, Date endYear, int id);
 
+    /**
+     * Period report prod week map.
+     *
+     * @param date the date
+     * @param id   the id
+     * @return the map
+     */
     @Query(value = "SELECT oi.product_id AS id, p.product_name AS name, "
             +"TRUNCATE(SUM(oi.total_price),2) AS sales, SUM(oi.qty) AS qty, YEARWEEK(o.paid_date) AS paid_date "
             +"FROM orders AS o JOIN order_items AS oi on(o.orders_id = oi.orders_id) JOIN product AS p on(p.product_id = oi.product_id) "
@@ -59,6 +98,15 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
             nativeQuery = true)
     Map<String, Object> periodReportProdWeek(String date, int id);
 
+    /**
+     * Period report prod month map.
+     *
+     * @param startYear the start year
+     * @param endYear   the end year
+     * @param month     the month
+     * @param id        the id
+     * @return the map
+     */
     @Query(value = "SELECT oi.product_id AS id, p.product_name AS name, "
             +"TRUNCATE(SUM(oi.total_price),2) AS sales, SUM(oi.qty) AS qty, MONTH(o.paid_date) AS paid_date "
             +"FROM orders AS o JOIN order_items AS oi on(o.orders_id = oi.orders_id) JOIN product AS p on(p.product_id = oi.product_id) "
@@ -67,6 +115,13 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
             nativeQuery = true)
     Map<String, Object> periodReportProdMonth(Date startYear, Date endYear, String month, int id);
 
+    /**
+     * Period cate report map.
+     *
+     * @param date the date
+     * @param id   the id
+     * @return the map
+     */
     @Query(value = "SELECT p.category_id AS id, c.category_name AS name, "
             +"TRUNCATE(SUM(oi.total_price),2) AS sales, SUM(oi.qty) AS qty, YEARWEEK(o.paid_date) AS paid_date "
             +"FROM orders AS o JOIN order_items AS oi on(o.orders_id = oi.orders_id) JOIN product AS p on(p.product_id = oi.product_id) JOIN category AS c ON(p.category_id = c.category_id) "
@@ -75,6 +130,15 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
             nativeQuery = true)
     Map<String, Object> periodCateReport(String date, int id);
 
+    /**
+     * Period report cate month map.
+     *
+     * @param startYear the start year
+     * @param endYear   the end year
+     * @param month     the month
+     * @param id        the id
+     * @return the map
+     */
     @Query(value = "SELECT p.category_id AS id, c.category_name AS name, "
             +"TRUNCATE(SUM(oi.total_price),2) AS sales, SUM(oi.qty) AS qty, MONTH(o.paid_date) AS paid_date "
             +"FROM orders AS o JOIN order_items AS oi on(o.orders_id = oi.orders_id) JOIN product AS p on(p.product_id = oi.product_id) JOIN category AS c ON(p.category_id = c.category_id) "

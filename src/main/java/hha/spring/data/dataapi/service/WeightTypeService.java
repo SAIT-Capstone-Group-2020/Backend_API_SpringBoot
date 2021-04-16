@@ -21,20 +21,43 @@ public class WeightTypeService {
     @Autowired
     private WeightTypeRepository repo;
 
+    /**
+     * List all weight type list.
+     *
+     * @return the list
+     */
     public List<WeightType> listAllWeightType() {
         return repo.findAll();
     }
 
+    /**
+     * Gets weight type by id.
+     *
+     * @param id the id
+     * @return the weight type by id
+     */
     public WeightType getWeightTypeById(int id) {
         return repo.findById(id).get();
     }
 
+    /**
+     * Save weight type list.
+     *
+     * @param wt the wt
+     * @return the list
+     */
     public List<WeightType> saveWeightType(WeightType wt) {
 
         repo.save(wt);
         return repo.findAll();
     }
 
+    /**
+     * Delete weight type list.
+     *
+     * @param id the id
+     * @return the list
+     */
     public List<WeightType> deleteWeightType(int id) {
 
         repo.deleteById(id);

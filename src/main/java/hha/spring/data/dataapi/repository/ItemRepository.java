@@ -13,6 +13,16 @@ import java.util.List;
  * Default JPA implementation(framework) is hibernate
  */
 public interface ItemRepository extends JpaRepository<Item, Integer> {
+    /**
+     * Find by search keyword page.
+     *
+     * @param keyword  the keyword
+     * @param gt       the gt
+     * @param lt       the lt
+     * @param category the category
+     * @param pageable the pageable
+     * @return the page
+     */
     @Query(value =
             "SELECT * FROM "
                     +"(SELECT p.product_id AS product_id, p.product_name AS product_name, p.description AS description, p.retail_price as original_price, TRUE AS is_discount, d.discount_price AS discount_price, p.image_url AS image_url, c.category_name AS category_name, p.quantity AS quantity, p.weight_value AS weight_value, wt.weight_type_name AS weight_type_name, p.brand_name AS brand_name "
@@ -66,7 +76,17 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
             ,nativeQuery = true)
     Page<Item> findBySearchKeyword(String keyword, double gt, double lt, String category, Pageable pageable);
 
-        @Query(value =
+    /**
+     * Find by search keyword prom page.
+     *
+     * @param keyword  the keyword
+     * @param gt       the gt
+     * @param lt       the lt
+     * @param category the category
+     * @param pageable the pageable
+     * @return the page
+     */
+    @Query(value =
                         "SELECT p.product_id AS product_id, p.product_name AS product_name, p.description AS description, p.retail_price as original_price, TRUE AS is_discount, d.discount_price AS discount_price, p.image_url AS image_url, c.category_name AS category_name, p.quantity AS quantity, p.weight_value AS weight_value, wt.weight_type_name AS weight_type_name, p.brand_name AS brand_name "
                         +"FROM product AS p JOIN weight_type AS wt on(wt.weight_type_id = p.weight_type_id) JOIN category AS c on(c.category_id = p.category_id) "
                         +"JOIN discount AS d on(d.product_id = p.product_id) JOIN event AS e on(e.event_id = d.event_id) "
@@ -93,9 +113,20 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
                 ,nativeQuery = true)
         Page<Item> findBySearchKeywordProm(String keyword, double gt, double lt, String category, Pageable pageable);
 
+    /**
+     * List all item list.
+     *
+     * @return the list
+     */
     @Query(nativeQuery = true, name = "allItemDataMapping")
     List<Item> listAllItem();
 
+    /**
+     * Find by product id item.
+     *
+     * @param id the id
+     * @return the item
+     */
     @Query(nativeQuery = true, name = "singleItemDataMapping")
     Item findByProductId(int id);
 }

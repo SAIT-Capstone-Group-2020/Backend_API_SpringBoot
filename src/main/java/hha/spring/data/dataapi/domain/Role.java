@@ -8,7 +8,7 @@ import javax.persistence.*;
  * This class is a Data Entity that bridges between
  * relational database and Java object
  * by using Java Persistence API
- *
+ * <p>
  * role_info table
  *
  * @author HHA E-Commerce
@@ -31,14 +31,29 @@ public class Role implements GrantedAuthority{
         return roleName;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets role name.
+     *
+     * @return the role name
+     */
     public String getRoleName() {
         return roleName;
     }
