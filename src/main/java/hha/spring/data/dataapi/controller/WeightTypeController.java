@@ -72,7 +72,7 @@ public class WeightTypeController {
      * Authorization header needed(JWT token)
      *
      * @param weightType - object(JSON) of WeightType class
-     * @param id - integer value(id of the weight type)
+     * @param id         - integer value(id of the weight type)
      * @return Updated weight type list
      */
     @PutMapping("/api/weighttype/{id}")

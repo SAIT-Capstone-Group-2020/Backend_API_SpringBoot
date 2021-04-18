@@ -73,7 +73,7 @@ public class CategoryController {
      * Authorization header needed(JWT token)
      *
      * @param category - object(JSON) of Category class
-     * @param id - integer value(id of the category)
+     * @param id       - integer value(id of the category)
      * @return Updated category list
      */
     @PutMapping("/api/categories/{id}")

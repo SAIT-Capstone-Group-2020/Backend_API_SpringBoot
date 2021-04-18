@@ -27,13 +27,13 @@ public class UserController {
 	@Autowired
 	private UserService service;
 
-	/**
-	 * Sign-in with id(email) & password
-	 *
-	 * @param loginDto - data entity to retrieve the user data
-	 * @return Message(success message with JWT token / failed)
-	 */
-	@PostMapping("/api/admin/signin")
+    /**
+     * Sign-in with id(email) & password
+     *
+     * @param loginDto - data entity to retrieve the user data
+     * @return Message(success message with JWT token / failed) message
+     */
+    @PostMapping("/api/admin/signin")
 	public Message login(@RequestBody LoginDto loginDto) {
 
 		String token = service.adminSignIn(loginDto.getEmail(), loginDto.getPassword());
@@ -43,13 +43,13 @@ public class UserController {
 		return message;
 	}
 
-	/**
-	 * Sign-up (create new account)
-	 *
-	 * @param loginDto - data entity to retrieve the user data
-	 * @return Users object with the registered information
-	 */
-	@PutMapping("/api/admin/signup")
+    /**
+     * Sign-up (create new account)
+     *
+     * @param loginDto - data entity to retrieve the user data
+     * @return Users object with the registered information
+     */
+    @PutMapping("/api/admin/signup")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Users signup(@RequestBody LoginDto loginDto) {
 
@@ -62,13 +62,13 @@ public class UserController {
 		return user;
 	}
 
-	/**
-	 * activate user's account. By default, all user account is unactivated when they created it first.
-	 *
-	 * @param uuid - uuid which can be retrieved with findUuidByEmail method
-	 * @return Updated user object data
-	 */
-	@PutMapping("/api/admin/users/activate")
+    /**
+     * activate user's account. By default, all user account is unactivated when they created it first.
+     *
+     * @param uuid - uuid which can be retrieved with findUuidByEmail method
+     * @return Updated user object data
+     */
+    @PutMapping("/api/admin/users/activate")
 	public Users activateAdmin(@RequestParam("uuid") String uuid) {
 
 		Users user = service.adminActivate(uuid);
@@ -80,13 +80,13 @@ public class UserController {
 		return user;
 	}
 
-	/**
-	 * deactivate user's account.
-	 *
-	 * @param uuid - uuid which can be retrieved with findUuidByEmail method
-	 * @return Updated user object data
-	 */
-	@PutMapping("/api/admin/users/deactivate")
+    /**
+     * deactivate user's account.
+     *
+     * @param uuid - uuid which can be retrieved with findUuidByEmail method
+     * @return Updated user object data
+     */
+    @PutMapping("/api/admin/users/deactivate")
 	public Users deactivateAdmin(@RequestParam("uuid") String uuid) {
 
 		Users user = service.adminDeActivate(uuid);
@@ -98,13 +98,13 @@ public class UserController {
 		return user;
 	}
 
-	/**
-	 * get uuid information for the user
-	 *
-	 * @param email - email(id) of the user
-	 * @return Message with UUID or failed message
-	 */
-	@GetMapping("/api/admin/users/uuid")
+    /**
+     * get uuid information for the user
+     *
+     * @param email - email(id) of the user
+     * @return Message with UUID or failed message
+     */
+    @GetMapping("/api/admin/users/uuid")
 	public Message findUuidByEmail(@RequestParam("email") String email) {
 		String uuid = service.findUuidByEmail(email);
 
@@ -117,13 +117,13 @@ public class UserController {
 		return message;
 	}
 
-	/**
-	 * delete user
-	 *
-	 * @param uuid - uuid which can be retrieved with findUuidByEmail method
-	 * @return Update list of all user
-	 */
-	@DeleteMapping("/api/admin/users")
+    /**
+     * delete user
+     *
+     * @param uuid - uuid which can be retrieved with findUuidByEmail method
+     * @return Update list of all user
+     */
+    @DeleteMapping("/api/admin/users")
 	public List<Users> deleteAdmin(@RequestParam("uuid") String uuid) {
 
 		List<Users> user = service.deleteUser(uuid);
@@ -134,12 +134,12 @@ public class UserController {
 		return user;
 	}
 
-	/**
-	 * get list of all user
-	 *
-	 * @return list of all user
-	 */
-	@GetMapping("/api/admin/users/list")
+    /**
+     * get list of all user
+     *
+     * @return list of all user
+     */
+    @GetMapping("/api/admin/users/list")
 	public List<Users> getAllUsers() {
 		return service.findAllUsers();
 	}

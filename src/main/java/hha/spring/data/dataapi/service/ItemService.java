@@ -26,6 +26,16 @@ public class ItemService {
     @Autowired
     private ItemRepository repo;
 
+    /**
+     * List keyword search page.
+     *
+     * @param keyword  the keyword
+     * @param price    the price
+     * @param category the category
+     * @param sort     the sort
+     * @param page     the page
+     * @return the page
+     */
     public Page<Item> listKeywordSearch(String keyword, String price, String category, String sort, String page) {
 
         String sortProp = "product_id";
@@ -66,6 +76,16 @@ public class ItemService {
 
         return repo.findBySearchKeyword(key, gt, lt, cate, pageable);}
 
+    /**
+     * List keyword search prom page.
+     *
+     * @param keyword  the keyword
+     * @param price    the price
+     * @param category the category
+     * @param sort     the sort
+     * @param page     the page
+     * @return the page
+     */
     public Page<Item> listKeywordSearchProm(String keyword, String price, String category, String sort, String page) {
 
         String sortProp = "product_id";
@@ -104,9 +124,20 @@ public class ItemService {
 
         return repo.findBySearchKeywordProm(key, gt, lt, cate, pageable);}
 
+    /**
+     * List all item list.
+     *
+     * @return the list
+     */
     public List<Item> listAllItem() {
         return repo.listAllItem();}
 
+    /**
+     * List single item item.
+     *
+     * @param id the id
+     * @return the item
+     */
     public Item listSingleItem(int id) { return repo.findByProductId(id);}
 
 }

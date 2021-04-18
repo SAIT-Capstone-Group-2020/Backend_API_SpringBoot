@@ -6,7 +6,7 @@ import javax.persistence.*;
  * This class is a Data Entity that bridges between
  * relational database and Java object
  * by using Java Persistence API
- *
+ * <p>
  * retrieve product list related to the event
  *
  * @author HHA E-Commerce
@@ -55,37 +55,80 @@ public class EventItemDto {
     private String category_name;
     private String brand_name;
 
+    /**
+     * Instantiates a new Event item dto.
+     */
     public EventItemDto() {
     }
 
+    /**
+     * Gets discount id.
+     *
+     * @return the discount id
+     */
     public int getDiscount_id() {
         return discount_id;
     }
 
+    /**
+     * Gets discount price.
+     *
+     * @return the discount price
+     */
     public double getDiscount_price() {
         return discount_price;
     }
 
+    /**
+     * Gets product id.
+     *
+     * @return the product id
+     */
     public int getProduct_id() {
         return product_id;
     }
 
+    /**
+     * Gets product name.
+     *
+     * @return the product name
+     */
     public String getProduct_name() {
         return product_name;
     }
 
+    /**
+     * Gets original price.
+     *
+     * @return the original price
+     */
     public double getOriginal_price() {
         return original_price;
     }
 
+    /**
+     * Gets image url.
+     *
+     * @return the image url
+     */
     public String getImage_url() {
         return image_url;
     }
 
+    /**
+     * Gets category name.
+     *
+     * @return the category name
+     */
     public String getCategory_name() {
         return category_name;
     }
 
+    /**
+     * Gets brand name.
+     *
+     * @return the brand name
+     */
     public String getBrand_name() {
         return brand_name;
     }

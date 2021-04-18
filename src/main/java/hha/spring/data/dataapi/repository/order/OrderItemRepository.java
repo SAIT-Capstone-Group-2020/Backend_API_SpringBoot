@@ -12,6 +12,12 @@ import java.util.List;
  */
 public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
 
+    /**
+     * Find by orders id list.
+     *
+     * @param id the id
+     * @return the list
+     */
     @Query(value = "SELECT * FROM order_items WHERE orders_id = ?1",
             nativeQuery = true)
     List<OrderItem> findByOrdersId(int id);

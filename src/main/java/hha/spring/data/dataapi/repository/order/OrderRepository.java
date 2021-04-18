@@ -14,6 +14,22 @@ import java.util.Date;
  */
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
+    /**
+     * Gets order.
+     *
+     * @param status       the status
+     * @param minOrderDate the min order date
+     * @param maxOrderDate the max order date
+     * @param minPaidDate  the min paid date
+     * @param maxPaidDate  the max paid date
+     * @param category     the category
+     * @param product      the product
+     * @param phone        the phone
+     * @param email        the email
+     * @param name         the name
+     * @param pageable     the pageable
+     * @return the order
+     */
     @Query(value= "SELECT o.orders_id AS orders_id, o.order_date AS order_date, o.paid_date AS paid_date, " +
             "o.price_sum AS price_sum, o.status AS status, o.order_email AS order_email, " +
             "o.order_phone AS order_phone, o.order_name AS order_name "
@@ -51,6 +67,12 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
                          String phone, String email, String name, Pageable pageable);
 
 
+    /**
+     * Find by id order.
+     *
+     * @param id the id
+     * @return the order
+     */
     Order findById(int id);
 
 }

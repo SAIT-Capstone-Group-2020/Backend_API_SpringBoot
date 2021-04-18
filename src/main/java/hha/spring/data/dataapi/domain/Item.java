@@ -6,7 +6,7 @@ import javax.persistence.*;
  * This class is a Data Entity that bridges between
  * relational database and Java object
  * by using Java Persistence API
- *
+ * <p>
  * retrieve product list with the detail of discount
  *
  * @author HHA E-Commerce
@@ -84,6 +84,22 @@ public class Item {
     private String weight_type_name;
     private String brand_name;
 
+    /**
+     * Instantiates a new Item.
+     *
+     * @param product_id       the product id
+     * @param product_name     the product name
+     * @param description      the description
+     * @param original_price   the original price
+     * @param is_discount      the is discount
+     * @param discount_price   the discount price
+     * @param image_url        the image url
+     * @param category_name    the category name
+     * @param quantity         the quantity
+     * @param weight_value     the weight value
+     * @param weight_type_name the weight type name
+     * @param brand_name       the brand name
+     */
     public Item(int product_id, String product_name, String description, double original_price, boolean is_discount, double discount_price, String image_url, String category_name, int quantity, double weight_value, String weight_type_name, String brand_name) {
         this.product_id = product_id;
         this.product_name = product_name;
@@ -99,53 +115,116 @@ public class Item {
         this.brand_name = brand_name;
     }
 
+    /**
+     * Instantiates a new Item.
+     */
     public Item(){
     }
 
+    /**
+     * Gets product id.
+     *
+     * @return the product id
+     */
     public int getProduct_id() {
         return product_id;
     }
 
+    /**
+     * Gets product name.
+     *
+     * @return the product name
+     */
     public String getProduct_name() {
         return product_name;
     }
 
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Gets original price.
+     *
+     * @return the original price
+     */
     public double getOriginal_price() {
         return original_price;
     }
 
+    /**
+     * Gets is discount.
+     *
+     * @return the is discount
+     */
     public boolean getIs_discount() {
         return is_discount;
     }
 
+    /**
+     * Gets discount price.
+     *
+     * @return the discount price
+     */
     public double getDiscount_price() {
         return discount_price;
     }
 
+    /**
+     * Gets image url.
+     *
+     * @return the image url
+     */
     public String getImage_url() {
         return image_url;
     }
 
+    /**
+     * Gets category name.
+     *
+     * @return the category name
+     */
     public String getCategory_name() {
         return category_name;
     }
 
+    /**
+     * Gets quantity.
+     *
+     * @return the quantity
+     */
     public int getQuantity() {
         return quantity;
     }
 
+    /**
+     * Gets weight value.
+     *
+     * @return the weight value
+     */
     public double getWeight_value() {
         return weight_value;
     }
 
+    /**
+     * Gets weight type name.
+     *
+     * @return the weight type name
+     */
     public String getWeight_type_name() {
         return weight_type_name;
     }
 
+    /**
+     * Gets brand name.
+     *
+     * @return the brand name
+     */
     public String getBrand_name() {
         return brand_name;
     }

@@ -15,6 +15,15 @@ import java.util.Date;
  */
 public interface EventRepository extends JpaRepository<Event, Integer> {
 
+    /**
+     * Gets event.
+     *
+     * @param name         the name
+     * @param minEventDate the min event date
+     * @param maxEventDate the max event date
+     * @param pageable     the pageable
+     * @return the event
+     */
     @Query(value= "SELECT * "
             +"FROM event " +
             "WHERE " +

@@ -12,6 +12,12 @@ import java.util.List;
  */
 public interface OrderInfoRepository extends JpaRepository<OrderItemDto, Integer> {
 
+    /**
+     * List all item list.
+     *
+     * @param id the id
+     * @return the list
+     */
     @Query(nativeQuery = true, name = "orderItemDataMapping")
     List<OrderItemDto> listAllItem(int id);
 }

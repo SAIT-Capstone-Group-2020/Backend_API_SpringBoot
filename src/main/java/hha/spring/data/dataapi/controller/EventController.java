@@ -28,27 +28,27 @@ public class EventController {
 	@Autowired
 	private EventService eventService;
 
-	/**
-	 * delete a event
-	 * Authorization header needed(JWT token)
-	 *
-	 * @param id - integer value(id of the event)
-	 * @return Updated event list
-	 */
-	@DeleteMapping("/api/admin/event/{id}")
+    /**
+     * delete a event
+     * Authorization header needed(JWT token)
+     *
+     * @param id - integer value(id of the event)
+     * @return Updated event list
+     */
+    @DeleteMapping("/api/admin/event/{id}")
 	public Page<Event> deleteEvent(@PathVariable int id) {
 
 		return eventService.deleteEvent(id);
 	}
 
-	/**
-	 * edit a event
-	 * Authorization header needed(JWT token)
-	 *
-	 * @param event - object(JSON) of Event class
-	 * @return Updated event list
-	 */
-	@PutMapping("/api/admin/event")
+    /**
+     * edit a event
+     * Authorization header needed(JWT token)
+     *
+     * @param event - object(JSON) of Event class
+     * @return Updated event list
+     */
+    @PutMapping("/api/admin/event")
 	public Page<Event> editEvent(@RequestBody Event event) {
 		Event check = null;
 
@@ -61,32 +61,32 @@ public class EventController {
 		return eventService.editEvent(event);
 	}
 
-	/**
-	 * add new event
-	 * Authorization header needed(JWT token)
-	 *
-	 * @param event - object(JSON) of Event class
-	 * @return Updated event list
-	 */
-	@PostMapping("/api/admin/event")
+    /**
+     * add new event
+     * Authorization header needed(JWT token)
+     *
+     * @param event - object(JSON) of Event class
+     * @return Updated event list
+     */
+    @PostMapping("/api/admin/event")
 	public Page<Event> addEvent(@RequestBody Event event) {
 
 		return eventService.addEvent(event);
 	}
 
-	/**
-	 * list all events
-	 * Return data can be sorted with the parameter value
-	 * Authorization header needed(JWT token)
-	 *
-	 * @param date - event date
-	 * @param name - event name
-	 * @param sort - sorting option(attribute_name:asc/desc)
-	 * @param page - number of page
-	 * @param pageSize - size of page
-	 * @return Updated event list
-	 */
-	@GetMapping("/api/admin/event")
+    /**
+     * list all events
+     * Return data can be sorted with the parameter value
+     * Authorization header needed(JWT token)
+     *
+     * @param date     - event date
+     * @param name     - event name
+     * @param sort     - sorting option(attribute_name:asc/desc)
+     * @param page     - number of page
+     * @param pageSize - size of page
+     * @return Updated event list
+     */
+    @GetMapping("/api/admin/event")
 	public Page<Event> getAll(
 			@RequestParam(name = "date", required = false) String date,
 			@RequestParam(name = "name", required = false) String name,
@@ -100,14 +100,14 @@ public class EventController {
 
 	}
 
-	/**
-	 * get a detail information of the specified event
-	 * Authorization header needed(JWT token)
-	 *
-	 * @param id - integer value(id of the event)
-	 * @return the detail information of the event
-	 */
-	@GetMapping("/api/admin/event/{id}")
+    /**
+     * get a detail information of the specified event
+     * Authorization header needed(JWT token)
+     *
+     * @param id - integer value(id of the event)
+     * @return the detail information of the event
+     */
+    @GetMapping("/api/admin/event/{id}")
 	public ResponseEntity<EventDto> getEventDetail(@PathVariable int id) {
 		try {
 			EventDto eventDetail = eventService.getEventById(id);
@@ -117,15 +117,15 @@ public class EventController {
 		}
 	}
 
-	/**
-	 * add new discount item
-	 * Authorization header needed(JWT token)
-	 *
-	 * @param  id - integer value(id of the event)
-	 * @param  discount - object(JSON) of Discount class
-	 * @return Updated event detail
-	 */
-	@PostMapping("/api/admin/event/{id}")
+    /**
+     * add new discount item
+     * Authorization header needed(JWT token)
+     *
+     * @param id       - integer value(id of the event)
+     * @param discount - object(JSON) of Discount class
+     * @return Updated event detail
+     */
+    @PostMapping("/api/admin/event/{id}")
 	public EventDto addDiscount(
 			@PathVariable int id,
 			@RequestBody Discount discount
@@ -133,15 +133,15 @@ public class EventController {
 		return eventService.addDiscount(id, discount);
 	}
 
-	/**
-	 * edit discount info
-	 * Authorization header needed(JWT token)
-	 *
-	 * @param  id - integer value(id of the event)
-	 * @param  discount - object(JSON) of Discount class
-	 * @return Updated event detail
-	 */
-	@PutMapping("/api/admin/event/{id}")
+    /**
+     * edit discount info
+     * Authorization header needed(JWT token)
+     *
+     * @param id       - integer value(id of the event)
+     * @param discount - object(JSON) of Discount class
+     * @return Updated event detail
+     */
+    @PutMapping("/api/admin/event/{id}")
 	public EventDto editDiscount(
 			@PathVariable int id,
 			@RequestBody Discount discount
@@ -149,15 +149,15 @@ public class EventController {
 		return eventService.editDiscount(id, discount);
 	}
 
-	/**
-	 * delete discount info
-	 * Authorization header needed(JWT token)
-	 *
-	 * @param  eventId - String value(id of the event)
-	 * @param  id - String value(id of the discount)
-	 * @return Updated event detail
-	 */
-	@DeleteMapping("/api/admin/event/discount")
+    /**
+     * delete discount info
+     * Authorization header needed(JWT token)
+     *
+     * @param eventId - String value(id of the event)
+     * @param id      - String value(id of the discount)
+     * @return Updated event detail
+     */
+    @DeleteMapping("/api/admin/event/discount")
 	public EventDto deleteDiscount(
 			@RequestParam(name = "eventid") String eventId,
 			@RequestParam(name = "discountid") String id

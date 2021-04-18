@@ -22,6 +22,14 @@ public class EmailService {
     @Autowired
     private JavaMailSender emailSender;
 
+    /**
+     * Send html message.
+     *
+     * @param to       the to
+     * @param subject  the subject
+     * @param htmlBody the html body
+     * @throws MessagingException the messaging exception
+     */
     public void sendHtmlMessage(String to, String subject, String htmlBody) throws MessagingException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");

@@ -19,9 +19,22 @@ import java.util.*;
 @Transactional
 public class ReportService {
 
+    /**
+     * The Repo.
+     */
     @Autowired
     ReportRepository repo;
 
+    /**
+     * Report prod list.
+     *
+     * @param type   the type
+     * @param year   the year
+     * @param term   the term
+     * @param idList the id list
+     * @return the list
+     * @throws ParseException the parse exception
+     */
     public List<List<?>> reportProd(String type, String year, String term, Integer[] idList) throws ParseException {
 
         List<List<?>> returnData = new ArrayList<>();
@@ -84,6 +97,16 @@ public class ReportService {
         return returnData;
     }
 
+    /**
+     * Report period list.
+     *
+     * @param type   the type
+     * @param year   the year
+     * @param term   the term
+     * @param idList the id list
+     * @return the list
+     * @throws ParseException the parse exception
+     */
     public List<List<?>> reportPeriod(String type, String year, String term, Integer[] idList) throws ParseException {
 
         List<List<?>> returnData = new ArrayList<>();

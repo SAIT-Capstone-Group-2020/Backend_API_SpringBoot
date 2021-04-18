@@ -48,6 +48,12 @@ public class OrderService {
     @Autowired
     private EmailService email;
 
+    /**
+     * Check out string.
+     *
+     * @param order the order
+     * @return the string
+     */
     public String checkOut(OrderDto order) {
 
         double sum = 0;
@@ -122,6 +128,12 @@ public class OrderService {
         return "Success";
     }
 
+    /**
+     * Check cart list.
+     *
+     * @param id the id
+     * @return the list
+     */
     public List<Item> checkCart(int[] id) {
 
         List<Item> list = new ArrayList<>();
@@ -140,6 +152,23 @@ public class OrderService {
         return list;
     }
 
+    /**
+     * Gets orders.
+     *
+     * @param status       the status
+     * @param orderDate    the order date
+     * @param paidDate     the paid date
+     * @param category     the category
+     * @param product      the product
+     * @param phone        the phone
+     * @param email        the email
+     * @param customerName the customer name
+     * @param sort         the sort
+     * @param page         the page
+     * @param pageSize     the page size
+     * @param all          the all
+     * @return the orders
+     */
     public Page<Order> getOrders(
             String status, String orderDate, String paidDate, String category, String product,
             String phone, String email, String customerName, String sort, String page, String pageSize,String all) {
@@ -241,6 +270,12 @@ public class OrderService {
             );
     }
 
+    /**
+     * Edit order order.
+     *
+     * @param order the order
+     * @return the order
+     */
     public Order editOrder(Order order) {
 
         try {
@@ -252,10 +287,22 @@ public class OrderService {
         return order;
     }
 
+    /**
+     * Find by id order.
+     *
+     * @param id the id
+     * @return the order
+     */
     public Order findById(int id) {
         return orderRepo.findById(id);
     }
 
+    /**
+     * Remove order list.
+     *
+     * @param order the order
+     * @return the list
+     */
     public List<Order> removeOrder(Order order) {
 
         orderRepo.delete(order);
@@ -263,6 +310,12 @@ public class OrderService {
         return orderRepo.findAll();
     }
 
+    /**
+     * Gets order item.
+     *
+     * @param id the id
+     * @return the order item
+     */
     public OrderInfoDto getOrderItem(int id) {
         List<OrderItemDto> list = orderInfoRepo.listAllItem(id);
         Order order = orderRepo.findById(id);

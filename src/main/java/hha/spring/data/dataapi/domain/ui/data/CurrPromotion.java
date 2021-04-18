@@ -3,6 +3,9 @@ package hha.spring.data.dataapi.domain.ui.data;
 
 import java.util.List;
 
+/**
+ * The type Curr promotion.
+ */
 public class CurrPromotion {
 
   private Integer eventId;
@@ -11,42 +14,93 @@ public class CurrPromotion {
 
   private List<CurrPromotionProduct> products;
 
-  public Integer getEventId() {
+    /**
+     * Gets event id.
+     *
+     * @return the event id
+     */
+    public Integer getEventId() {
     return eventId;
   }
 
-  public void setEventId(Integer eventId) {
+    /**
+     * Sets event id.
+     *
+     * @param eventId the event id
+     */
+    public void setEventId(Integer eventId) {
     this.eventId = eventId;
   }
 
-  public String getDescription() {
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
+    public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+    /**
+     * Sets description.
+     *
+     * @param description the description
+     */
+    public void setDescription(String description) {
     this.description = description;
   }
 
-  public String getBannerImageUrl() {
+    /**
+     * Gets banner image url.
+     *
+     * @return the banner image url
+     */
+    public String getBannerImageUrl() {
     return bannerImageUrl;
   }
 
-  public void setBannerImageUrl(String bannerImageUrl) {
+    /**
+     * Sets banner image url.
+     *
+     * @param bannerImageUrl the banner image url
+     */
+    public void setBannerImageUrl(String bannerImageUrl) {
     this.bannerImageUrl = bannerImageUrl;
   }
 
-  public List<CurrPromotionProduct> getProducts() {
+    /**
+     * Gets products.
+     *
+     * @return the products
+     */
+    public List<CurrPromotionProduct> getProducts() {
     return products;
   }
 
-  public void setProducts(List<CurrPromotionProduct> products) {
+    /**
+     * Sets products.
+     *
+     * @param products the products
+     */
+    public void setProducts(List<CurrPromotionProduct> products) {
     this.products = products;
   }
 
-  public CurrPromotion() {
+    /**
+     * Instantiates a new Curr promotion.
+     */
+    public CurrPromotion() {
   }
 
-  public CurrPromotion(Integer eventId, String description, String bannerImageUrl, List<CurrPromotionProduct> products) {
+    /**
+     * Instantiates a new Curr promotion.
+     *
+     * @param eventId        the event id
+     * @param description    the description
+     * @param bannerImageUrl the banner image url
+     * @param products       the products
+     */
+    public CurrPromotion(Integer eventId, String description, String bannerImageUrl, List<CurrPromotionProduct> products) {
     this.eventId = eventId;
     this.description = description;
     this.bannerImageUrl = bannerImageUrl;

@@ -24,15 +24,25 @@ import java.util.Optional;
  * Chain of Filter to set Token
  * This filter is triggered from the WebSecurityConfiguration
  */
-
 @Component
 public class JwtFilter extends GenericFilterBean {
 
+    /**
+     * The constant LOGGER.
+     */
     public static final Logger LOGGER = LoggerFactory.getLogger(JwtFilter.class);
+    /**
+     * The constant BEARER.
+     */
     public static final String BEARER = "Bearer";
 
     private JwtService userDetailsService;
 
+    /**
+     * Instantiates a new Jwt filter.
+     *
+     * @param userDetailsService the user details service
+     */
     public JwtFilter(JwtService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }

@@ -33,15 +33,33 @@ public class ProductService {
 	@Autowired
 	private AwsS3Service s3;
 
-	public List<Product> listAllProducts() {
+    /**
+     * List all products list.
+     *
+     * @return the list
+     */
+    public List<Product> listAllProducts() {
 		return repo.findAll();
 	}
 
-	public Product findByName(String name) {
+    /**
+     * Find by name product.
+     *
+     * @param name the name
+     * @return the product
+     */
+    public Product findByName(String name) {
 		return repo.findByName(name);
 	}
 
-	public List<Product> addProduct(Product prod, MultipartFile file) {
+    /**
+     * Add product list.
+     *
+     * @param prod the prod
+     * @param file the file
+     * @return the list
+     */
+    public List<Product> addProduct(Product prod, MultipartFile file) {
 
 		String url = "";
 
@@ -76,7 +94,13 @@ public class ProductService {
 		return repo.findAll();
 	}
 
-	public List<Product> addProductBulk(List<Product> prodList) {
+    /**
+     * Add product bulk list.
+     *
+     * @param prodList the prod list
+     * @return the list
+     */
+    public List<Product> addProductBulk(List<Product> prodList) {
 
 		String url = "https://sait-capstone.s3-us-west-2.amazonaws.com/dev_image.png";
 		//need to make feature upload image file to the cloud
@@ -116,11 +140,23 @@ public class ProductService {
 		return repo.findAll();
 	}
 
-	public Product findById(int id) {
+    /**
+     * Find by id product.
+     *
+     * @param id the id
+     * @return the product
+     */
+    public Product findById(int id) {
 		return repo.findById(id);
 	}
 
-	public List<Product> removeProduct(Product prod) {
+    /**
+     * Remove product list.
+     *
+     * @param prod the prod
+     * @return the list
+     */
+    public List<Product> removeProduct(Product prod) {
 
 		try {
 			repo.delete(prod);
@@ -132,7 +168,23 @@ public class ProductService {
 	}
 
 
-	public List<Product> editProduct(
+    /**
+     * Edit product list.
+     *
+     * @param id          the id
+     * @param name        the name
+     * @param description the description
+     * @param brand       the brand
+     * @param price       the price
+     * @param active      the active
+     * @param category    the category
+     * @param quantity    the quantity
+     * @param weightValue the weight value
+     * @param weightType  the weight type
+     * @param file        the file
+     * @return the list
+     */
+    public List<Product> editProduct(
 			int id,
 			String name,
 			String description,
@@ -192,7 +244,17 @@ public class ProductService {
 		return repo.findAll();
 	}
 
-	public Page<Product> searchProductsAdmin(String page, String prodName, String bran, String cate,String sort) {
+    /**
+     * Search products admin page.
+     *
+     * @param page     the page
+     * @param prodName the prod name
+     * @param bran     the bran
+     * @param cate     the cate
+     * @param sort     the sort
+     * @return the page
+     */
+    public Page<Product> searchProductsAdmin(String page, String prodName, String bran, String cate,String sort) {
 
 		String sortProp = "product_id";
 		String order = "desc";

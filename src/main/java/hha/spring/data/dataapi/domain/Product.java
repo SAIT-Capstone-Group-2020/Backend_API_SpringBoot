@@ -6,7 +6,7 @@ import javax.persistence.*;
  * This class is a Data Entity that bridges between
  * relational database and Java object
  * by using Java Persistence API
- *
+ * <p>
  * product table
  *
  * @author HHA E-Commerce
@@ -40,10 +40,25 @@ public class Product {
 	@Column(name = "weight_type_id")
 	private int weightType;
 
-	public Product() {
+    /**
+     * Instantiates a new Product.
+     */
+    public Product() {
 	}
 
-	public Product(String name, String description, String brand, double price, int category, int quantity, double weightValue, int weightType) {
+    /**
+     * Instantiates a new Product.
+     *
+     * @param name        the name
+     * @param description the description
+     * @param brand       the brand
+     * @param price       the price
+     * @param category    the category
+     * @param quantity    the quantity
+     * @param weightValue the weight value
+     * @param weightType  the weight type
+     */
+    public Product(String name, String description, String brand, double price, int category, int quantity, double weightValue, int weightType) {
 		this.name = name;
 		this.description = description;
 		this.brand = brand;
@@ -55,7 +70,21 @@ public class Product {
 	}
 
 
-	public Product(String name, String description, String brand, double price, boolean active, String image, int category, int quantity, double weightValue, int weightType) {
+    /**
+     * Instantiates a new Product.
+     *
+     * @param name        the name
+     * @param description the description
+     * @param brand       the brand
+     * @param price       the price
+     * @param active      the active
+     * @param image       the image
+     * @param category    the category
+     * @param quantity    the quantity
+     * @param weightValue the weight value
+     * @param weightType  the weight type
+     */
+    public Product(String name, String description, String brand, double price, boolean active, String image, int category, int quantity, double weightValue, int weightType) {
 		this.name = name;
 		this.description = description;
 		this.brand = brand;
@@ -68,91 +97,201 @@ public class Product {
 		this.weightType = weightType;
 	}
 
-	public int getId() {
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
+    public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
+    public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getName() {
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
+    public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
+    public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getDescription() {
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
+    public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
+    /**
+     * Sets description.
+     *
+     * @param description the description
+     */
+    public void setDescription(String description) {
 		this.description = description;
 	}
 
-	public String getBrand() {
+    /**
+     * Gets brand.
+     *
+     * @return the brand
+     */
+    public String getBrand() {
 		return brand;
 	}
 
-	public void setBrand(String brand) {
+    /**
+     * Sets brand.
+     *
+     * @param brand the brand
+     */
+    public void setBrand(String brand) {
 		this.brand = brand;
 	}
 
-	public double getPrice() {
+    /**
+     * Gets price.
+     *
+     * @return the price
+     */
+    public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+    /**
+     * Sets price.
+     *
+     * @param price the price
+     */
+    public void setPrice(double price) {
 		this.price = price;
 	}
 
-	public boolean isActive() {
+    /**
+     * Is active boolean.
+     *
+     * @return the boolean
+     */
+    public boolean isActive() {
 		return active;
 	}
 
-	public void setActive(boolean active) {
+    /**
+     * Sets active.
+     *
+     * @param active the active
+     */
+    public void setActive(boolean active) {
 		this.active = active;
 	}
 
-	public String getImage() {
+    /**
+     * Gets image.
+     *
+     * @return the image
+     */
+    public String getImage() {
 		return image;
 	}
 
-	public void setImage(String image) {
+    /**
+     * Sets image.
+     *
+     * @param image the image
+     */
+    public void setImage(String image) {
 		this.image = image;
 	}
 
-	public int getCategory() {
+    /**
+     * Gets category.
+     *
+     * @return the category
+     */
+    public int getCategory() {
 		return category;
 	}
 
-	public void setCategory(int category) {
+    /**
+     * Sets category.
+     *
+     * @param category the category
+     */
+    public void setCategory(int category) {
 		this.category = category;
 	}
 
-	public int getQuantity() {
+    /**
+     * Gets quantity.
+     *
+     * @return the quantity
+     */
+    public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+    /**
+     * Sets quantity.
+     *
+     * @param quantity the quantity
+     */
+    public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
-	public double getWeightValue() {
+    /**
+     * Gets weight value.
+     *
+     * @return the weight value
+     */
+    public double getWeightValue() {
 		return weightValue;
 	}
 
-	public void setWeightValue(double weightValue) {
+    /**
+     * Sets weight value.
+     *
+     * @param weightValue the weight value
+     */
+    public void setWeightValue(double weightValue) {
 		this.weightValue = weightValue;
 	}
 
-	public int getWeightType() {
+    /**
+     * Gets weight type.
+     *
+     * @return the weight type
+     */
+    public int getWeightType() {
 		return weightType;
 	}
 
-	public void setWeightType(int weightType) {
+    /**
+     * Sets weight type.
+     *
+     * @param weightType the weight type
+     */
+    public void setWeightType(int weightType) {
 		this.weightType = weightType;
 	}
 }

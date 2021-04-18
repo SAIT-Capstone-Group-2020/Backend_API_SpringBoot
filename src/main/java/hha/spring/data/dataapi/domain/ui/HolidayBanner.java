@@ -2,6 +2,9 @@ package hha.spring.data.dataapi.domain.ui;
 
 import javax.persistence.*;
 
+/**
+ * The type Holiday banner.
+ */
 @Entity
 @Table(name = "holiday_banner")
 public class HolidayBanner {
@@ -27,47 +30,97 @@ public class HolidayBanner {
   private String comment;
 
 
-  public Integer getHolidayBannerId() {
+    /**
+     * Gets holiday banner id.
+     *
+     * @return the holiday banner id
+     */
+    public Integer getHolidayBannerId() {
     return holidayBannerId;
   }
 
-  public void setHolidayBannerId(Integer holidayBannerId) {
+    /**
+     * Sets holiday banner id.
+     *
+     * @param holidayBannerId the holiday banner id
+     */
+    public void setHolidayBannerId(Integer holidayBannerId) {
     this.holidayBannerId = holidayBannerId;
   }
 
 
-  public String getBannerImageUrl() {
+    /**
+     * Gets banner image url.
+     *
+     * @return the banner image url
+     */
+    public String getBannerImageUrl() {
     return bannerImageUrl;
   }
 
-  public void setBannerImageUrl(String bannerImageUrl) {
+    /**
+     * Sets banner image url.
+     *
+     * @param bannerImageUrl the banner image url
+     */
+    public void setBannerImageUrl(String bannerImageUrl) {
     this.bannerImageUrl = bannerImageUrl;
   }
 
 
-  public java.sql.Date getBeginDate() {
+    /**
+     * Gets begin date.
+     *
+     * @return the begin date
+     */
+    public java.sql.Date getBeginDate() {
     return beginDate;
   }
 
-  public void setBeginDate(java.sql.Date beginDate) {
+    /**
+     * Sets begin date.
+     *
+     * @param beginDate the begin date
+     */
+    public void setBeginDate(java.sql.Date beginDate) {
     this.beginDate = beginDate;
   }
 
 
-  public java.sql.Date getEndDate() {
+    /**
+     * Gets end date.
+     *
+     * @return the end date
+     */
+    public java.sql.Date getEndDate() {
     return endDate;
   }
 
-  public void setEndDate(java.sql.Date endDate) {
+    /**
+     * Sets end date.
+     *
+     * @param endDate the end date
+     */
+    public void setEndDate(java.sql.Date endDate) {
     this.endDate = endDate;
   }
 
 
-  public String getComment() {
+    /**
+     * Gets comment.
+     *
+     * @return the comment
+     */
+    public String getComment() {
     return comment;
   }
 
-  public void setComment(String comment) {
+    /**
+     * Sets comment.
+     *
+     * @param comment the comment
+     */
+    public void setComment(String comment) {
     this.comment = comment;
   }
 

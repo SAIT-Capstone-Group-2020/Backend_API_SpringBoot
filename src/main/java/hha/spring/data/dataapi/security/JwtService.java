@@ -21,7 +21,6 @@ import static org.springframework.security.core.userdetails.User.withUsername;
  * UserDetailsService: Spring Security interface which is used to
  * retrieve the user's authentication and authorization *
  */
-
 @Component
 public class JwtService implements UserDetailsService {
 
@@ -49,6 +48,12 @@ public class JwtService implements UserDetailsService {
                     .build();
     }
 
+    /**
+     * Load user by jwt token optional.
+     *
+     * @param token the token
+     * @return the optional
+     */
     public Optional<UserDetails> loadUserByJwtToken(String token) {
         if(service.isValidToken(token)) {
             return Optional.of(
@@ -65,6 +70,12 @@ public class JwtService implements UserDetailsService {
         return Optional.empty();
     }
 
+    /**
+     * Load user by jwt token and db optional.
+     *
+     * @param token the token
+     * @return the optional
+     */
     public Optional<UserDetails> loadUserByJwtTokenAndDb(String token) {
         if(service.isValidToken(token)) {
             return Optional.of(loadUserByUsername(service.getUsername(token)));

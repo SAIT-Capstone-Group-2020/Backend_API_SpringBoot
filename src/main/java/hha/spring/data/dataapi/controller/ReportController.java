@@ -30,12 +30,13 @@ public class ReportController {
      * There are 2 types(period/data) of report based on 'key' value
      * All parameters are required
      *
-     * @param key - period/data
-     * @param type - prod/cate (product or category)
-     * @param year - fiscal year
-     * @param term - week/month
+     * @param key    - period/data
+     * @param type   - prod/cate (product or category)
+     * @param year   - fiscal year
+     * @param term   - week/month
      * @param idList - list of category id or product id
      * @return List of the Mapped object(2 types of Mapped object, it is depend on key's value)
+     * @throws ParseException the parse exception
      */
     @GetMapping("/api/admin/report")
     public List<List<?>> reportProd(
