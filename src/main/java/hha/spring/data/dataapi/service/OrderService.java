@@ -108,8 +108,8 @@ public class OrderService {
 
         try {
             double subT = sum/100;
-            gst = Math.floor(subT*100)/100;
-            double total = gst + subT;
+            gst = Math.floor(sum*0.05)/100;
+            double total = Math.floor((gst + subT)*100)/100;
             body += "</table style='border:none; width:300px;'><br><table><tr><td>SUBTOTAL</td><td>"+subT+"</td></tr>";
             body += "<tr><td>TAX</td><td>"+gst+"</td></tr>";
             body += "<tr><td>TOTAL</td><td>"+total+"</td></tr></table><br>";
