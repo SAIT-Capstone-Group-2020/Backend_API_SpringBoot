@@ -1,13 +1,20 @@
-REST API using Spring Boot
+#Language
+- Java 8
 
-#Hosted Server(Testing)
+#Framework
+- Spring boot
 
-    Heroku: https://hha-capstone.herokuapp.com
+#Library (dependencies management: Maven)
+- Spring Boot starter(data, email, security)
+- JJWT: Java providing Jason Web Token (https://www.baeldung.com/java-json-web-tokens-jjwt)
+- MYSQL connector
+- AWS SDK S3
 
-#AWS RDS
-
-    MYSQL (Engine version: 5.7.26)
+#Database
+- MYSQL (Engine version: 5.7.26)
 
 #AWS S3
+- Managing the image source
 
-    managing the image source
+#Need to check
+- Keyclock is better than JJWT?
